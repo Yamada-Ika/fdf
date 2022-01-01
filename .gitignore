@@ -1,5 +1,6 @@
 *.o
 *.fdf
+*.dSYM
 fdf
 fdf_src
 .vscode
