@@ -1,4 +1,5 @@
 *.o
+*.fdf
 fdf
 fdf_src
 .vscode
