@@ -1,6 +1,6 @@
 CC		:= gcc
 CFLAGS	:= -Wall -Wextra -Werror
-COPTS	:= -Iminilibx-linux -I/usr/X11/include -Lminilibx-linux -lmlx_Darwin -L/usr/X11/include/../lib -lXext -lX11 -lm
+COPTS	:= -Ilibft -Iminilibx-linux -I/usr/X11/include -Lminilibx-linux -lmlx_Darwin -L/usr/X11/include/../lib -lXext -lX11 -lm
 
 # libft
 LIBFT_DIR	:= libft
