@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 18:05:00 by iyamada           #+#    #+#             */
-/*   Updated: 2021/11/04 15:29:52 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/01/01 21:27:58 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <string.h>
 
 # define FD_MAX 256
+# define BUFFER_SIZE 512
 
 char	*get_next_line(int fd);
 void	ft_free_s(void **ptr);
