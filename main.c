@@ -7,7 +7,7 @@
 #define ESCAPE 0xff1b
 #define WIDTH 750
 #define HEIGHT 750
-#define OFFSET 10
+#define OFFSET 0
 #define MESH_LEN 20
 
 typedef struct s_vars
@@ -71,10 +71,15 @@ void	ft_trans_cord(t_2dcord *cord)
 	// cord->xs1 = (cos(-0.8) * cord->x1 - sin(-0.8) * cord->y1) * MESH_LEN;
 	// cord->ys1 = (sin(-0.8) * cord->x1 + cos(-0.8) * cord->y1 - cord->z1) * MESH_LEN * sin(0.52);
 
-	cord->xs0 = (cord->x0 - cord->y0) * MESH_LEN * cos(0.8);
-	cord->ys0 = (cord->x0 + cord->y0) * MESH_LEN * sin(0.8);
-	cord->xs1 = (cord->x1 - cord->y1) * MESH_LEN * cos(0.8);
-	cord->ys1 = (cord->x1 + cord->y1) * MESH_LEN * sin(0.8);
+	// cord->xs0 = (cord->x0 - cord->y0) * MESH_LEN * cos(0.8);
+	// cord->ys0 = (cord->x0 + cord->y0) * MESH_LEN * sin(0.8);
+	// cord->xs1 = (cord->x1 - cord->y1) * MESH_LEN * cos(0.8);
+	// cord->ys1 = (cord->x1 + cord->y1) * MESH_LEN * sin(0.8);
+
+	cord->xs0 = cord->x0 * MESH_LEN;
+	cord->ys0 = cord->y0 * MESH_LEN;
+	cord->xs1 = cord->x1 * MESH_LEN;
+	cord->ys1 = cord->y1 * MESH_LEN;
 	printf("(x0, y0) =   (%d, %d)\n", cord->x0, cord->y0);
 	printf("(xs0, ys0) = (%f, %f)\n", cord->xs0, cord->ys0);
 }
@@ -102,42 +107,50 @@ void	ft_draw_line(t_data *img, t_2dcord *cord)
 	}
 }
 
+t_2dcord	*ft_set_cord(int x0, int y0, int x1, int y1)
+{
+	t_2dcord	*cord;
+
+	cord = (t_2dcord *)ft_calloc(1, sizeof(t_2dcord));
+	cord->x0 = x0;
+	cord->y0 = y0;
+	cord->x1 = x1;
+	cord->y1 = y1;
+	return (cord);
+}
+
 void	ft_display_map_helper(t_data *img, char ***map)
 {
-	int	i;
-	int	j;
-	t_2dcord	cord;
+	int	y;
+	int	x;
+	bool	is_continue;
+	t_2dcord	*cord;
 
-	i = 0;
-	while (map[i] != NULL)
+	is_continue = true;
+	y = 0;
+	while (map[y] != NULL)
 	{
-		if (map[i + 1] == NULL)
-			break ;
-		j = 0;
-		while (map[i][j] != NULL)
+		
+		x = 0;
+		while (true)
 		{
-			cord.x0 = j + OFFSET;
-			cord.y0 = i;
-			cord.z0 = ft_strtoll(map[i][j], NULL, 10);
-			cord.x1 = cord.x0 + 1;
-			cord.y1 = cord.y0;
-			if (map[i][j + 1] != NULL)
-				cord.z1 = ft_strtoll(map[i][j + 1], NULL, 10);
-			else
-				cord.z1 = 0;
-			if (map[i][j + 1] != NULL)
-				ft_draw_line(img, &cord);
-			cord.x1 = cord.x0;
-			cord.y1 = cord.y0 + 1;
-			if (map[i + 1][j] != NULL)
-				cord.z1 = ft_strtoll(map[i + 1][j], NULL, 10);
-			else
-				cord.z1 = 0;
-			if (j != 0)
-				ft_draw_line(img, &cord);
-			j++;
+			if (map[y][x + 1] != NULL)
+			{
+				cord = ft_set_cord(x, y, x + 1, y);
+				ft_draw_line(img, cord);
+				free(cord);
+			}
+			if (map[y + 1] != NULL)
+			{
+				cord = ft_set_cord(x, y, x, y + 1);
+				ft_draw_line(img, cord);
+				free(cord);
+			}
+			if (map[y][x + 1] == NULL)
+				break ;
+			x++;
 		}
-		i++;
+		y++;
 	}
 }
 
