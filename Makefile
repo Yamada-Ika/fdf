@@ -1,6 +1,6 @@
 CC		:= gcc
-CFLAGS	:= -Wall -Wextra -Werror
-COPTS	:= -Ilibft -Iminilibx-linux -I/usr/X11/include -Lminilibx-linux -lmlx_Darwin -L/usr/X11/include/../lib -lXext -lX11 -lm
+CFLAGS	:= -Wall -Wextra -Werror #-g -fsanitize=address
+COPTS	:= -Ilibft -Llibft -lft -Iminilibx-linux -I/usr/X11/include -Lminilibx-linux -lmlx_Darwin -L/usr/X11/include/../lib -lXext -lX11 -lm
 
 # libft
 LIBFT_DIR	:= libft
@@ -8,7 +8,7 @@ LIBFT_A		:= libft.a
 LIBFT_A		:= $(addprefix $(LIBFT_DIR)/, $(LIBFT_A))
 
 # fdf
-NAME 		:= fdf
+NAME		:= fdf
 SRCS		:= $(wildcard *.c)
 
 # minilib
