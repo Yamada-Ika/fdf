@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 15:42:53 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/02 15:47:37 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/01/06 14:39:14 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	ft_display_char_map(char ***map)
 		j = 0;
 		while (map[i][j] != NULL)
 		{
-			ft_putstr(ft_itoa(ft_strlen(map[i][j])));
+			ft_putstr(map[i][j]);
 			j++;
 		}
 		ft_putchar('\n');
@@ -111,4 +111,47 @@ void	ft_display_char_map(char ***map)
 char	***ft_create_map(char *whole)
 {
 	return (ft_create_char_map(whole));
+}
+
+
+int	ft_get_map_column_count(char ***map)
+{
+	int	count;
+
+	count = 0;
+	while (map[0][count] != NULL)
+		count++;
+	return (count);
+}
+
+int	ft_get_map_raw_count(char ***map)
+{
+	int	count;
+
+	count = 0;
+	while (map[count] != NULL)
+		count++;
+	return (count);
+}
+
+int	ft_get_map_z_max(char ***map)
+{
+	int	i;
+	int	j;
+	int	z_max;
+
+	i = 0;
+	z_max = INT_MIN;
+	while (map[i] != NULL)
+	{
+		j = 0;
+		while (map[i][j] != NULL)
+		{
+			if (z_max < ft_strtoll(map[i][j], NULL, 10))
+				z_max = ft_strtoll(map[i][j], NULL, 10);
+			j++;
+		}
+		i++;
+	}
+	return (z_max);
 }
