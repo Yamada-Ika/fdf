@@ -7,8 +7,11 @@
 #define ESCAPE 0xff1b
 #define WIDTH 750
 #define HEIGHT 750
-#define OFFSET 5
-#define MESH_LEN 20
+#define OFFSET 10
+
+// mouse
+#define SCROLL_UP 4
+#define SCROLL_DOWN 5
 
 typedef struct s_vars
 {
@@ -39,12 +42,34 @@ typedef struct	s_2dcord
 	double	ys1;
 }	t_2dcord;
 
+int	g_mesh_len;
+int	g_offset;
 
 int	key_hook(int keycode, t_vars *vars)
 {
 	vars = NULL;
 	if (keycode == ESCAPE)
 		exit(0);
+	return (0);
+}
+
+int	mouse_hook(int button, int x, int y, t_vars *vars)
+{
+	static unsigned int	zoom = 1;
+
+	vars = NULL;
+	// button
+	// Up : 4
+	// Down : 5
+	// x, y : mouse location
+	if (button == SCROLL_UP && zoom != 10)
+		zoom++;
+	if (button == SCROLL_DOWN && zoom != 0)
+		zoom--;
+	printf("button : %d\n", button);
+	printf("x      : %d\n", x);
+	printf("y      : %d\n", y);
+	printf("zoom   : %u\n", zoom);
 	return (0);
 }
 
@@ -64,21 +89,20 @@ double	ft_max(double n1, double n2)
 		return (n2);
 }
 
-
-
 void	ft_trans_cord(t_2dcord *cord)
 {
-	cord->xs0 = (cos(-0.8) * cord->x0 - sin(-0.8) * cord->y0) * MESH_LEN;
-	cord->ys0 = (sin(-0.8) * cord->x0 + cos(-0.8) * cord->y0 - cord->z0) * MESH_LEN * sin(0.52);
-	cord->xs1 = (cos(-0.8) * cord->x1 - sin(-0.8) * cord->y1) * MESH_LEN;
-	cord->ys1 = (sin(-0.8) * cord->x1 + cos(-0.8) * cord->y1 - cord->z1) * MESH_LEN * sin(0.52);
+	// cord->xs0 = cord->x0 * g_mesh_len;
+	// cord->ys0 = cord->y0 * g_mesh_len;
+	// cord->xs1 = cord->x1 * g_mesh_len;
+	// cord->ys1 = cord->y1 * g_mesh_len;
 
-	// cord->xs0 = cord->x0 * MESH_LEN;
-	// cord->ys0 = cord->y0 * MESH_LEN;
-	// cord->xs1 = cord->x1 * MESH_LEN;
-	// cord->ys1 = cord->y1 * MESH_LEN;
-	printf("(x0, y0) =   (%d, %d)\n", cord->x0, cord->y0);
-	printf("(xs0, ys0) = (%f, %f)\n", cord->xs0, cord->ys0);
+	cord->xs0 = (cos(-0.8) * cord->x0 - sin(-0.8) * cord->y0) * g_mesh_len;
+	cord->ys0 = (sin(-0.8) * cord->x0 + cos(-0.8) * cord->y0 - cord->z0) * g_mesh_len * sin(0.52);
+	cord->xs1 = (cos(-0.8) * cord->x1 - sin(-0.8) * cord->y1) * g_mesh_len;
+	cord->ys1 = (sin(-0.8) * cord->x1 + cos(-0.8) * cord->y1 - cord->z1) * g_mesh_len * sin(0.52);
+
+	// printf("(x0, y0) =   (%d, %d)\n", cord->x0, cord->y0);
+	// printf("(xs0, ys0) = (%f, %f)\n", cord->xs0, cord->ys0);
 }
 
 void	ft_draw_line(t_data *img, t_2dcord *cord)
@@ -134,7 +158,7 @@ void	ft_display_map_helper(t_data *img, char ***map)
 		{
 			if (map[y][x + 1] != NULL)
 			{
-				cord = ft_set_cord(x, y + OFFSET, x + 1, y + OFFSET);
+				cord = ft_set_cord(x, y + g_offset, x + 1, y + g_offset);
 				cord->z0 = ft_strtoll(map[y][x] , NULL, 10);
 				cord->z1 = ft_strtoll(map[y][x + 1] , NULL, 10);
 				ft_draw_line(img, cord);
@@ -142,7 +166,7 @@ void	ft_display_map_helper(t_data *img, char ***map)
 			}
 			if (map[y + 1] != NULL)
 			{
-				cord = ft_set_cord(x, y + OFFSET, x, y + 1 + OFFSET);
+				cord = ft_set_cord(x, y + g_offset, x, y + 1 + g_offset);
 				cord->z0 = ft_strtoll(map[y][x] , NULL, 10);
 				cord->z1 = ft_strtoll(map[y + 1][x] , NULL, 10);
 				ft_draw_line(img, cord);
@@ -160,30 +184,60 @@ void	ft_display_map(t_vars *vars, char ***map)
 {
 	t_data	img;
 
+	mlx_clear_window(vars->mlx, vars->win);
 	img.img = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_len, &img.endian);
 	ft_display_map_helper(&img, map);
 	mlx_put_image_to_window(vars->mlx, vars->win, img.img, 0, 0);
 }
 
-int	ft_get_map_width(char ***map)
+int	ft_get_map_column_count(char ***map)
 {
-	int	width;
+	int	count;
 
-	width = 0;
-	while (map[0][width] != NULL)
-		width++;
-	return (width * 100);
+	count = 0;
+	while (map[0][count] != NULL)
+		count++;
+	return (count);
 }
 
-int	ft_get_map_height(char ***map)
+int	ft_get_map_raw_count(char ***map)
 {
-	int	height;
+	int	count;
 
-	height = 0;
-	while (map[height] != NULL)
-		height++;
-	return (height * 100);
+	count = 0;
+	while (map[count] != NULL)
+		count++;
+	return (count);
+}
+
+int	ft_get_map_z_max(char ***map)
+{
+	int	i;
+	int	j;
+	int	z_max;
+
+	i = 0;
+	z_max = INT_MIN;
+	while (map[i] != NULL)
+	{
+		j = 0;
+		while (map[i][j] != NULL)
+		{
+			if (z_max < ft_strtoll(map[i][j], NULL, 10))
+				z_max = ft_strtoll(map[i][j], NULL, 10);
+			j++;
+		}
+		i++;
+	}
+	return (z_max);
+}
+
+int	ft_abs(int n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
 }
 
 int	main(int argc, char *argv[])
@@ -203,8 +257,11 @@ int	main(int argc, char *argv[])
 	vars.mlx = mlx_init();
 	if (vars.mlx == NULL)
 		return (0);
-	vars.win = mlx_new_window(vars.mlx, ft_get_map_width(map), ft_get_map_height(map), "fdf");
+	g_mesh_len = 10;
+	g_offset = 25;
+	vars.win = mlx_new_window(vars.mlx, 500, 1000, "fdf");
 	mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_mouse_hook(vars.win, mouse_hook, &vars);
 	ft_display_map(&vars, map);
 	mlx_loop(vars.mlx);
 }
