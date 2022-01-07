@@ -38,12 +38,12 @@ typedef struct	s_data
 
 typedef struct	s_2dcord
 {
-	int	x0;
-	int	y0;
-	int	z0;
-	int	x1;
-	int	y1;
-	int	z1;
+	double	x0;
+	double	y0;
+	double	z0;
+	double	x1;
+	double	y1;
+	double	z1;
 	double	xs0;
 	double	ys0;
 	double	xs1;
@@ -101,14 +101,6 @@ int	ft_mouse_hook(int button, int x, int y, t_vars *vars)
 	return (0);
 }
 
-int	ft_move_hook(int button, int x, int y, t_vars *vars)
-{
-	button = 0;
-	x = y;
-	vars = NULL;
-	return (0);
-}
-
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -127,24 +119,28 @@ double	ft_max(double n1, double n2)
 
 bool	ft_is_over_img_size(t_2dcord *cord)
 {
-	if (cord->ys0 < 0.0 || cord->ys1 < 0.0 ||cord->ys0 > HEIGHT
-		|| cord->ys1 > HEIGHT || cord->xs0 < 0.0 || cord->xs1 < 0.0
-		|| cord->xs0 > WIDTH || cord->xs1 > WIDTH)
+	if (cord->y0 < 0.0 || cord->y1 < 0.0 || cord->y0 > HEIGHT
+		|| cord->y1 > HEIGHT || cord->x0 < 0.0 || cord->x1 < 0.0
+		|| cord->x0 > WIDTH || cord->x1 > WIDTH)
 		return (true);
 	return (false);
 }
 
+void	ft_trans_isometric(double *x, double *y, double *z)
+{
+	double	prev_x;
+	double	prev_y;
+
+	prev_x = *x;
+	prev_y = *y;
+	*x = (cos(-0.8) * prev_x - sin(-0.8) * prev_y) * g_mesh_len;
+	*y = (sin(-0.8) * prev_x + cos(-0.8) * prev_y - *z) * g_mesh_len;
+}
+
 void	ft_trans_cord(t_2dcord *cord)
 {
-	// cord->xs0 = cord->x0 * g_mesh_len;
-	// cord->ys0 = cord->y0 * g_mesh_len;
-	// cord->xs1 = cord->x1 * g_mesh_len;
-	// cord->ys1 = cord->y1 * g_mesh_len;
-
-	cord->xs0 = (cos(-0.8) * cord->x0 - sin(-0.8) * cord->y0) * g_mesh_len;
-	cord->ys0 = (sin(-0.8) * cord->x0 + cos(-0.8) * cord->y0 - cord->z0) * g_mesh_len * sin(0.52);
-	cord->xs1 = (cos(-0.8) * cord->x1 - sin(-0.8) * cord->y1) * g_mesh_len;
-	cord->ys1 = (sin(-0.8) * cord->x1 + cos(-0.8) * cord->y1 - cord->z1) * g_mesh_len * sin(0.52);
+	ft_trans_isometric(&(cord->x0), &(cord->y0), &(cord->z0));
+	ft_trans_isometric(&(cord->x1), &(cord->y1), &(cord->z1));
 }
 
 void	ft_draw_line(t_data *img, t_2dcord *cord)
@@ -155,23 +151,23 @@ void	ft_draw_line(t_data *img, t_2dcord *cord)
 	double	step_max;
 
 	ft_trans_cord(cord);
-	cord->xs0 += g_shift_x;
-	cord->xs1 += g_shift_x;
-	cord->ys0 += g_shift_y;
-	cord->ys1 += g_shift_y;
+	cord->x0 += g_shift_x;
+	cord->x1 += g_shift_x;
+	cord->y0 += g_shift_y;
+	cord->y1 += g_shift_y;
 	if (ft_is_over_img_size(cord))
 		return ;
-	delta_x = cord->xs1 - cord->xs0;
-	delta_y = cord->ys1 - cord->ys0;
+	delta_x = cord->x1 - cord->x0;
+	delta_y = cord->y1 - cord->y0;
 	step_max = ft_max(delta_x, delta_y);
 	delta_x /= step_max;
 	delta_y /= step_max;
 	step = 0;
 	while (step < step_max)
 	{
-		cord->xs0 += delta_x;
-		cord->ys0 += delta_y;
-		my_mlx_pixel_put(img, cord->xs0, cord->ys0, 0xFFFFFF);
+		cord->x0 += delta_x;
+		cord->y0 += delta_y;
+		my_mlx_pixel_put(img, cord->x0, cord->y0, 0xFFFFFF);
 		step++;
 	}
 }
