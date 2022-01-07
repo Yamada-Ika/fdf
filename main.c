@@ -125,24 +125,13 @@ double	ft_max(double n1, double n2)
 		return (n2);
 }
 
-void	ft_is_over_img_size(t_2dcord *cord)
+bool	ft_is_over_img_size(t_2dcord *cord)
 {
-	if (cord->ys0 < 0.0)
-		cord->ys0 = 0.0;
-	if (cord->ys1 < 0.0)
-		cord->ys1 = 0.0;
-	if (cord->ys0 > HEIGHT)
-		cord->ys0 = HEIGHT;
-	if (cord->ys1 > HEIGHT)
-		cord->ys1 = HEIGHT;
-	if (cord->xs0 < 0.0)
-		cord->xs0 = 0.0;
-	if (cord->xs1 < 0.0)
-		cord->xs1 = 0.0;
-	if (cord->xs0 > WIDTH)
-		cord->xs0 = WIDTH;
-	if (cord->xs1 > WIDTH)
-		cord->xs1 = WIDTH;
+	if (cord->ys0 < 0.0 || cord->ys1 < 0.0 ||cord->ys0 > HEIGHT
+		|| cord->ys1 > HEIGHT || cord->xs0 < 0.0 || cord->xs1 < 0.0
+		|| cord->xs0 > WIDTH || cord->xs1 > WIDTH)
+		return (true);
+	return (false);
 }
 
 void	ft_trans_cord(t_2dcord *cord)
@@ -156,7 +145,6 @@ void	ft_trans_cord(t_2dcord *cord)
 	cord->ys0 = (sin(-0.8) * cord->x0 + cos(-0.8) * cord->y0 - cord->z0) * g_mesh_len * sin(0.52);
 	cord->xs1 = (cos(-0.8) * cord->x1 - sin(-0.8) * cord->y1) * g_mesh_len;
 	cord->ys1 = (sin(-0.8) * cord->x1 + cos(-0.8) * cord->y1 - cord->z1) * g_mesh_len * sin(0.52);
-	ft_is_over_img_size(cord);
 }
 
 void	ft_draw_line(t_data *img, t_2dcord *cord)
@@ -171,6 +159,8 @@ void	ft_draw_line(t_data *img, t_2dcord *cord)
 	cord->xs1 += g_shift_x;
 	cord->ys0 += g_shift_y;
 	cord->ys1 += g_shift_y;
+	if (ft_is_over_img_size(cord))
+		return ;
 	delta_x = cord->xs1 - cord->xs0;
 	delta_y = cord->ys1 - cord->ys0;
 	step_max = ft_max(delta_x, delta_y);
