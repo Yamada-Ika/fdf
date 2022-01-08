@@ -34,7 +34,7 @@ int	ft_mouse_hook(int button, int x, int y, t_vars *vars)
 
 	x = 0;
 	y = 0;
-	if (button == SCROLL_UP && zoom != 10)
+	if (button == SCROLL_UP && zoom != 100)
 		vars->mesh_len++;
 	if (button == SCROLL_DOWN && zoom != 0)
 		vars->mesh_len--;
@@ -52,14 +52,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 		return ;
 	dst = data->addr + (y * data->line_len + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
-}
-
-double	ft_max(double n1, double n2)
-{
-	if (n1 > n2)
-		return (n1);
-	else
-		return (n2);
 }
 
 bool	ft_is_over_img_size(t_2dcord *cord)
@@ -96,6 +88,22 @@ void	ft_shift_cord(t_2dcord *cord, t_vars *vars)
 	cord->y1 += vars->shift_y;
 }
 
+double	ft_max(double n1, double n2)
+{
+	if (n1 > n2)
+		return (n1);
+	else
+		return (n2);
+}
+
+double	ft_abs(double n)
+{
+	if (n < 0)
+		return (-n);
+	else
+		return (n);
+}
+
 void	ft_draw_line(t_data *img, t_2dcord *cord, t_vars *vars)
 {
 	double	delta_x;
@@ -110,7 +118,7 @@ void	ft_draw_line(t_data *img, t_2dcord *cord, t_vars *vars)
 		return ;
 	delta_x = cord->x1 - cord->x0;
 	delta_y = cord->y1 - cord->y0;
-	step_max = ft_max(delta_x, delta_y);
+	step_max = ft_max(ft_abs(delta_x), ft_abs(delta_y));
 	delta_x /= step_max;
 	delta_y /= step_max;
 	// color
@@ -137,10 +145,8 @@ t_2dcord	*ft_set_cord(int x0, int y0, int x1, int y1)
 	cord = (t_2dcord *)ft_calloc(1, sizeof(t_2dcord));
 	cord->x0 = x0 + g_x_offset;
 	cord->y0 = y0 + g_y_offset;
-	cord->z0 = 0;
 	cord->x1 = x1 + g_x_offset;
 	cord->y1 = y1 + g_y_offset;
-	cord->z1 = 0;
 	return (cord);
 }
 
