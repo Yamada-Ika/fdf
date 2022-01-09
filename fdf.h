@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/07 15:33:19 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/01/09 04:11:32 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 #define UP 0xff52
 #define RIGHT 0xff53
 #define DOWN 0xff54
+#define I 105
+#define P 112
+#define C 99
 
 typedef struct s_vars
 {
@@ -37,6 +40,8 @@ typedef struct s_vars
 	int		mesh_len;
 	int		shift_x;
 	int		shift_y;
+	double	x_angle;
+	double	z_angle;
 	int		color0;
 	int		color1;
 }	t_vars;

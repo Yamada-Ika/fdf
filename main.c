@@ -10,6 +10,11 @@ int	g_y_offset;
 void	ft_display_map(t_vars *vars);
 char	***ft_create_map(char *path);
 
+// set projection
+void	ft_set_isometric(t_vars *vars);
+void	ft_set_parallel(t_vars *vars);
+void	ft_set_conic(t_vars *vars);
+
 int	ft_key_hook(int keycode, t_vars *vars)
 {
 	if (keycode == ESCAPE)
@@ -22,9 +27,18 @@ int	ft_key_hook(int keycode, t_vars *vars)
 		vars->shift_y -= 20;
 	if (keycode == DOWN)
 		vars->shift_y += 20;
+	if (keycode == I)
+		ft_set_isometric(vars);
+	if (keycode == P)
+		ft_set_parallel(vars);
+	if (keycode == C)
+		ft_set_conic(vars);
 	if (keycode == RIGHT || keycode == LEFT
-		|| keycode == UP || keycode == DOWN)
+		|| keycode == UP || keycode == DOWN
+		|| keycode == I || keycode == P
+		|| keycode == C)
 		ft_display_map(vars);
+	// printf("%d\n", keycode);
 	return (0);
 }
 
@@ -63,21 +77,21 @@ bool	ft_is_over_img_size(t_2dcord *cord)
 	return (false);
 }
 
-void	ft_trans_isometric(t_vars *vars, double *x, double *y, double *z)
+void	ft_rotation(t_vars *vars, double *x, double *y, double *z)
 {
 	double	prev_x;
 	double	prev_y;
 
 	prev_x = *x;
 	prev_y = *y;
-	*x = (cos(-0.8) * prev_x - sin(-0.8) * prev_y) * vars->mesh_len;
-	*y = ((sin(-0.8) * prev_x + cos(-0.8) * prev_y) * sin(0.615472907) - *z) * vars->mesh_len;
+	*x = (cos(vars->z_angle) * prev_x - sin(vars->z_angle) * prev_y) * vars->mesh_len;
+	*y = ((sin(vars->z_angle) * prev_x + cos(vars->z_angle) * prev_y) * sin(vars->x_angle) - *z) * vars->mesh_len;
 }
 
 void	ft_trans_cord(t_2dcord *cord, t_vars *vars)
 {
-	ft_trans_isometric(vars, &(cord->x0), &(cord->y0), &(cord->z0));
-	ft_trans_isometric(vars, &(cord->x1), &(cord->y1), &(cord->z1));
+	ft_rotation(vars, &(cord->x0), &(cord->y0), &(cord->z0));
+	ft_rotation(vars, &(cord->x1), &(cord->y1), &(cord->z1));
 }
 
 void	ft_shift_cord(t_2dcord *cord, t_vars *vars)
@@ -223,6 +237,13 @@ void	ft_display_map(t_vars *vars)
 	mlx_put_image_to_window(vars->mlx, vars->win, img.img, 0, 0);
 }
 
+void	ft_init_vars(t_vars *vars)
+{
+	vars->mesh_len = 1;
+	vars->x_angle = 0.615;
+	vars->z_angle = -0.8;
+}
+
 int	main(int argc, char *argv[])
 {
 	t_vars	vars;
@@ -235,7 +256,7 @@ int	main(int argc, char *argv[])
 	vars.mlx = mlx_init();
 	if (vars.mlx == NULL)
 		return (0);
-	vars.mesh_len = 1;
+	ft_init_vars(&vars);
 	g_x_offset = 0;
 	g_y_offset = 100;
 	vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "fdf");
