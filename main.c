@@ -10,23 +10,53 @@ int	g_y_offset;
 void	ft_display_map(t_vars *vars);
 char	***ft_create_map(char *path);
 
-// set projection
+// ft_set_projection.c
 void	ft_set_isometric(t_vars *vars);
 void	ft_set_parallel(t_vars *vars);
 void	ft_set_conic(t_vars *vars);
+
+void	ft_create_affine_matrix(t_vars *vars)
+{
+	vars->affine_matrix = (double **)ft_calloc(4, sizeof(double *));
+	vars->affine_matrix[0] = (double *)ft_calloc(4, sizeof(double));
+	vars->affine_matrix[1] = (double *)ft_calloc(4, sizeof(double));
+	vars->affine_matrix[2] = (double *)ft_calloc(4, sizeof(double));
+	vars->affine_matrix[3] = (double *)ft_calloc(4, sizeof(double));
+}
+
+// |x'|   |cos(z_angle) -sin(z_angle)  0 Tx||x|
+// |y'| = |sin(z_angle) cos(z_angle)  -1 Ty||y|
+// |0 |   |0            0              0  0||z|
+// |0 |   |0            0              0  0||1|
+void	ft_set_affine_matrix(t_vars *vars)
+{
+	vars->affine_matrix[0][0] = cos(vars->z_angle) * vars->zoom_rate;
+	vars->affine_matrix[0][1] = -sin(vars->z_angle) * vars->zoom_rate;
+	vars->affine_matrix[0][3] = vars->shift_x * vars->zoom_rate;
+	vars->affine_matrix[1][0] = sin(vars->z_angle) * sin(vars->x_angle) * vars->zoom_rate;
+	vars->affine_matrix[1][1] = cos(vars->z_angle) * sin(vars->x_angle) * vars->zoom_rate;
+	vars->affine_matrix[1][2] = -1.0 * vars->zoom_rate;
+	vars->affine_matrix[1][3] = vars->shift_y * vars->zoom_rate;
+}
+
+void	ft_set_mouse_center(t_vars *vars, int x, int y)
+{
+	vars->shift_x = x;
+	vars->shift_y = y;
+}
 
 int	ft_key_hook(int keycode, t_vars *vars)
 {
 	if (keycode == ESCAPE)
 		exit(0);
 	if (keycode == RIGHT)
-		vars->shift_x += 20;
+		vars->shift_x += 5;
 	if (keycode == LEFT)
-		vars->shift_x -= 20;
+		vars->shift_x -= 5;
 	if (keycode == UP)
-		vars->shift_y -= 20;
+		vars->shift_y -= 5;
 	if (keycode == DOWN)
-		vars->shift_y += 20;
+		vars->shift_y += 5;
 	if (keycode == I)
 		ft_set_isometric(vars);
 	if (keycode == P)
@@ -37,24 +67,25 @@ int	ft_key_hook(int keycode, t_vars *vars)
 		|| keycode == UP || keycode == DOWN
 		|| keycode == I || keycode == P
 		|| keycode == C)
-		ft_display_map(vars);
-	// printf("%d\n", keycode);
+		{
+			ft_display_map(vars);
+		}
 	return (0);
 }
 
 int	ft_mouse_hook(int button, int x, int y, t_vars *vars)
 {
-	static unsigned int	zoom = 1;
-
-	x = 0;
-	y = 0;
-	if (button == SCROLL_UP && zoom != 100)
-		vars->mesh_len++;
-	if (button == SCROLL_DOWN && zoom != 0)
-		vars->mesh_len--;
-	if ((button == SCROLL_UP && zoom != 10)
-		|| (button == SCROLL_DOWN && zoom != 0))
-		ft_display_map(vars);
+	x = y;
+	if (button == SCROLL_UP && vars->zoom_rate < 100)
+		vars->zoom_rate += 0.1;
+	if (button == SCROLL_DOWN && vars->zoom_rate > 0.1)
+		vars->zoom_rate -= 0.1;
+	if ((button == SCROLL_UP&& vars->zoom_rate < 100)
+		|| (button == SCROLL_DOWN && vars->zoom_rate > 0.0))
+		{
+			// ft_set_mouse_center(vars, x, y);
+			ft_display_map(vars);
+		}
 	return (0);
 }
 
@@ -81,25 +112,21 @@ void	ft_rotation(t_vars *vars, double *x, double *y, double *z)
 {
 	double	prev_x;
 	double	prev_y;
+	double	prev_z;
 
 	prev_x = *x;
 	prev_y = *y;
-	*x = (cos(vars->z_angle) * prev_x - sin(vars->z_angle) * prev_y) * vars->mesh_len;
-	*y = ((sin(vars->z_angle) * prev_x + cos(vars->z_angle) * prev_y) * sin(vars->x_angle) - *z) * vars->mesh_len;
+	prev_z = *z;
+	*x = (vars->affine_matrix[0][0] * prev_x + vars->affine_matrix[0][1]
+		* prev_y + vars->affine_matrix[0][2] * prev_z + vars->affine_matrix[0][3]) * vars->mesh_len;
+	*y = (vars->affine_matrix[1][0] * prev_x + vars->affine_matrix[1][1]
+		* prev_y + vars->affine_matrix[1][2] * prev_z + vars->affine_matrix[1][3]) * vars->mesh_len;
 }
 
 void	ft_trans_cord(t_2dcord *cord, t_vars *vars)
 {
 	ft_rotation(vars, &(cord->x0), &(cord->y0), &(cord->z0));
 	ft_rotation(vars, &(cord->x1), &(cord->y1), &(cord->z1));
-}
-
-void	ft_shift_cord(t_2dcord *cord, t_vars *vars)
-{
-	cord->x0 += vars->shift_x;
-	cord->x1 += vars->shift_x;
-	cord->y0 += vars->shift_y;
-	cord->y1 += vars->shift_y;
 }
 
 double	ft_max(double n1, double n2)
@@ -127,7 +154,6 @@ void	ft_draw_line(t_data *img, t_2dcord *cord, t_vars *vars)
 	int	color_step;
 
 	ft_trans_cord(cord, vars);
-	ft_shift_cord(cord, vars);
 	if (ft_is_over_img_size(cord))
 		return ;
 	delta_x = cord->x1 - cord->x0;
@@ -233,15 +259,19 @@ void	ft_display_map(t_vars *vars)
 	mlx_clear_window(vars->mlx, vars->win);
 	img.img = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_len, &img.endian);
+	ft_set_affine_matrix(vars);
 	ft_display_map_helper(&img, vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, img.img, 0, 0);
 }
 
 void	ft_init_vars(t_vars *vars)
 {
-	vars->mesh_len = 1;
+	vars->mesh_len = 10;
 	vars->x_angle = 0.615;
 	vars->z_angle = -0.8;
+	vars->zoom_rate = 1.0;
+	vars->shift_x = 10;
+	vars->shift_y = 10;
 }
 
 int	main(int argc, char *argv[])
@@ -256,6 +286,7 @@ int	main(int argc, char *argv[])
 	vars.mlx = mlx_init();
 	if (vars.mlx == NULL)
 		return (0);
+	ft_create_affine_matrix(&vars);
 	ft_init_vars(&vars);
 	g_x_offset = 0;
 	g_y_offset = 100;
