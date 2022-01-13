@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/09 04:11:32 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/01/09 20:25:42 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ typedef struct s_vars
 	void	*mlx;
 	void	*win;
 	char	***map;
+	double	**affine_matrix;
 	int		mesh_len;
 	int		shift_x;
 	int		shift_y;
+	double	zoom_rate;
 	double	x_angle;
 	double	z_angle;
 	int		color0;
