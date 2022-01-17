@@ -1,5 +1,5 @@
 CC		:= gcc
-CFLAGS	:= -Wall -Wextra -Werror
+CFLAGS	:= #-Wall -Wextra -Werror
 COPTS	:= -Ilibft -Llibft -lft -Iminilibx-linux -I/usr/X11/include -Lminilibx-linux -lmlx_Darwin -L/usr/X11/include/../lib -lXext -lX11 -lm
 
 # libft
