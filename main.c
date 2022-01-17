@@ -75,6 +75,7 @@ int	ft_key_hook(int keycode, t_vars *vars)
 
 int	ft_mouse_hook(int button, int x, int y, t_vars *vars)
 {
+	x = y;
 	if (button == SCROLL_UP && vars->zoom_rate < 100)
 		vars->zoom_rate += 0.1;
 	if (button == SCROLL_DOWN && vars->zoom_rate > 0.1)
@@ -82,7 +83,7 @@ int	ft_mouse_hook(int button, int x, int y, t_vars *vars)
 	if ((button == SCROLL_UP&& vars->zoom_rate < 100)
 		|| (button == SCROLL_DOWN && vars->zoom_rate > 0.0))
 		{
-			x = y;
+			// x = y;
 			// ft_set_mouse_center(vars, x, y);
 			// printf("shift_x %d shift_y %d\n", vars->shift_x, vars->shift_y);
 			ft_display_map(vars);
@@ -219,10 +220,8 @@ void	ft_display_map_helper(t_data *img, t_vars *vars)
 {
 	int	y;
 	int	x;
-	bool	is_continue;
 	t_2dcord	*cord;
 
-	is_continue = true;
 	y = 0;
 	while (vars->map[y] != NULL)
 	{
