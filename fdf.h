@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/09 20:25:42 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/01/30 17:02:31 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 #define I 105
 #define P 112
 #define C 99
+
+#include "libft.h"
 
 typedef struct s_vars
 {
@@ -66,5 +68,17 @@ typedef struct	s_2dcord
 	double	y1;
 	double	z1;
 }	t_2dcord;
+
+void	ft_display_map(t_vars *vars);
+char	***ft_create_map(char *path);
+
+// ft_set_projection.c
+void	ft_set_isometric(t_vars *vars);
+void	ft_set_parallel(t_vars *vars);
+void	ft_set_conic(t_vars *vars);
+
+// hook.c
+int	ft_key_hook(int keycode, t_vars *vars);
+int	ft_mouse_hook(int button, int x, int y, t_vars *vars);
 
 #endif

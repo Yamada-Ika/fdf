@@ -1,19 +1,7 @@
 #include "mlx.h"
-#include "libft.h"
 #include "fdf.h"
 #include <stdio.h>
 #include <math.h>
-
-int	g_x_offset;
-int	g_y_offset;
-
-void	ft_display_map(t_vars *vars);
-char	***ft_create_map(char *path);
-
-// ft_set_projection.c
-void	ft_set_isometric(t_vars *vars);
-void	ft_set_parallel(t_vars *vars);
-void	ft_set_conic(t_vars *vars);
 
 void	ft_create_affine_matrix(t_vars *vars)
 {
@@ -43,52 +31,6 @@ void	ft_set_mouse_center(t_vars *vars, int x, int y)
 {
 	vars->shift_x = x;
 	vars->shift_y = y;
-}
-
-int	ft_key_hook(int keycode, t_vars *vars)
-{
-	if (keycode == ESCAPE)
-		exit(0);
-	if (keycode == RIGHT)
-		vars->shift_x += 5;
-	if (keycode == LEFT)
-		vars->shift_x -= 5;
-	if (keycode == UP)
-		vars->shift_y -= 5;
-	if (keycode == DOWN)
-		vars->shift_y += 5;
-	if (keycode == I)
-		ft_set_isometric(vars);
-	if (keycode == P)
-		ft_set_parallel(vars);
-	if (keycode == C)
-		ft_set_conic(vars);
-	if (keycode == RIGHT || keycode == LEFT
-		|| keycode == UP || keycode == DOWN
-		|| keycode == I || keycode == P
-		|| keycode == C)
-		{
-			ft_display_map(vars);
-		}
-	return (0);
-}
-
-int	ft_mouse_hook(int button, int x, int y, t_vars *vars)
-{
-	x = y;
-	if (button == SCROLL_UP && vars->zoom_rate < 100)
-		vars->zoom_rate += 0.1;
-	if (button == SCROLL_DOWN && vars->zoom_rate > 0.1)
-		vars->zoom_rate -= 0.1;
-	if ((button == SCROLL_UP&& vars->zoom_rate < 100)
-		|| (button == SCROLL_DOWN && vars->zoom_rate > 0.0))
-		{
-			// x = y;
-			// ft_set_mouse_center(vars, x, y);
-			// printf("shift_x %d shift_y %d\n", vars->shift_x, vars->shift_y);
-			ft_display_map(vars);
-		}
-	return (0);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -185,10 +127,10 @@ t_2dcord	*ft_set_cord(int x0, int y0, int x1, int y1)
 	t_2dcord	*cord;
 
 	cord = (t_2dcord *)ft_calloc(1, sizeof(t_2dcord));
-	cord->x0 = x0 + g_x_offset;
-	cord->y0 = y0 + g_y_offset;
-	cord->x1 = x1 + g_x_offset;
-	cord->y1 = y1 + g_y_offset;
+	cord->x0 = x0;
+	cord->y0 = y0;
+	cord->x1 = x1;
+	cord->y1 = y1;
 	return (cord);
 }
 
@@ -288,8 +230,8 @@ int	main(int argc, char *argv[])
 		return (0);
 	ft_create_affine_matrix(&vars);
 	ft_init_vars(&vars);
-	g_x_offset = 0;
-	g_y_offset = 100;
+	// g_x_offset = 0;
+	// g_y_offset = 0;
 	vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "fdf");
 	mlx_key_hook(vars.win, ft_key_hook, &vars);
 	mlx_mouse_hook(vars.win, ft_mouse_hook, &vars);
