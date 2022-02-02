@@ -9,10 +9,10 @@ void	ft_create_matrix(t_vars *vars)
 	vars->matrix[3] = (double *)ft_calloc(4, sizeof(double));
 }
 
-// |x'|   |cos(yaw) -sin(yaw)  0 Tx||x|
-// |y'| = |sin(yaw) cos(yaw)  -1 Ty||y|
-// |0 |   |0            0              0  0||z|
-// |0 |   |0            0              0  0||1|
+// |x'|             |cos(yaw)                        -sin(yaw)  0 Tx||x|
+// |y'| = zoom_rate |sin(yaw) * sin(roll) cos(yaw) * sin(roll) -1 Ty||y|
+// |0 |             |0                                       0  0  0||z|
+// |0 |             |0                                       0  0  0||1|
 void	ft_set_matrix(t_vars *vars)
 {
 	vars->matrix[0][0] = cos(vars->yaw) * vars->zoom_rate;
