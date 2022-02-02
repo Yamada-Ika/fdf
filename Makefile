@@ -36,6 +36,7 @@ clean:
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
+	make -C $(MLX_DIR) fclean
 
 re: fclean all
 
