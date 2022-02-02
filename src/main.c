@@ -220,18 +220,16 @@ int	main(int argc, char *argv[])
 {
 	t_vars	vars;
 
-	if (argc != 2)
-		return (0);
-	vars.map = ft_create_map(argv[1]);
+	if (is_invalid_args(argc, argv))
+		return (1);
+	vars.map = ft_read_map(argv[1]);
 	if (vars.map == NULL)
-		return (0);
+		return (1);
 	vars.mlx = mlx_init();
 	if (vars.mlx == NULL)
 		return (0);
 	ft_create_affine_matrix(&vars);
 	ft_init_vars(&vars);
-	// g_x_offset = 0;
-	// g_y_offset = 0;
 	vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "fdf");
 	mlx_key_hook(vars.win, ft_key_hook, &vars);
 	mlx_mouse_hook(vars.win, ft_mouse_hook, &vars);
