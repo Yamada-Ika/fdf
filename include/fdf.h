@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/03 00:57:05 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/03 01:03:28 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,13 @@ void	ft_init_vars(t_vars *vars);
 
 // hook.c
 void	ft_install_hook(t_vars *vars);
+
+// draw_line.c
+void	ft_draw_line(t_data *img, t_2dcord *cord, t_vars *vars);
+
+// math_utils.c
+double	ft_max(double n1, double n2);
+double	ft_abs(double n);
 
 void	ft_display_map(t_vars *vars);
 char	***ft_read_map(char *path);
