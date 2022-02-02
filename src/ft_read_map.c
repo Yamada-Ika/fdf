@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_map.c                                    :+:      :+:    :+:   */
+/*   ft_read_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -83,7 +83,7 @@ static char	***ft_create_char_map(char *whole)
 	return (char_map);
 }
 
-char	***ft_create_map(char *path)
+char	***ft_read_map(char *path)
 {
 	char	*whole;
 
