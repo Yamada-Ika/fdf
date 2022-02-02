@@ -6,12 +6,16 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/03 00:19:57 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/03 00:57:05 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
+
+#include "mlx.h"
+#include <stdio.h>
+#include <math.h>
 
 #define WIDTH 1000
 #define HEIGHT 1000
@@ -72,6 +76,16 @@ typedef struct	s_2dcord
 // arg_utils.c
 bool	is_invalid_file_extension(char *path, char *extension);
 bool	is_invalid_args(int argc, char *argv[]);
+
+// matrix_utils.c
+void	ft_create_affine_matrix(t_vars *vars);
+void	ft_set_affine_matrix(t_vars *vars);
+
+// init_struct.c
+void	ft_init_vars(t_vars *vars);
+
+// hook.c
+void	ft_install_hook(t_vars *vars);
 
 void	ft_display_map(t_vars *vars);
 char	***ft_read_map(char *path);

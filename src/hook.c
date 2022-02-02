@@ -1,5 +1,11 @@
 #include "fdf.h"
 
+void	ft_install_hook(t_vars *vars)
+{
+	mlx_key_hook(vars->win, ft_key_hook, vars);
+	mlx_mouse_hook(vars->win, ft_mouse_hook, vars);
+}
+
 int	ft_key_hook(int keycode, t_vars *vars)
 {
 	if (keycode == ESCAPE)

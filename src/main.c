@@ -1,31 +1,4 @@
-#include "mlx.h"
 #include "fdf.h"
-#include <stdio.h>
-#include <math.h>
-
-void	ft_create_affine_matrix(t_vars *vars)
-{
-	vars->affine_matrix = (double **)ft_calloc(4, sizeof(double *));
-	vars->affine_matrix[0] = (double *)ft_calloc(4, sizeof(double));
-	vars->affine_matrix[1] = (double *)ft_calloc(4, sizeof(double));
-	vars->affine_matrix[2] = (double *)ft_calloc(4, sizeof(double));
-	vars->affine_matrix[3] = (double *)ft_calloc(4, sizeof(double));
-}
-
-// |x'|   |cos(z_angle) -sin(z_angle)  0 Tx||x|
-// |y'| = |sin(z_angle) cos(z_angle)  -1 Ty||y|
-// |0 |   |0            0              0  0||z|
-// |0 |   |0            0              0  0||1|
-void	ft_set_affine_matrix(t_vars *vars)
-{
-	vars->affine_matrix[0][0] = cos(vars->z_angle) * vars->zoom_rate;
-	vars->affine_matrix[0][1] = -sin(vars->z_angle) * vars->zoom_rate;
-	vars->affine_matrix[0][3] = vars->shift_x * vars->zoom_rate;
-	vars->affine_matrix[1][0] = sin(vars->z_angle) * sin(vars->x_angle) * vars->zoom_rate;
-	vars->affine_matrix[1][1] = cos(vars->z_angle) * sin(vars->x_angle) * vars->zoom_rate;
-	vars->affine_matrix[1][2] = -1.0 * vars->zoom_rate;
-	vars->affine_matrix[1][3] = vars->shift_y * vars->zoom_rate;
-}
 
 void	ft_set_mouse_center(t_vars *vars, int x, int y)
 {
@@ -206,16 +179,6 @@ void	ft_display_map(t_vars *vars)
 	mlx_put_image_to_window(vars->mlx, vars->win, img.img, 0, 0);
 }
 
-void	ft_init_vars(t_vars *vars)
-{
-	vars->mesh_len = 10;
-	vars->x_angle = 0.615;
-	vars->z_angle = -0.8;
-	vars->zoom_rate = 1.0;
-	vars->shift_x = 10;
-	vars->shift_y = 10;
-}
-
 int	main(int argc, char *argv[])
 {
 	t_vars	vars;
@@ -227,12 +190,10 @@ int	main(int argc, char *argv[])
 		return (1);
 	vars.mlx = mlx_init();
 	if (vars.mlx == NULL)
-		return (0);
-	ft_create_affine_matrix(&vars);
+		return (1);
 	ft_init_vars(&vars);
 	vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "fdf");
-	mlx_key_hook(vars.win, ft_key_hook, &vars);
-	mlx_mouse_hook(vars.win, ft_mouse_hook, &vars);
+	ft_install_hook(&vars);
 	ft_display_map(&vars);
 	mlx_loop(vars.mlx);
 }
