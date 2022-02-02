@@ -4,9 +4,9 @@ void	ft_draw_line(t_data *img, t_2dcord *cord, t_vars *vars)
 {
 	double	delta_x;
 	double	delta_y;
-	int	step;
+	int		step;
 	double	step_max;
-	int	color_step;
+	int		color_step;
 
 	ft_trans_cord(cord, vars);
 	if (ft_is_over_img_size(cord))

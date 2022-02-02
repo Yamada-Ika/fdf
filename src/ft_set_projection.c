@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 04:45:46 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/09 05:04:27 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/03 01:29:49 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	ft_set_isometric(t_vars *vars)
 {
-	vars->x_angle = 0.615;
-	vars->z_angle = -0.8;
+	vars->roll = 0.615;
+	vars->yaw = -0.8;
 }
 
 void	ft_set_parallel(t_vars *vars)
 {
-	vars->x_angle = 0.615;
-	vars->z_angle = -0.8;
+	vars->roll = 0.615;
+	vars->yaw = -0.8;
 }
 
 void	ft_set_conic(t_vars *vars)
 {
-	vars->x_angle = 1.57;
-	vars->z_angle = 0.0;
+	vars->roll = 1.57;
+	vars->yaw = 0.0;
 }

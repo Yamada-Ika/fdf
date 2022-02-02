@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 15:42:53 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/07 17:46:40 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/03 01:32:03 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_display_char_map(char ***map)
 	int	j;
 
 	i = 0;
-	while(map[i] != NULL)
+	while (map[i] != NULL)
 	{
 		j = 0;
 		while (map[i][j] != NULL)

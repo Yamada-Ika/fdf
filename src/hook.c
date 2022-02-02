@@ -6,6 +6,14 @@ void	ft_install_hook(t_vars *vars)
 	mlx_mouse_hook(vars->win, ft_mouse_hook, vars);
 }
 
+static bool	is_valid_keycode(int keycode)
+{
+	return ((keycode == RIGHT || keycode == LEFT
+			|| keycode == UP || keycode == DOWN
+			|| keycode == I || keycode == P
+			|| keycode == C));
+}
+
 int	ft_key_hook(int keycode, t_vars *vars)
 {
 	if (keycode == ESCAPE)
@@ -24,13 +32,8 @@ int	ft_key_hook(int keycode, t_vars *vars)
 		ft_set_parallel(vars);
 	if (keycode == C)
 		ft_set_conic(vars);
-	if (keycode == RIGHT || keycode == LEFT
-		|| keycode == UP || keycode == DOWN
-		|| keycode == I || keycode == P
-		|| keycode == C)
-		{
-			ft_display_map(vars);
-		}
+	if (is_valid_keycode(keycode))
+		ft_display_map(vars);
 	return (0);
 }
 
@@ -41,10 +44,10 @@ int	ft_mouse_hook(int button, int x, int y, t_vars *vars)
 		vars->zoom_rate += 0.1;
 	if (button == SCROLL_DOWN && vars->zoom_rate > 0.1)
 		vars->zoom_rate -= 0.1;
-	if ((button == SCROLL_UP&& vars->zoom_rate < 100)
+	if ((button == SCROLL_UP && vars->zoom_rate < 100)
 		|| (button == SCROLL_DOWN && vars->zoom_rate > 0.0))
-		{
-			ft_display_map(vars);
-		}
+	{
+		ft_display_map(vars);
+	}
 	return (0);
 }
