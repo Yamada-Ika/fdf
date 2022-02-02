@@ -48,4 +48,8 @@ fclean: clean
 
 re: fclean all
 
+norm_dir=$$(ls | grep -v minilibx-linux)
+norm:
+	norminette $(norm_dir)
+
 .PHONY: all clean fclean re libft empty
