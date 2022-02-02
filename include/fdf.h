@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/30 17:02:31 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/03 00:19:57 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,12 @@ typedef struct	s_2dcord
 	double	z1;
 }	t_2dcord;
 
+// arg_utils.c
+bool	is_invalid_file_extension(char *path, char *extension);
+bool	is_invalid_args(int argc, char *argv[]);
+
 void	ft_display_map(t_vars *vars);
-char	***ft_create_map(char *path);
+char	***ft_read_map(char *path);
 
 // ft_set_projection.c
 void	ft_set_isometric(t_vars *vars);
