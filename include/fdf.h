@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/03 01:40:55 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/03 01:47:26 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ void	ft_init_vars(t_vars *vars);
 // hook.c
 void	ft_install_hook(t_vars *vars);
 
+// cord_trans.c
+void	ft_trans_cord(t_2dcord *cord, t_vars *vars);
+bool	ft_is_over_img_size(t_2dcord *cord);
+
 // draw_line.c
 void	ft_draw_line(t_data *img, t_2dcord *cord, t_vars *vars);
 
@@ -101,6 +105,9 @@ char	***ft_read_map(char *path);
 void	ft_set_isometric(t_vars *vars);
 void	ft_set_parallel(t_vars *vars);
 void	ft_set_conic(t_vars *vars);
+
+// put_pixel.c
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 // hook.c
 int		ft_key_hook(int keycode, t_vars *vars);
