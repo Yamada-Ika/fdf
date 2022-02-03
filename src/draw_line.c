@@ -16,7 +16,6 @@ void	ft_draw_line(t_data *img, t_2dcord *cord, t_vars *vars)
 	step_max = ft_max(ft_abs(delta_x), ft_abs(delta_y));
 	delta_x /= step_max;
 	delta_y /= step_max;
-	// color
 	if (vars->color0 == 0)
 		vars->color0 = 0xFFFFFF;
 	if (vars->color1 == 0)
