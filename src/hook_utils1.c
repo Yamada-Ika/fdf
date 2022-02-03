@@ -15,7 +15,7 @@ bool	is_switch_projection_key(int keycode)
 bool	is_valid_key(int keycode)
 {
 	return (is_shift_key(keycode)
-			|| is_switch_projection_key(keycode));
+		|| is_switch_projection_key(keycode));
 }
 
 bool	is_zoom_up(int button, double zoom_rate)
