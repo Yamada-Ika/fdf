@@ -6,40 +6,40 @@ void	ft_install_hook(t_vars *vars)
 	mlx_mouse_hook(vars->win, ft_mouse_hook, vars);
 }
 
-void	ft_incre_or_decre_shift_var(int keycode, int *x, int *y)
+void	ft_incre_or_decre_shift_var(int key, int *x, int *y)
 {
-	if (keycode == RIGHT)
+	if (key == RIGHT)
 		*x += 5;
-	if (keycode == LEFT)
+	if (key == LEFT)
 		*x -= 5;
-	if (keycode == UP)
+	if (key == UP)
 		*y -= 5;
-	if (keycode == DOWN)
+	if (key == DOWN)
 		*y += 5;
 }
 
-void	ft_switch_projection(int keycode, t_vars *vars)
+void	ft_switch_projection(int key, t_vars *vars)
 {
-	if (keycode == I)
+	if (key == I)
 		ft_set_isometric(vars);
-	if (keycode == P)
+	if (key == P)
 		ft_set_parallel(vars);
-	if (keycode == C)
+	if (key == C)
 		ft_set_conic(vars);
 }
 
-int	ft_key_hook(int keycode, t_vars *vars)
+int	ft_key_hook(int key, t_vars *vars)
 {
-	if (keycode == ESCAPE)
+	if (key == ESCAPE)
 	{
 		mlx_destroy_image(vars->mlx, vars->img.img);
 		mlx_loop_end(vars->mlx);
 	}
-	if (is_shift_key(keycode))
-		ft_incre_or_decre_shift_var(keycode, &(vars->shift_x), &(vars->shift_y));
-	if (is_switch_projection_key(keycode))
-		ft_switch_projection(keycode, vars);
-	if (is_valid_key(keycode))
+	if (is_shift_key(key))
+		ft_incre_or_decre_shift_var(key, &(vars->shift_x), &(vars->shift_y));
+	if (is_switch_projection_key(key))
+		ft_switch_projection(key, vars);
+	if (is_valid_key(key))
 	{
 		mlx_destroy_image(vars->mlx, vars->img.img);
 		ft_display_map(vars);
