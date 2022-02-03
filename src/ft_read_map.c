@@ -41,7 +41,7 @@ static char	*ft_read_fdf_helper(int fd)
 		inline_map = ft_strjoin(inline_map, line);
 		if (inline_map == NULL)
 		{
-			all_free(line, whole_tmp, inline_map, NULL);
+			all_free(line, whole_tmp, NULL, NULL);
 			return (NULL);
 		}
 		all_free(line, whole_tmp, NULL, NULL);
