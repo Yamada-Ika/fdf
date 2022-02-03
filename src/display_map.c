@@ -82,4 +82,5 @@ void	ft_display_map(t_vars *vars)
 	ft_set_matrix(vars);
 	ft_display_map_helper(&img, vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, img.img, 0, 0);
+	vars->img = img;
 }
