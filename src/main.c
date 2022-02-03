@@ -1,13 +1,13 @@
 #include "fdf.h"
 
-__attribute__((destructor))
-void	check_leak(void)
-{
-	char	cmd[50];
+// __attribute__((destructor))
+// void	check_leak(void)
+// {
+// 	char	cmd[50];
 
-	sprintf(cmd, "leaks %d", getpid());
-	system(cmd);
-}
+// 	sprintf(cmd, "leaks %d", getpid());
+// 	system(cmd);
+// }
 
 int	main(int argc, char *argv[])
 {
@@ -26,6 +26,4 @@ int	main(int argc, char *argv[])
 	ft_install_hook(&vars);
 	ft_display_map(&vars);
 	mlx_loop(vars.mlx);
-	// mlx_destroy_window(vars.mlx, vars.win);
-	// mlx_destroy_display(vars.mlx);
 }
