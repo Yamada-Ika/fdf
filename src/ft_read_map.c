@@ -27,7 +27,7 @@ static char	*ft_read_fdf_helper(int fd)
 {
 	char	*line;
 	char	*inline_map;
-	char	*whole_tmp;
+	char	*tmp_for_free;
 
 	inline_map = ft_strdup("");
 	if (inline_map == NULL)
@@ -37,14 +37,14 @@ static char	*ft_read_fdf_helper(int fd)
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		whole_tmp = inline_map;
+		tmp_for_free = inline_map;
 		inline_map = ft_strjoin(inline_map, line);
 		if (inline_map == NULL)
 		{
-			all_free(line, whole_tmp, NULL, NULL);
+			all_free(line, tmp_for_free, NULL, NULL);
 			return (NULL);
 		}
-		all_free(line, whole_tmp, NULL, NULL);
+		all_free(line, tmp_for_free, NULL, NULL);
 	}
 	return (inline_map);
 }
