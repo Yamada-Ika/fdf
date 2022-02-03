@@ -15,10 +15,11 @@ check_leak.c          hook.c\
 cord_trans.c          hook_utils1.c\
 display_map.c         init_struct.c\
 draw_line.c           main.c\
-free_utils.c          map_utils.c\
-ft_read_map.c         math_utils.c\
-ft_set_projection.c   matrix_utils.c\
-get_next_line.c       put_pixel.c
+error.c               map_utils.c\
+free_utils.c          math_utils.c\
+ft_read_map.c         matrix_utils.c\
+ft_set_projection.c   put_pixel.c\
+get_next_line.c
 OBJS		:= $(SRCS:%.c=%.o)
 SRCS		:= $(addprefix src/, $(SRC))
 OBJS		:= $(addprefix obj/, $(OBJS))
