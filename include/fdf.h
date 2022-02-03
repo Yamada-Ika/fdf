@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/03 01:47:26 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/03 21:52:24 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,20 @@
 
 # include "libft.h"
 
+typedef struct s_data
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_len;
+	int		endian;
+}	t_data;
+
 typedef struct s_vars
 {
 	void	*mlx;
 	void	*win;
+	t_data	img;
 	char	***map;
 	double	**matrix;
 	int		mesh_len;
@@ -53,15 +63,6 @@ typedef struct s_vars
 	int		color0;
 	int		color1;
 }	t_vars;
-
-typedef struct s_data
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_len;
-	int		endian;
-}	t_data;
 
 typedef struct s_2dcord
 {
@@ -81,11 +82,17 @@ bool	is_invalid_args(int argc, char *argv[]);
 void	ft_create_matrix(t_vars *vars);
 void	ft_set_matrix(t_vars *vars);
 
+// free_utils.c
+void	free_strs(char **strs);
+void	free_tristrs(char ***strs);
+
 // init_struct.c
 void	ft_init_vars(t_vars *vars);
 
 // hook.c
 void	ft_install_hook(t_vars *vars);
+int		ft_key_hook(int keycode, t_vars *vars);
+int		ft_mouse_hook(int button, int x, int y, t_vars *vars);
 
 // cord_trans.c
 void	ft_trans_cord(t_2dcord *cord, t_vars *vars);
@@ -108,9 +115,5 @@ void	ft_set_conic(t_vars *vars);
 
 // put_pixel.c
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-
-// hook.c
-int		ft_key_hook(int keycode, t_vars *vars);
-int		ft_mouse_hook(int button, int x, int y, t_vars *vars);
 
 #endif
