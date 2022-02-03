@@ -10,17 +10,24 @@ LIBFT_A		:= $(addprefix $(LIBFT_DIR)/, $(LIBFT_A))
 # fdf
 NAME		:= fdf
 SRCS		:= \
-arg_utils.c           hook.c\
+arg_utils.c           get_next_line_utils.c\
+check_leak.c          hook.c\
 cord_trans.c          init_struct.c\
 display_map.c         main.c\
 draw_line.c           map_utils.c\
-ft_read_map.c         math_utils.c\
-ft_set_projection.c   matrix_utils.c\
-get_next_line.c       put_pixel.c\
-get_next_line_utils.c
+free_utils.c          math_utils.c\
+ft_read_map.c         matrix_utils.c\
+ft_set_projection.c   put_pixel.c\
+get_next_line.c
 OBJS		:= $(SRCS:%.c=%.o)
 SRCS		:= $(addprefix src/, $(SRC))
 OBJS		:= $(addprefix obj/, $(OBJS))
+
+# for memory leaks check
+ifdef LEAK_CHECK
+SRCS		+= src/check_leak.c
+OBJS		+= obj/check_leak.o
+endif
 
 # minilib
 MLX_DIR	:= minilibx-linux
@@ -44,14 +51,19 @@ $(MLX_A): empty
 	make -C $(MLX_DIR)
 
 clean:
-	rm -rf $(NAME)
+	rm -rf $(OBJS)
 	make -C $(LIBFT_DIR) clean
 	make -C $(MLX_DIR) clean
 
 fclean: clean
+	rm -rf $(NAME)
 	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
+
+leak:
+	touch src/check_leak.c
+	make LEAK_CHECK=1
 
 norm_dir=$$(ls | grep -v minilibx-linux)
 norm:
