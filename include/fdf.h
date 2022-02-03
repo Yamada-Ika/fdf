@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/03 22:56:29 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/03 23:28:07 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ft_create_matrix(t_vars *vars);
 void	ft_set_matrix(t_vars *vars);
 
 // free_utils.c
+void	all_free(void *p1, void *p2, void *p3, void *p4);
 void	free_strs(char **strs);
 void	free_tristrs(char ***strs);
 
