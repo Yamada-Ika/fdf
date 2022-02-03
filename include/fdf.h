@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/03 21:52:24 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/03 22:56:29 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,14 @@ void	ft_init_vars(t_vars *vars);
 void	ft_install_hook(t_vars *vars);
 int		ft_key_hook(int keycode, t_vars *vars);
 int		ft_mouse_hook(int button, int x, int y, t_vars *vars);
+
+// hook_utils1.c
+bool	is_shift_key(int keycode);
+bool	is_switch_projection_key(int keycode);
+bool	is_valid_key(int keycode);
+bool	is_zoom_up(int button, double zoom_rate);
+bool	is_zoom_down(int button, double zoom_rate);
+
 
 // cord_trans.c
 void	ft_trans_cord(t_2dcord *cord, t_vars *vars);

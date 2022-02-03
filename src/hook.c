@@ -6,24 +6,6 @@ void	ft_install_hook(t_vars *vars)
 	mlx_mouse_hook(vars->win, ft_mouse_hook, vars);
 }
 
-static bool	is_shift_key(int keycode)
-{
-	return ((keycode == RIGHT || keycode == LEFT
-			|| keycode == UP || keycode == DOWN));
-}
-
-static bool	is_switch_projection_key(int keycode)
-{
-	return ((keycode == I || keycode == P
-			|| keycode == C));
-}
-
-static bool	is_valid_key(int keycode)
-{
-	return (is_shift_key(keycode)
-			|| is_switch_projection_key(keycode));
-}
-
 void	ft_incre_or_decre_shift_var(int keycode, int *x, int *y)
 {
 	if (keycode == RIGHT)
@@ -63,16 +45,6 @@ int	ft_key_hook(int keycode, t_vars *vars)
 		ft_display_map(vars);
 	}
 	return (0);
-}
-
-bool	is_zoom_up(int button, double zoom_rate)
-{
-	return (button == SCROLL_UP && zoom_rate < 100);
-}
-
-bool	is_zoom_down(int button, double zoom_rate)
-{
-	return (button == SCROLL_DOWN && zoom_rate > 0.1);
 }
 
 int	ft_mouse_hook(int button, int x, int y, t_vars *vars)
