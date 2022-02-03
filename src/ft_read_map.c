@@ -21,6 +21,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#include "fdf.h"
+
 static char	*ft_read_fdf_helper(int fd)
 {
 	char	*line;
@@ -63,32 +65,43 @@ static char	***ft_create_char_map(char *whole)
 {
 	char	**split_nl;
 	char	***char_map;
-	int	i;
+	int		i;
 
 	split_nl = ft_split(whole, '\n');
 	if (split_nl == NULL)
 		return (NULL);
 	char_map = (char ***)malloc((ft_get_line_size(split_nl) + 1) * sizeof(char **));
 	if (char_map == NULL)
+	{
+		free_strs(split_nl);
 		return (NULL);
+	}
 	i = 0;
 	while (split_nl[i] != NULL)
 	{
 		char_map[i] = ft_split(split_nl[i], ' ');
 		if (char_map[i] == NULL)
+		{
+			free_tristrs(char_map);
+			free_strs(split_nl);
 			return (NULL);
+		}
 		i++;
 	}
 	char_map[i] = NULL;
+	free_strs(split_nl);
 	return (char_map);
 }
 
 char	***ft_read_map(char *path)
 {
 	char	*whole;
+	char	***map;
 
 	whole = ft_read_fdf(path);
 	if (whole == NULL)
 		return (NULL);
-	return (ft_create_char_map(whole));
+	map = ft_create_char_map(whole);
+	free(whole);
+	return (map);
 }
