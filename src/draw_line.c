@@ -9,8 +9,6 @@ void	ft_draw_line(t_data *img, t_2dcord *cord, t_vars *vars)
 	int		color_step;
 
 	ft_trans_cord(cord, vars);
-	if (ft_is_over_img_size(cord))
-		return ;
 	delta_x = cord->x1 - cord->x0;
 	delta_y = cord->y1 - cord->y0;
 	step_max = ft_max(ft_abs(delta_x), ft_abs(delta_y));
