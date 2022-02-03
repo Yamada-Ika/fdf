@@ -26,39 +26,27 @@
 static char	*ft_read_fdf_helper(int fd)
 {
 	char	*line;
-	char	*whole;
+	char	*inline_map;
 	char	*whole_tmp;
 
-	whole = ft_strdup("");
-	if (whole == NULL)
+	inline_map = ft_strdup("");
+	if (inline_map == NULL)
 		return (NULL);
 	while (true)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		whole_tmp = whole;
-		whole = ft_strjoin(whole, line);
-		free(line);
-		free(whole_tmp);
+		whole_tmp = inline_map;
+		inline_map = ft_strjoin(inline_map, line);
+		if (inline_map == NULL)
+		{
+			all_free(line, whole_tmp, inline_map, NULL);
+			return (NULL);
+		}
+		all_free(line, whole_tmp, NULL, NULL);
 	}
-	return (whole);
-}
-
-static char	*ft_read_fdf(char *path)
-{
-	int		fd;
-	char	*fdf;
-
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		return (NULL);
-	fdf = ft_read_fdf_helper(fd);
-	if (fdf == NULL)
-		return (NULL);
-	if (close(fd) == -1)
-		return (NULL);
-	return (fdf);
+	return (inline_map);
 }
 
 static char	***ft_create_char_map(char *whole)
@@ -93,15 +81,31 @@ static char	***ft_create_char_map(char *whole)
 	return (char_map);
 }
 
+static char	*ft_read_fdf(char *path)
+{
+	int		fd;
+	char	*inline_map;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (NULL);
+	inline_map = ft_read_fdf_helper(fd);
+	if (inline_map == NULL)
+		return (NULL);
+	if (close(fd) == -1)
+		return (NULL);
+	return (inline_map);
+}
+
 char	***ft_read_map(char *path)
 {
-	char	*whole;
+	char	*inline_map;
 	char	***map;
 
-	whole = ft_read_fdf(path);
-	if (whole == NULL)
+	inline_map = ft_read_fdf(path);
+	if (inline_map == NULL)
 		return (NULL);
-	map = ft_create_char_map(whole);
-	free(whole);
+	map = ft_create_char_map(inline_map);
+	free(inline_map);
 	return (map);
 }
