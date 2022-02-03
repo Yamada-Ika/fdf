@@ -21,7 +21,7 @@ void	ft_set_z_color_helper1(t_2dcord *cord, t_vars *vars, int y, int x)
 	if (color[0] == ',')
 		vars->color1 = ft_strtoll(++color, NULL, 16);
 	else
-		vars->color1 = 0;
+		vars->color1 = 0xFFFFFF;
 }
 
 void	ft_set_z_color_helper0(t_2dcord *cord, t_vars *vars, int y, int x)
@@ -33,7 +33,7 @@ void	ft_set_z_color_helper0(t_2dcord *cord, t_vars *vars, int y, int x)
 	if (color[0] == ',')
 		vars->color0 = ft_strtoll(++color, NULL, 16);
 	else
-		vars->color0 = 0;
+		vars->color0 = 0xFFFFFF;
 }
 
 void	ft_display_map_helper(t_data *img, t_vars *vars)

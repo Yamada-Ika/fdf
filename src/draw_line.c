@@ -2,10 +2,6 @@
 
 int	get_color_gradation(int color_code0, int color_code1, double step)
 {
-	if (color_code0 == 0)
-		color_code0 = 0xFFFFFF;
-	if (color_code1 == 0)
-		color_code1 = 0xFFFFFF;
 	return ((color_code1 - color_code0) / step);
 }
 
