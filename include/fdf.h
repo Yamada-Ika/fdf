@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/03 23:28:07 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/04 00:52:52 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "mlx.h"
 # include <stdio.h>
 # include <math.h>
+# include <errno.h>
 
 # define WIDTH 1000
 # define HEIGHT 1000
@@ -86,6 +87,12 @@ void	ft_set_matrix(t_vars *vars);
 void	all_free(void *p1, void *p2, void *p3, void *p4);
 void	free_strs(char **strs);
 void	free_tristrs(char ***strs);
+
+// error.c
+void	*ft_print_error(char *message);
+void	*ft_do_read_error_routine(void *p1, void *p2, void *p3, void *p4);
+void	*ft_do_malloc_error_routine(void *p1, void *p2, void *p3, void *p4);
+void	*ft_do_malloc_strs_error_routine(void **p1, void ***p2);
 
 // init_struct.c
 void	ft_init_vars(t_vars *vars);
