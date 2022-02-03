@@ -36,6 +36,16 @@ void	ft_incre_or_decre_shift_var(int keycode, int *x, int *y)
 		*y += 5;
 }
 
+void	ft_switch_projection(int keycode, t_vars *vars)
+{
+	if (keycode == I)
+		ft_set_isometric(vars);
+	if (keycode == P)
+		ft_set_parallel(vars);
+	if (keycode == C)
+		ft_set_conic(vars);
+}
+
 int	ft_key_hook(int keycode, t_vars *vars)
 {
 	if (keycode == ESCAPE)
@@ -45,12 +55,8 @@ int	ft_key_hook(int keycode, t_vars *vars)
 	}
 	if (is_shift_key(keycode))
 		ft_incre_or_decre_shift_var(keycode, &(vars->shift_x), &(vars->shift_y));
-	if (keycode == I)
-		ft_set_isometric(vars);
-	if (keycode == P)
-		ft_set_parallel(vars);
-	if (keycode == C)
-		ft_set_conic(vars);
+	if (is_switch_projection_key(keycode))
+		ft_switch_projection(keycode, vars);
 	if (is_valid_key(keycode))
 	{
 		mlx_destroy_image(vars->mlx, vars->img.img);
