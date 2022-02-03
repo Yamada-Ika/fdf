@@ -65,12 +65,22 @@ int	ft_key_hook(int keycode, t_vars *vars)
 	return (0);
 }
 
+bool	is_zoom_up(int button, double zoom_rate)
+{
+	return (button == SCROLL_UP && zoom_rate < 100);
+}
+
+bool	is_zoom_down(int button, double zoom_rate)
+{
+	return (button == SCROLL_DOWN && zoom_rate > 0.1);
+}
+
 int	ft_mouse_hook(int button, int x, int y, t_vars *vars)
 {
 	x = y;
-	if (button == SCROLL_UP && vars->zoom_rate < 100)
+	if (is_zoom_up(button, vars->zoom_rate))
 		vars->zoom_rate += 0.1;
-	if (button == SCROLL_DOWN && vars->zoom_rate > 0.1)
+	if (is_zoom_down(button, vars->zoom_rate))
 		vars->zoom_rate -= 0.1;
 	if ((button == SCROLL_UP && vars->zoom_rate < 100)
 		|| (button == SCROLL_DOWN && vars->zoom_rate > 0.0))
