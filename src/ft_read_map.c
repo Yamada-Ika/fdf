@@ -31,54 +31,47 @@ static char	*ft_read_fdf_helper(int fd)
 
 	inline_map = ft_strdup("");
 	if (inline_map == NULL)
-		return (NULL);
+		return (ft_print_error("Cannot allocate memmory"));
 	while (true)
 	{
+		errno = 0;
 		line = get_next_line(fd);
+		if (errno != 0)
+			return (ft_do_read_error_routine(line, inline_map, NULL, NULL));
 		if (line == NULL)
 			break ;
 		tmp_for_free = inline_map;
 		inline_map = ft_strjoin(inline_map, line);
 		if (inline_map == NULL)
-		{
-			all_free(line, tmp_for_free, NULL, NULL);
-			return (NULL);
-		}
+			return (ft_do_malloc_error_routine(line, tmp_for_free, NULL, NULL));
 		all_free(line, tmp_for_free, NULL, NULL);
 	}
 	return (inline_map);
 }
 
-static char	***ft_create_char_map(char *whole)
+static char	***ft_generate_map(char *inline_map)
 {
-	char	**split_nl;
-	char	***char_map;
+	char	**map_strs;
+	char	***map;
 	int		i;
 
-	split_nl = ft_split(whole, '\n');
-	if (split_nl == NULL)
-		return (NULL);
-	char_map = (char ***)malloc((ft_get_line_size(split_nl) + 1) * sizeof(char **));
-	if (char_map == NULL)
-	{
-		free_strs(split_nl);
-		return (NULL);
-	}
+	map_strs = ft_split(inline_map, '\n');
+	if (map_strs == NULL)
+		return (ft_print_error("Cannot allocate memmory"));
+	map = (char ***)malloc((ft_get_line_size(map_strs) + 1) * sizeof(char **));
+	if (map == NULL)
+		return (ft_do_malloc_strs_error_routine(map_strs, NULL));
 	i = 0;
-	while (split_nl[i] != NULL)
+	while (map_strs[i] != NULL)
 	{
-		char_map[i] = ft_split(split_nl[i], ' ');
-		if (char_map[i] == NULL)
-		{
-			free_tristrs(char_map);
-			free_strs(split_nl);
-			return (NULL);
-		}
+		map[i] = ft_split(map_strs[i], ' ');
+		if (map[i] == NULL)
+			return (ft_do_malloc_strs_error_routine(map_strs, map));
 		i++;
 	}
-	char_map[i] = NULL;
-	free_strs(split_nl);
-	return (char_map);
+	map[i] = NULL;
+	free_strs(map_strs);
+	return (map);
 }
 
 static char	*ft_read_fdf(char *path)
@@ -88,12 +81,18 @@ static char	*ft_read_fdf(char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		return (NULL);
+		return (ft_print_error("Cannot open file"));
 	inline_map = ft_read_fdf_helper(fd);
 	if (inline_map == NULL)
+	{
+		close(fd);
 		return (NULL);
+	}
 	if (close(fd) == -1)
-		return (NULL);
+	{
+		free(inline_map);
+		return (ft_print_error("Cannot close file"));
+	}
 	return (inline_map);
 }
 
@@ -105,7 +104,7 @@ char	***ft_read_map(char *path)
 	inline_map = ft_read_fdf(path);
 	if (inline_map == NULL)
 		return (NULL);
-	map = ft_create_char_map(inline_map);
+	map = ft_generate_map(inline_map);
 	free(inline_map);
 	return (map);
 }
