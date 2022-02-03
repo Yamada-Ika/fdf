@@ -1,5 +1,13 @@
 #include "fdf.h"
 
+void	all_free(void *p1, void *p2, void *p3, void *p4)
+{
+	free(p1);
+	free(p2);
+	free(p3);
+	free(p4);
+}
+
 void	free_tristrs(char ***strs)
 {
 	size_t	i;
