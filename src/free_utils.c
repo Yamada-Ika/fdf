@@ -12,6 +12,8 @@ void	free_tristrs(char ***strs)
 {
 	size_t	i;
 
+	if (strs == NULL)
+		return ;
 	i = 0;
 	while (strs[i] != NULL)
 	{
@@ -25,6 +27,8 @@ void	free_strs(char **strs)
 {
 	size_t	i;
 
+	if (strs == NULL)
+		return ;
 	i = 0;
 	while (strs[i] != NULL)
 	{
