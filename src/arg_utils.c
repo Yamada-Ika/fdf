@@ -8,10 +8,10 @@ bool	is_invalid_file_extension(char *path, char *extension)
 	if (dot_at == NULL)
 		return (true);
 	dot_at++;
-	if (ft_strcmp(dot_at, extension) == 0)
-		return (false);
-	else
+	if (ft_strcmp(dot_at, extension) != 0)
 		return (true);
+	else
+		return (false);
 }
 
 bool	is_invalid_args(int argc, char *argv[])
