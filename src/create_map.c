@@ -36,28 +36,11 @@ void	ft_set_map(t_map **map_tmp, char ***map)
 	while (map[y] != NULL)
 	{
 		x = 0;
-		while (true)
+		while (map[y][x] != NULL)
 		{
-			if (map[y][x + 1] != NULL)
-			{
-				map_tmp[y][x].x = (double)x;
-				map_tmp[y][x].y = (double)y;
-				_set_height_and_color(&(map_tmp[y][x].z), &(map_tmp[y][x].color), map[y][x]);
-				map_tmp[y][x + 1].x = (double)(x + 1);
-				map_tmp[y][x + 1].y = (double)y;
-				_set_height_and_color(&(map_tmp[y][x + 1].z), &(map_tmp[y][x + 1].color), map[y][x + 1]);
-			}
-			if (map[y + 1] != NULL)
-			{
-				map_tmp[y][x].x = (double)x;
-				map_tmp[y][x].y = (double)y;
-				_set_height_and_color(&(map_tmp[y][x].z), &(map_tmp[y][x].color), map[y][x]);
-				map_tmp[y + 1][x].x = (double)x;
-				map_tmp[y + 1][x].y = (double)(y + 1);
-				_set_height_and_color(&(map_tmp[y + 1][x].z), &(map_tmp[y + 1][x].color), map[y + 1][x]);
-			}
-			if (map[y][x + 1] == NULL)
-				break ;
+			map_tmp[y][x].x = (double)x;
+			map_tmp[y][x].y = (double)y;
+			_set_height_and_color(&(map_tmp[y][x].z), &(map_tmp[y][x].color), map[y][x]);
 			x++;
 		}
 		y++;
