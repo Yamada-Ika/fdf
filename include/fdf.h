@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/04 19:16:17 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/04 19:39:02 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <math.h>
 # include <errno.h>
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 700
+# define HEIGHT 700
 # define OFFSET 10
 
 // mouse
