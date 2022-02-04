@@ -60,13 +60,13 @@ static char	***ft_generate_map(char *inline_map)
 		return (ft_print_error("Cannot allocate memmory"));
 	map = (char ***)malloc((ft_get_line_size(map_strs) + 1) * sizeof(char **));
 	if (map == NULL)
-		return (ft_do_malloc_strs_error_routine(map_strs, NULL));
+		return (ft_do_malloc_strs_error_routine((void **)map_strs, NULL));
 	i = 0;
 	while (map_strs[i] != NULL)
 	{
 		map[i] = ft_split(map_strs[i], ' ');
 		if (map[i] == NULL)
-			return (ft_do_malloc_strs_error_routine(map_strs, map));
+			return (ft_do_malloc_strs_error_routine((void **)map_strs, (void ***)map));
 		i++;
 	}
 	map[i] = NULL;
@@ -123,8 +123,8 @@ t_map	**ft_read_map_tmp(char *path, t_vars *vars)
 	colmun_size = ft_get_map_column_count(char_map);
 	map = ft_create_map(row_size, colmun_size);
 	ft_set_map(map, char_map);
+	free_tristrs(char_map);
 	vars->map_row_size = row_size;
 	vars->map_colmun_size = colmun_size;
-	free_tristrs(char_map);
 	return (map);
 }
