@@ -12,59 +12,43 @@ t_2dcord	*ft_set_cord(int x0, int y0, int x1, int y1)
 	return (cord);
 }
 
-void	ft_set_z_color_helper1(t_2dcord *cord, t_vars *vars, int y, int x)
-{
-	char	*color;
-
-	color = "";
-	cord->z1 = ft_strtoll(vars->map[y][x], &color, 10);
-	if (color[0] == ',')
-		vars->color1 = ft_strtoll(++color, NULL, 16);
-	else
-		vars->color1 = 0xFFFFFF;
-}
-
-void	ft_set_z_color_helper0(t_2dcord *cord, t_vars *vars, int y, int x)
-{
-	char	*color;
-
-	color = "";
-	cord->z0 = ft_strtoll(vars->map[y][x], &color, 10);
-	if (color[0] == ',')
-		vars->color0 = ft_strtoll(++color, NULL, 16);
-	else
-		vars->color0 = 0xFFFFFF;
-}
-
 void	ft_display_map_helper(t_data *img, t_vars *vars)
 {
 	int			y;
 	int			x;
-	t_2dcord	*cord;
+	t_2dcord	cord;
 
 	y = 0;
-	while (vars->map[y] != NULL)
+	while (y < vars->map_row_size)
 	{
 		x = 0;
 		while (true)
 		{
-			if (vars->map[y][x + 1] != NULL)
+			if (x + 1 < vars->map_colmun_size)
 			{
-				cord = ft_set_cord(x, y, x + 1, y);
-				ft_set_z_color_helper0(cord, vars, y, x);
-				ft_set_z_color_helper1(cord, vars, y, x + 1);
-				ft_draw_line(img, cord, vars);
-				free(cord);
+				cord.x0 = vars->map_tmp[y][x].x;
+				cord.y0 = vars->map_tmp[y][x].y;
+				cord.z0 = vars->map_tmp[y][x].z;
+				vars->color0 = vars->map_tmp[y][x].color;
+				cord.x1 = vars->map_tmp[y][x + 1].x;
+				cord.y1 = vars->map_tmp[y][x + 1].y;
+				cord.z1 = vars->map_tmp[y][x + 1].z;
+				vars->color1 = vars->map_tmp[y][x + 1].color;
+				ft_draw_line(img, &cord, vars);
 			}
-			if (vars->map[y + 1] != NULL)
+			if (y + 1 < vars->map_row_size)
 			{
-				cord = ft_set_cord(x, y, x, y + 1);
-				ft_set_z_color_helper0(cord, vars, y, x);
-				ft_set_z_color_helper1(cord, vars, y + 1, x);
-				ft_draw_line(img, cord, vars);
-				free(cord);
+				cord.x0 = vars->map_tmp[y][x].x;
+				cord.y0 = vars->map_tmp[y][x].y;
+				cord.z0 = vars->map_tmp[y][x].z;
+				vars->color0 = vars->map_tmp[y][x].color;
+				cord.x1 = vars->map_tmp[y + 1][x].x;
+				cord.y1 = vars->map_tmp[y + 1][x].y;
+				cord.z1 = vars->map_tmp[y + 1][x].z;
+				vars->color1 = vars->map_tmp[y + 1][x].color;
+				ft_draw_line(img, &cord, vars);
 			}
-			if (vars->map[y][x + 1] == NULL)
+			if (x + 1 == vars->map_colmun_size)
 				break ;
 			x++;
 		}

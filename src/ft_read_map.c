@@ -108,3 +108,19 @@ char	***ft_read_map(char *path)
 	free(inline_map);
 	return (map);
 }
+
+t_map	**ft_read_map_tmp(char *path, t_vars *vars)
+{
+	char	***char_map;
+	t_map	**map;
+
+	char_map = ft_read_map(path);
+	if (char_map == NULL)
+		return (NULL);
+	map = ft_create_map(ft_get_map_raw_count(char_map), ft_get_map_column_count(char_map));
+	ft_set_map(map, char_map);
+	vars->map_row_size = ft_get_map_raw_count(char_map);
+	vars->map_colmun_size = ft_get_map_column_count(char_map);
+	free_tristrs(char_map);
+	return (map);
+}

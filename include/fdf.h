@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/04 13:07:31 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/04 18:51:20 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,23 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
+typedef struct s_map
+{
+	double	x;
+	double	y;
+	double	z;
+	int		color;
+}	t_map;
+
 typedef struct s_vars
 {
 	void	*mlx;
 	void	*win;
 	t_data	img;
 	char	***map;
+	t_map	**map_tmp;
+	int		map_row_size;
+	int		map_colmun_size;
 	double	**matrix;
 	int		mesh_len;
 	int		shift_x;
@@ -75,13 +86,16 @@ typedef struct s_2dcord
 	double	z1;
 }	t_2dcord;
 
-typedef struct s_map
-{
-	double	x;
-	double	y;
-	double	z;
-	int		color;
-}	t_map;
+// map_utils.c
+int	ft_get_map_column_count(char ***map);
+int	ft_get_map_raw_count(char ***map);
+void	ft_set_map(t_map **map_tmp, char ***map);
+
+// create_map.c
+t_map	**ft_create_map(size_t row_size, size_t column_size);
+
+// ft_read_map.c
+t_map	**ft_read_map_tmp(char *path, t_vars *vars);
 
 // arg_utils.c
 bool	is_invalid_file_extension(char *path, char *extension);

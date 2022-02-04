@@ -32,7 +32,9 @@ int	ft_key_hook(int key, t_vars *vars)
 {
 	if (key == ESCAPE)
 	{
+		// system("leaks fdf");
 		mlx_destroy_image(vars->mlx, vars->img.img);
+		// system("leaks fdf");
 		mlx_loop_end(vars->mlx);
 	}
 	if (is_shift_key(key))
