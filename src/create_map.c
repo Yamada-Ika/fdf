@@ -15,7 +15,7 @@ t_map	**ft_create_map(size_t row_size, size_t column_size)
 	return (map);
 }
 
-void	_set_height_and_color(double *z, int *color, char *val)
+void	_set_z_and_color(double *z, int *color, char *val)
 {
 	char	*color_str;
 
@@ -27,27 +27,28 @@ void	_set_height_and_color(double *z, int *color, char *val)
 		*color = 0xFFFFFF;
 }
 
-void	ft_set_map(t_map **map_tmp, char ***map)
+void	ft_set_map(t_map **map, char ***map_str)
 {
-	int			y;
-	int			x;
+	int	y;
+	int	x;
 
 	y = 0;
-	while (map[y] != NULL)
+	while (map_str[y] != NULL)
 	{
 		x = 0;
-		while (map[y][x] != NULL)
+		while (map_str[y][x] != NULL)
 		{
-			map_tmp[y][x].x = (double)x;
-			map_tmp[y][x].y = (double)y;
-			_set_height_and_color(&(map_tmp[y][x].z), &(map_tmp[y][x].color), map[y][x]);
+			map[y][x].x = (double)x;
+			map[y][x].y = (double)y;
+			_set_z_and_color(&(map[y][x].z), &(map[y][x].color), map_str[y][x]);
 			x++;
 		}
 		y++;
 	}
 }
 
-// // gcc create_map.c -I../include -I../minilibx-linux -I../libft -L../libft -lft
+// // gcc create_map.c -I../include 
+// // -I../minilibx-linux -I../libft -L../libft -lft
 // #include <assert.h>
 
 // bool	is_almost_same(double res, double exp)

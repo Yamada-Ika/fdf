@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 15:42:53 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/03 01:32:03 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/04 19:14:46 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_get_map_column_count(char ***map)
 	return (count);
 }
 
-int	ft_get_map_raw_count(char ***map)
+int	ft_get_map_row_count(char ***map)
 {
 	int	count;
 

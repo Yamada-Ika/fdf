@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/04 18:51:20 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/04 19:16:17 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_vars
 	void	*mlx;
 	void	*win;
 	t_data	img;
-	char	***map;
 	t_map	**map_tmp;
 	int		map_row_size;
 	int		map_colmun_size;
@@ -87,8 +86,8 @@ typedef struct s_2dcord
 }	t_2dcord;
 
 // map_utils.c
-int	ft_get_map_column_count(char ***map);
-int	ft_get_map_raw_count(char ***map);
+int		ft_get_map_column_count(char ***map);
+int		ft_get_map_row_count(char ***map);
 void	ft_set_map(t_map **map_tmp, char ***map);
 
 // create_map.c
@@ -130,7 +129,6 @@ bool	is_switch_projection_key(int keycode);
 bool	is_valid_key(int keycode);
 bool	is_zoom_up(int button, double zoom_rate);
 bool	is_zoom_down(int button, double zoom_rate);
-
 
 // cord_trans.c
 void	ft_trans_cord(t_2dcord *cord, t_vars *vars);
