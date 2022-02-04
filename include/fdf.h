@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/04 00:52:52 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/04 13:07:31 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,14 @@ typedef struct s_2dcord
 	double	y1;
 	double	z1;
 }	t_2dcord;
+
+typedef struct s_map
+{
+	double	x;
+	double	y;
+	double	z;
+	int		color;
+}	t_map;
 
 // arg_utils.c
 bool	is_invalid_file_extension(char *path, char *extension);
