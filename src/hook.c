@@ -42,6 +42,7 @@ int	ft_key_hook(int key, t_vars *vars)
 	if (is_valid_key(key))
 	{
 		mlx_destroy_image(vars->mlx, vars->img.img);
+		mlx_clear_window(vars->mlx, vars->win);
 		ft_display_map(vars);
 	}
 	return (0);
@@ -58,6 +59,7 @@ int	ft_mouse_hook(int button, int x, int y, t_vars *vars)
 		|| (button == SCROLL_DOWN && vars->zoom_rate > 0.0))
 	{
 		mlx_destroy_image(vars->mlx, vars->img.img);
+		mlx_clear_window(vars->mlx, vars->win);
 		ft_display_map(vars);
 	}
 	return (0);
