@@ -20,4 +20,6 @@ bool	is_invalid_args(int argc, char *argv[])
 		return (true);
 	if (is_invalid_file_extension(argv[1], "fdf"))
 		return (true);
+	else
+		return (false);
 }
