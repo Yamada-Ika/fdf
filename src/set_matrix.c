@@ -31,10 +31,6 @@ void	set_unit_matrix(double **matrix)
 // |1 |   |0 0 0  1||1|
 void	set_trans_matrix(double **matrix, double tx, double ty, double tz)
 {
-	ft_bzero(matrix[0], 4);
-	ft_bzero(matrix[1], 4);
-	ft_bzero(matrix[2], 4);
-	ft_bzero(matrix[3], 4);
 	matrix[0][0] = 1.0;
 	matrix[1][1] = 1.0;
 	matrix[2][2] = 1.0;
@@ -50,10 +46,6 @@ void	set_trans_matrix(double **matrix, double tx, double ty, double tz)
 // |0 |   |0  0  0 1||1|
 void	set_zoom_matrix(double **matrix, double zoom_rate)
 {
-	ft_bzero(matrix[0], 4);
-	ft_bzero(matrix[1], 4);
-	ft_bzero(matrix[2], 4);
-	ft_bzero(matrix[3], 4);
 	matrix[0][0] = zoom_rate;
 	matrix[1][1] = zoom_rate;
 	matrix[2][2] = zoom_rate;
@@ -66,10 +58,6 @@ void	set_zoom_matrix(double **matrix, double zoom_rate)
 // |0 |   |0         0         0  1||1|
 void	set_rotate_x_matrix(double **matrix, double roll)
 {
-	ft_bzero(matrix[0], 4);
-	ft_bzero(matrix[1], 4);
-	ft_bzero(matrix[2], 4);
-	ft_bzero(matrix[3], 4);
 	matrix[1][1] = cos(roll);
 	matrix[1][2] = -sin(roll);
 	matrix[2][1] = sin(roll);
@@ -83,10 +71,6 @@ void	set_rotate_x_matrix(double **matrix, double roll)
 // |0 |   |          0 0          0 1||1|
 void	set_rotate_y_matrix(double **matrix, double pitch)
 {
-	ft_bzero(matrix[0], 4);
-	ft_bzero(matrix[1], 4);
-	ft_bzero(matrix[2], 4);
-	ft_bzero(matrix[3], 4);
 	matrix[0][0] = cos(pitch);
 	matrix[0][2] = sin(pitch);
 	matrix[2][0] = -sin(pitch);
@@ -100,10 +84,6 @@ void	set_rotate_y_matrix(double **matrix, double pitch)
 // |0 |   |       0         0 0 1||1|
 void	set_rotate_z_matrix(double **matrix, double yaw)
 {
-	ft_bzero(matrix[0], 4);
-	ft_bzero(matrix[1], 4);
-	ft_bzero(matrix[2], 4);
-	ft_bzero(matrix[3], 4);
 	matrix[0][0] = cos(yaw);
 	matrix[0][1] = -sin(yaw);
 	matrix[1][0] = sin(yaw);
