@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-bool	is_invalid_file_extension(char *path, char *extension)
+static bool	is_invalid_file_extension(char *path, char *extension)
 {
 	char	*dot_at;
 
