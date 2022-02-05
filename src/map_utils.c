@@ -6,79 +6,38 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 15:42:53 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/04 19:14:46 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/05 23:05:08 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "stddef.h"
 
-int	ft_get_line_size(char **s)
+size_t	ft_get_line_size(char **s)
 {
-	int	i;
+	size_t	size;
 
-	i = 0;
-	while (s[i] != NULL)
-		i++;
-	return (i);
+	size = 0;
+	while (s[size] != NULL)
+		size++;
+	return (size);
 }
 
-void	ft_display_char_map(char ***map)
+size_t	get_map_column_size(char ***map)
 {
-	int	i;
-	int	j;
+	size_t	size;
 
-	i = 0;
-	while (map[i] != NULL)
-	{
-		j = 0;
-		while (map[i][j] != NULL)
-		{
-			ft_putstr(map[i][j]);
-			j++;
-		}
-		ft_putchar('\n');
-		i++;
-	}
+	size = 0;
+	while (map[0][size] != NULL)
+		size++;
+	return (size);
 }
 
-int	ft_get_map_column_count(char ***map)
+size_t	get_map_row_size(char ***map)
 {
-	int	count;
+	size_t	size;
 
-	count = 0;
-	while (map[0][count] != NULL)
-		count++;
-	return (count);
-}
-
-int	ft_get_map_row_count(char ***map)
-{
-	int	count;
-
-	count = 0;
-	while (map[count] != NULL)
-		count++;
-	return (count);
-}
-
-int	ft_get_map_z_max(char ***map)
-{
-	int	i;
-	int	j;
-	int	z_max;
-
-	i = 0;
-	z_max = INT_MIN;
-	while (map[i] != NULL)
-	{
-		j = 0;
-		while (map[i][j] != NULL)
-		{
-			if (z_max < ft_strtoll(map[i][j], NULL, 10))
-				z_max = ft_strtoll(map[i][j], NULL, 10);
-			j++;
-		}
-		i++;
-	}
-	return (z_max);
+	size = 0;
+	while (map[size] != NULL)
+		size++;
+	return (size);
 }
