@@ -9,6 +9,9 @@ void	ft_draw_line(t_data *img, t_2dcord *cord, t_vars *vars)
 {
 	double	delta_x;
 	double	delta_y;
+	double	x;
+	double	y;
+	int		color;
 	int		step;
 	double	step_max;
 	int		color_gradation;
@@ -20,13 +23,16 @@ void	ft_draw_line(t_data *img, t_2dcord *cord, t_vars *vars)
 	delta_x /= step_max;
 	delta_y /= step_max;
 	color_gradation = get_color_gradation(vars->color0, vars->color1, step_max);
+	x = cord->x0;
+	y = cord->y0;
+	color = vars->color0;
 	step = 0;
 	while (step < step_max)
 	{
-		cord->x0 += delta_x;
-		cord->y0 += delta_y;
-		my_mlx_pixel_put(img, cord->x0, cord->y0, vars->color0);
-		vars->color0 += color_gradation;
+		x += delta_x;
+		y += delta_y;
+		my_mlx_pixel_put(img, x, y, color);
+		color += color_gradation;
 		step++;
 	}
 }

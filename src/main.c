@@ -1,13 +1,13 @@
 #include "fdf.h"
 
-__attribute__((destructor))
-void	check_leak(void)
-{
-	char	cmd[50];
+// __attribute__((destructor))
+// void	check_leak(void)
+// {
+// 	char	cmd[50];
 
-	sprintf(cmd, "leaks %d", getpid());
-	system(cmd);
-}
+// 	sprintf(cmd, "leaks %d", getpid());
+// 	system(cmd);
+// }
 
 int	main(int argc, char *argv[])
 {
@@ -15,7 +15,7 @@ int	main(int argc, char *argv[])
 
 	if (is_invalid_args(argc, argv))
 		return (1);
-	vars.map_tmp = ft_read_map_tmp(argv[1], &vars);
+	ft_read_map_tmp(argv[1], &vars);
 	if (vars.map_tmp == NULL)
 		return (1);
 	vars.mlx = mlx_init();

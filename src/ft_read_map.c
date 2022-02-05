@@ -109,22 +109,24 @@ char	***ft_read_map(char *path)
 	return (map);
 }
 
-t_map	**ft_read_map_tmp(char *path, t_vars *vars)
+void	ft_read_map_tmp(char *path, t_vars *vars)
 {
 	char	***char_map;
-	t_map	**map;
 	size_t	row_size;
 	size_t	colmun_size;
 
 	char_map = ft_read_map(path);
 	if (char_map == NULL)
-		return (NULL);
+	{
+		vars->map_tmp = NULL;
+		return ;
+	}
 	row_size = ft_get_map_row_count(char_map);
 	colmun_size = ft_get_map_column_count(char_map);
-	map = ft_create_map(row_size, colmun_size);
-	ft_set_map(map, char_map);
+	vars->map_tmp = ft_create_map(row_size, colmun_size);
+	vars->map_tmp_tmp = ft_create_map(row_size, colmun_size);
+	ft_set_map(vars->map_tmp, char_map);
 	free_tristrs(char_map);
 	vars->map_row_size = row_size;
 	vars->map_colmun_size = colmun_size;
-	return (map);
 }
