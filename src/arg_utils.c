@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-static bool	is_invalid_file_extension(char *path, char *extension)
+static bool	_is_invalid_file_extension(char *path, char *extension)
 {
 	char	*dot_at;
 
@@ -18,7 +18,7 @@ bool	is_invalid_args(int argc, char *argv[])
 {
 	if (argc != 2)
 		return (true);
-	if (is_invalid_file_extension(argv[1], "fdf"))
+	if (_is_invalid_file_extension(argv[1], "fdf"))
 		return (true);
 	else
 		return (false);
