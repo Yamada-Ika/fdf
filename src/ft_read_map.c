@@ -13,9 +13,6 @@
 #include "libft.h"
 #include "get_next_line.h"
 
-// map size
-#include "map_utils.h"
-
 // for open
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -96,7 +93,7 @@ static char	*ft_read_fdf(char *path)
 	return (inline_map);
 }
 
-char	***ft_read_map(char *path)
+static char	***_read_map(char *path)
 {
 	char	*inline_map;
 	char	***map;
@@ -109,24 +106,24 @@ char	***ft_read_map(char *path)
 	return (map);
 }
 
-void	ft_read_map_tmp(char *path, t_vars *vars)
+void	ft_read_map(char *path, t_vars *vars)
 {
 	char	***char_map;
 	size_t	row_size;
-	size_t	colmun_size;
+	size_t	column_size;
 
-	char_map = ft_read_map(path);
+	char_map = _read_map(path);
 	if (char_map == NULL)
 	{
-		vars->map_tmp = NULL;
+		vars->map = NULL;
 		return ;
 	}
-	row_size = ft_get_map_row_count(char_map);
-	colmun_size = ft_get_map_column_count(char_map);
-	vars->map_tmp = ft_create_map(row_size, colmun_size);
-	vars->map_tmp_tmp = ft_create_map(row_size, colmun_size);
-	ft_set_map(vars->map_tmp, char_map);
-	free_tristrs(char_map);
+	row_size = get_map_row_size(char_map);
+	column_size = get_map_column_size(char_map);
+	vars->map = ft_create_map(row_size, column_size);
+	vars->map_tmp = ft_create_map(row_size, column_size);
+	ft_init_map(vars->map, char_map);
+	free_char_map(char_map);
 	vars->map_row_size = row_size;
-	vars->map_colmun_size = colmun_size;
+	vars->map_column_size = column_size;
 }

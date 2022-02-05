@@ -10,14 +10,15 @@ LIBFT_A		:= $(addprefix $(LIBFT_DIR)/, $(LIBFT_A))
 # fdf
 NAME		:= fdf
 SRCS		:= \
-affine_matrix.c       error.c               init_struct.c\
-arg_utils.c           free_utils.c          main.c\
-check_leak.c          ft_read_map.c         map_utils.c\
-cord_trans.c          ft_set_projection.c   math_utils.c\
+affine_matrix.c       ft_read_map.c         is_invalid_args.c\
+check_leak.c          ft_set_projection.c   main.c\
+cord_trans.c          get_map_size.c        math_utils.c\
 create_map.c          get_next_line.c       new_matrix.c\
 debug_utils.c         get_next_line_utils.c product_matrix.c\
 display_map.c         hook.c                put_pixel.c\
-draw_line.c           hook_utils1.c         set_matrix.c
+draw_line.c           hook_utils1.c         set_matrix.c\
+error.c               init_map.c\
+free_utils.c          init_struct.c
 OBJS		:= $(SRCS:%.c=%.o)
 SRCS		:= $(addprefix src/, $(SRC))
 OBJS		:= $(addprefix obj/, $(OBJS))

@@ -15,38 +15,6 @@ t_map	**ft_create_map(size_t row_size, size_t column_size)
 	return (map);
 }
 
-void	_set_z_and_color(double *z, int *color, char *val)
-{
-	char	*color_str;
-
-	color_str = "";
-	*z = (double)ft_strtoll(val, &color_str, 10);
-	if (color_str[0] == ',')
-		*color = ft_strtoll(++color_str, NULL, 16);
-	else
-		*color = 0xFFFFFF;
-}
-
-void	ft_set_map(t_map **map, char ***map_str)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (map_str[y] != NULL)
-	{
-		x = 0;
-		while (map_str[y][x] != NULL)
-		{
-			map[y][x].x = (double)x;
-			map[y][x].y = (double)y;
-			_set_z_and_color(&(map[y][x].z), &(map[y][x].color), map_str[y][x]);
-			x++;
-		}
-		y++;
-	}
-}
-
 // // gcc create_map.c -I../include 
 // // -I../minilibx-linux -I../libft -L../libft -lft
 // #include <assert.h>
@@ -92,7 +60,7 @@ void	ft_set_map(t_map **map, char ***map_str)
 // 	char_map1[2][3] = NULL;
 // 	char_map1[3] = NULL;
 // 	map1 = ft_create_map(3, 3);
-// 	ft_set_map(map1, char_map1);
+// 	ft_init_map(map1, char_map1);
 // 	assert(is_almost_same(map1[0][0].x, 0.0));
 // 	assert(is_almost_same(map1[0][0].y, 0.0));
 // 	assert(is_almost_same(map1[0][0].z, 0.0));

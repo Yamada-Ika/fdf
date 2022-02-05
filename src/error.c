@@ -21,6 +21,6 @@ void	*ft_do_malloc_error_routine(void *p1, void *p2, void *p3, void *p4)
 void	*ft_do_malloc_strs_error_routine(void **p1, void ***p2)
 {
 	free_strs((char **)p1);
-	free_tristrs((char ***)p2);
+	free_char_map((char ***)p2);
 	return (ft_print_error("Cannot allocate memmory"));
 }

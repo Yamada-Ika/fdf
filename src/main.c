@@ -15,8 +15,8 @@ int	main(int argc, char *argv[])
 
 	if (is_invalid_args(argc, argv))
 		return (1);
-	ft_read_map_tmp(argv[1], &vars);
-	if (vars.map_tmp == NULL)
+	ft_read_map(argv[1], &vars);
+	if (vars.map == NULL)
 		return (1);
 	vars.mlx = mlx_init();
 	if (vars.mlx == NULL)

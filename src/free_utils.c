@@ -8,19 +8,19 @@ void	all_free(void *p1, void *p2, void *p3, void *p4)
 	free(p4);
 }
 
-void	free_tristrs(char ***strs)
+void	free_char_map(char ***map)
 {
 	size_t	i;
 
-	if (strs == NULL)
+	if (map == NULL)
 		return ;
 	i = 0;
-	while (strs[i] != NULL)
+	while (map[i] != NULL)
 	{
-		free_strs(strs[i]);
+		free_strs(map[i]);
 		i++;
 	}
-	free(strs);
+	free(map);
 }
 
 void	free_strs(char **strs)

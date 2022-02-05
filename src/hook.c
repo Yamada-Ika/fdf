@@ -51,19 +51,12 @@ int	ft_key_hook(int key, t_vars *vars)
 		ft_incre_or_decre_shift_var(key, &(vars->shift_x), &(vars->shift_y));
 	if (is_switch_projection_key(key))
 		ft_switch_projection(key, vars);
-	// fprintf(stderr, "keycode %x\n", key);
 	if (key == X)
-	{
 		vars->roll = 0.523599;
-	}
 	if (key == Y)
-	{
 		vars->pitch = 0.523599;
-	}
 	if (key == Z)
-	{
 		vars->yaw = 0.523599;
-	}
 	if (is_valid_key(key) || key == Z || key == X || key == Y)
 	{
 		mlx_destroy_image(vars->mlx, vars->img.img);

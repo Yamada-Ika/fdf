@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/05 22:36:23 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/05 23:17:11 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ typedef struct s_vars
 	void	*mlx;
 	void	*win;
 	t_data	img;
+	t_map	**map;
 	t_map	**map_tmp;
-	t_map	**map_tmp_tmp;
 	int		map_row_size;
-	int		map_colmun_size;
+	int		map_column_size;
 	double	**affine_matrix;
 	double	**shift_matrix;
 	double	**zoom_matrix;
@@ -79,7 +79,6 @@ typedef struct s_vars
 	double	**rotate_z_matrix;
 	double	**to_map_origin_for_rotate_matrix;
 	double	**tmp_for_product;
-	int		mesh_len;
 	int		shift_x;
 	int		shift_y;
 	double	zoom_rate;
@@ -105,20 +104,24 @@ typedef struct s_2dcord
 }	t_2dcord;
 
 // map_utils.c
-int		ft_get_map_column_count(char ***map);
-int		ft_get_map_row_count(char ***map);
-void	ft_set_map(t_map **map_tmp, char ***map);
+
+// ----------------------- map utils -----------------------
+size_t	ft_get_line_size(char **s);
+size_t	get_map_column_size(char ***map);
+size_t	get_map_row_size(char ***map);
+// ----------------------- map utils -----------------------
+
+
+void	ft_init_map(t_map **map, char ***str_map);
 
 // create_map.c
 t_map	**ft_create_map(size_t row_size, size_t column_size);
 
 // ft_read_map.c
-void	ft_read_map_tmp(char *path, t_vars *vars);
+void	ft_read_map(char *path, t_vars *vars);
 
 // arg_utils.c
-bool	is_invalid_file_extension(char *path, char *extension);
 bool	is_invalid_args(int argc, char *argv[]);
-
 
 // ----------------------- matrix -----------------------
 void	ft_new_matrix(t_vars *vars);
@@ -135,7 +138,7 @@ void	set_rotate_z_matrix(double **matrix, double yaw);
 // free_utils.c
 void	all_free(void *p1, void *p2, void *p3, void *p4);
 void	free_strs(char **strs);
-void	free_tristrs(char ***strs);
+void	free_char_map(char ***map);
 
 // error.c
 void	*ft_print_error(char *message);
@@ -169,7 +172,6 @@ double	ft_max(double n1, double n2);
 double	ft_abs(double n);
 
 void	ft_display_map(t_vars *vars);
-char	***ft_read_map(char *path);
 
 // ft_set_projection.c
 void	ft_set_isometric(t_vars *vars);
