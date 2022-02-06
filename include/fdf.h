@@ -148,7 +148,7 @@ bool	is_rotation_key(int key);
 double	deg_to_radian(int deg);
 
 // draw_line.c
-void	ft_draw_line(t_image_info *img, t_point *map0, t_point *map1, double **matrix);
+void	draw_line(t_image_info *img, t_point *map0, t_point *map1, double **matrix);
 
 // cord_trans.c
 void	ft_trans_cord(t_point *map0, t_point *map1, double **matrix);
