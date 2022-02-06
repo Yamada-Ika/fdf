@@ -15,7 +15,7 @@ static void	_set_image_info(t_image_info *img, t_map_info *map)
 			&img->bits_per_pixel, &img->line_len, &img->endian);
 }
 
-void	ft_display_map(t_map_info *map)
+void	display_map(t_map_info *map)
 {
 	t_image_info	img;
 

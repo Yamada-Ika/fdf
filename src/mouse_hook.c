@@ -29,7 +29,7 @@ int	ft_mouse_hook(int button, int x, int y, t_map_info *map)
 		mlx_clear_window(map->mlx, map->win);
 		map->mouse_x = (double)x;
 		map->mouse_y = (double)y;
-		ft_display_map(map);
+		display_map(map);
 		ft_init_mouse_point_and_zoom_rate(map);
 	}
 	return (0);

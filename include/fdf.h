@@ -157,7 +157,7 @@ void	ft_trans_cord(t_point *map0, t_point *map1, double **matrix);
 double	ft_max(double n1, double n2);
 double	ft_abs(double n);
 
-void	ft_display_map(t_map_info *vars);
+void	display_map(t_map_info *vars);
 void	ft_put_map_to_image(t_image_info *img, t_map_info *map);
 
 // ft_set_projection.c

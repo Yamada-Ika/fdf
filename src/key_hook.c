@@ -70,6 +70,7 @@ int	ft_key_hook(int key, t_map_info *map)
 	if (key == ESCAPE)
 	{
 		mlx_destroy_image(map->mlx, map->img.img);
+		mlx_destroy_window(map->mlx, map->win);
 		mlx_loop_end(map->mlx);
 	}
 	if (is_shift_key(key))
@@ -82,9 +83,10 @@ int	ft_key_hook(int key, t_map_info *map)
 	{
 		mlx_destroy_image(map->mlx, map->img.img);
 		mlx_clear_window(map->mlx, map->win);
-		ft_display_map(map);
+		display_map(map);
 		ft_init_shift_and_angle(map);
+		map->mouse_x = 0.0;
+		map->mouse_y = 0.0;
 	}
-	fprintf(stderr, "%x\n", key);
 	return (0);
 }

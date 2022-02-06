@@ -24,9 +24,9 @@ int	main(int argc, char *argv[])
 	ft_init_map_info(&map);
 	map.win = mlx_new_window(map.mlx, WIDTH, HEIGHT, "fdf");
 	ft_install_hook(&map);
-	ft_display_map(&map);
+	display_map(&map);
 	mlx_loop(map.mlx);
-	mlx_destroy_window(map.mlx, map.win);
 	mlx_destroy_display(map.mlx);
+	free(map.mlx);
 	return (0);
 }
