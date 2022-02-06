@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/06 11:05:35 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/06 11:16:52 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,10 +164,10 @@ bool	is_zoom_down(int button, double zoom_rate);
 
 
 // draw_line.c
-void	ft_draw_line(t_data *img, t_map *map0, t_map *map1, t_vars *vars);
+void	ft_draw_line(t_data *img, t_map *map0, t_map *map1, double **matrix);
 
 // cord_trans.c
-void	ft_trans_cord(t_map *map0, t_map *map1, t_vars *vars);
+void	ft_trans_cord(t_map *map0, t_map *map1, double **matrix);
 
 // math_utils.c
 double	ft_max(double n1, double n2);

@@ -43,7 +43,7 @@ void	ft_display_map_helper(t_data *img, t_vars *vars)
 				map1.y = vars->map[y][x + 1].y;
 				map1.z = vars->map[y][x + 1].z;
 				map1.color = vars->map[y][x + 1].color;
-				ft_draw_line(img, &map0, &map1, vars);
+				ft_draw_line(img, &map0, &map1, vars->affine_matrix);
 				vars->map_tmp[y][x].x = map0.x;
 				vars->map_tmp[y][x].y = map0.y;
 				vars->map_tmp[y][x].z = map0.z;
@@ -63,7 +63,7 @@ void	ft_display_map_helper(t_data *img, t_vars *vars)
 				map1.y = vars->map[y + 1][x].y;
 				map1.z = vars->map[y + 1][x].z;
 				map1.color = vars->map[y + 1][x].color;
-				ft_draw_line(img, &map0, &map1, vars);
+				ft_draw_line(img, &map0, &map1, vars->affine_matrix);
 				vars->map_tmp[y][x].x = map0.x;
 				vars->map_tmp[y][x].y = map0.y;
 				vars->map_tmp[y][x].z = map0.z;
@@ -80,6 +80,7 @@ void	ft_display_map_helper(t_data *img, t_vars *vars)
 		y++;
 	}
 	_update_map(vars->map, vars->map_tmp, vars->map_row_size, vars->map_column_size);
+	// debug_map(vars->map, vars->map_row_size, vars->map_column_size);
 }
 
 void	ft_display_map(t_vars *vars)
