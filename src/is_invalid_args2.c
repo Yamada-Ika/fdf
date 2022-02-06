@@ -14,7 +14,8 @@ static bool	is_invalid_color(char **content)
 		while (comma_at != NULL)
 		{
 			color_val = ft_strtoll(++comma_at, &end, 16);
-			if (color_val < 0 || 0xFFFFFF < color_val || (*end != ' ' && *end != '\0'))
+			if (color_val < 0 || 0xFFFFFF < color_val
+				|| (*end != ' ' && *end != '\0'))
 				return (true);
 			comma_at = ft_strchr(comma_at, ',');
 		}
@@ -49,12 +50,27 @@ static bool	is_rectangle_map(char **content)
 	return (true);
 }
 
+static bool	_is_invalid_char_in_strs_elem(char **strs)
+{
+	char	*end;
+	size_t	i;
+
+	i = 0;
+	while (strs[i] != NULL)
+	{
+		ft_strtoll(strs[i], &end, 10);
+		if (*end != '\0')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 static bool	is_invalid_height(char **content)
 {
 	char	**strs;
 	char	*end;
 	size_t	i;
-	size_t	j;
 
 	i = 0;
 	while (content[i] != NULL)
@@ -65,21 +81,15 @@ static bool	is_invalid_height(char **content)
 			ft_print_error("Cannot allocate memmory");
 			return (true);
 		}
-		j = 0;
-		while (strs[j] != NULL)
+		if (_is_invalid_char_in_strs_elem(strs))
 		{
-			ft_strtoll(strs[j], &end, 10);
-			if (*end != '\0')
-			{
-				free_strs(strs);
-				return (true);
-			}
-			j++;
+			free_strs(strs);
+			return (true);
 		}
 		free_strs(strs);
 		i++;
 	}
-	return (true);
+	return (false);
 }
 
 bool	is_invalid_file_content(char *file_path)
@@ -92,21 +102,21 @@ bool	is_invalid_file_content(char *file_path)
 	if (content == NULL)
 		return (true);
 	content_strs = ft_split(content, '\n');
+	free(content);
 	if (content_strs == NULL)
 	{
-		free(content);
 		ft_print_error("Cannot allocate memmory");
 		return (true);
 	}
-	free(content);
-	if (!is_rectangle_map(content_strs))
+	is_invalid = false;
+	if (content_strs[0] == NULL)
 		is_invalid = true;
-	if (is_invalid_height(content_strs))
+	if (!is_invalid && !is_rectangle_map(content_strs))
 		is_invalid = true;
-	if (is_invalid_color(content_strs))
+	if (!is_invalid && is_invalid_height(content_strs))
 		is_invalid = true;
-	else
-		is_invalid = false;
+	if (!is_invalid && is_invalid_color(content_strs))
+		is_invalid = true;
 	free_strs(content_strs);
 	return (is_invalid);
 }
