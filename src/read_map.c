@@ -43,7 +43,7 @@ static char	***ft_generate_map(char *inline_map)
 	map_strs = ft_split(inline_map, '\n');
 	if (map_strs == NULL)
 		return (ft_print_error("Cannot allocate memmory"));
-	map = (char ***)malloc((ft_get_line_size(map_strs) + 1) * sizeof(char **));
+	map = (char ***)malloc((get_map_row_size(map_strs) + 1) * sizeof(char **));
 	if (map == NULL)
 		return (ft_do_malloc_strs_error_routine(map_strs, NULL));
 	i = 0;
@@ -59,7 +59,7 @@ static char	***ft_generate_map(char *inline_map)
 	return (map);
 }
 
-static char	*ft_read_fdf(char *path)
+char	*ft_read_fdf(char *path)
 {
 	int		fd;
 	char	*inline_map;
@@ -81,7 +81,7 @@ static char	*ft_read_fdf(char *path)
 	return (inline_map);
 }
 
-static char	***_read_map(char *path)
+static char	***read_map(char *path)
 {
 	char	*inline_map;
 	char	***map;
@@ -100,7 +100,7 @@ void	ft_read_map(char *path, t_map_info *map)
 	size_t	row_size;
 	size_t	column_size;
 
-	char_map = _read_map(path);
+	char_map = read_map(path);
 	if (char_map == NULL)
 	{
 		map->points = NULL;
