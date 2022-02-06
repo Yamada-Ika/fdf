@@ -1,26 +1,26 @@
 #include "fdf.h"
 
-static void	_incre_or_decre_shift(int key, int *x, int *y)
+static void	_incre_or_decre_shift(int key, double *x, double *y)
 {
 	if (key == RIGHT)
 	{
-		*x = 20;
-		*y = 0;
+		*x = TRANS_STEP;
+		*y = 0.0;
 	}
 	if (key == LEFT)
 	{
-		*x = -20;
-		*y = 0;
+		*x = -TRANS_STEP;
+		*y = 0.0;
 	}
 	if (key == UP)
 	{
-		*x = 0;
-		*y = -20;
+		*x = 0.0;
+		*y = -TRANS_STEP;
 	}
 	if (key == DOWN)
 	{
-		*x = 0;
-		*y = 20;
+		*x = 0.0;
+		*y = TRANS_STEP;
 	}
 }
 
@@ -38,31 +38,31 @@ static void	_set_rotation_angle(int key, t_map_info *map)
 {
 	if (key == X)
 	{
-		map->yaw = deg_to_radian(0);
-		map->roll = deg_to_radian(ROTATION_STEP);
-		map->pitch = deg_to_radian(0);
+		map->yaw = degree_to_radian(0);
+		map->roll = degree_to_radian(ROTATION_STEP);
+		map->pitch = degree_to_radian(0);
 	}
 	if (key == Y)
 	{
-		map->yaw = deg_to_radian(0);
-		map->roll = deg_to_radian(0);
-		map->pitch = deg_to_radian(ROTATION_STEP);
+		map->yaw = degree_to_radian(0);
+		map->roll = degree_to_radian(0);
+		map->pitch = degree_to_radian(ROTATION_STEP);
 	}
 	if (key == Z)
 	{
-		map->yaw = deg_to_radian(ROTATION_STEP);
-		map->roll = deg_to_radian(0);
-		map->pitch = deg_to_radian(0);
+		map->yaw = degree_to_radian(ROTATION_STEP);
+		map->roll = degree_to_radian(0);
+		map->pitch = degree_to_radian(0);
 	}
 }
 
 static void	ft_init_shift_and_angle(t_map_info *map)
 {
-	map->shift_x = 0;
-	map->shift_y = 0;
-	map->yaw = deg_to_radian(0);
-	map->roll = deg_to_radian(0);
-	map->pitch = deg_to_radian(0);
+	map->shift_x = 0.0;
+	map->shift_y = 0.0;
+	map->yaw = degree_to_radian(0);
+	map->roll = degree_to_radian(0);
+	map->pitch = degree_to_radian(0);
 }
 
 int	ft_key_hook(int key, t_map_info *map)
