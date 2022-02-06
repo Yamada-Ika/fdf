@@ -85,16 +85,6 @@ typedef struct s_map_info
 	double			origin_y;
 }	t_map_info;
 
-typedef struct s_2dcord
-{
-	double	x0;
-	double	y0;
-	double	z0;
-	double	x1;
-	double	y1;
-	double	z1;
-}	t_2dcord;
-
 // map_utils.c
 
 // ----------------------- map utils -----------------------
