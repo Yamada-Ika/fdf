@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/06 11:56:49 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/06 16:43:56 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ typedef struct s_vars
 	double	pitch;
 	double	map_origin_x;
 	double	map_origin_y;
-	int		color0;
-	int		color1;
 }	t_vars;
 
 typedef struct s_2dcord
@@ -111,7 +109,6 @@ size_t	ft_get_line_size(char **s);
 size_t	get_map_column_size(char ***map);
 size_t	get_map_row_size(char ***map);
 // ----------------------- map utils -----------------------
-
 
 void	ft_init_map(t_map **map, char ***str_map);
 
@@ -189,5 +186,5 @@ void	debug_xy(double x, double y);
 void	debug_cord(t_2dcord *cord);
 void	_debug_print_vars(t_vars *vars);
 void	debug_map(t_map **map, size_t row_size, size_t col_size);
-
+void	_debug_put_origin(t_data *img, double center_x, double center_y);
 #endif
