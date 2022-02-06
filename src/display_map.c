@@ -2,9 +2,9 @@
 
 static void	_set_map_origin(t_map_info *map)
 {
-	map->origin_x = (map->points[0][map->column_size - 1].x
+	map->origin_x = (map->points[map->row_size - 1][map->column_size - 1].x
 			- map->points[0][0].x) / 2 + map->points[0][0].x;
-	map->origin_y = (map->points[map->row_size - 1][0].y
+	map->origin_y = (map->points[map->row_size - 1][map->column_size - 1].y
 			- map->points[0][0].y) / 2 + map->points[0][0].y;
 }
 
