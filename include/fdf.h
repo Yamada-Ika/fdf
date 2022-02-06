@@ -85,10 +85,13 @@ typedef struct s_map_info
 	double			origin_y;
 }	t_map_info;
 
-// ft_read_map.c
-// char	***read_map(char *path);
+// arg_utils.c
+bool	is_invalid_args(int argc, char *argv[]);
+bool	is_invalid_file_content(char *file_path);
+
+// read_map.c
+bool	can_read_map(char *path, t_map_info *vars);
 char	*ft_read_fdf(char *path);
-void	ft_read_map(char *path, t_map_info *vars);
 
 // map_utils.c
 
@@ -105,9 +108,6 @@ t_point	**ft_create_map(size_t row_size, size_t col_size);
 // utils.c
 size_t	get_strs_elem_size(char **strs);
 
-// arg_utils.c
-bool	is_invalid_args(int argc, char *argv[]);
-bool	is_invalid_file_content(char *file_path);
 
 // ----------------------- matrix -----------------------
 void	ft_new_matrix(t_map_info *map);
@@ -133,10 +133,10 @@ void	*ft_do_malloc_error_routine(char *p1, char *p2, char *p3, char *p4);
 void	*ft_do_malloc_strs_error_routine(char **p1, char ***p2);
 
 // init_struct.c
-void	ft_init_map_info(t_map_info *vars);
+void	init_map_info(t_map_info *vars);
 
 // hook.c
-void	ft_install_hook(t_map_info *vars);
+void	install_hook(t_map_info *vars);
 int		ft_key_hook(int key, t_map_info *vars);
 int		ft_mouse_hook(int button, int x, int y, t_map_info *vars);
 

@@ -82,7 +82,7 @@ char	*ft_read_fdf(char *path)
 	return (inline_map);
 }
 
-static char	***read_map(char *path)
+static char	***_read_map(char *path)
 {
 	char	*inline_map;
 	char	***map;
@@ -95,18 +95,15 @@ static char	***read_map(char *path)
 	return (map);
 }
 
-void	ft_read_map(char *path, t_map_info *map)
+bool	can_read_map(char *path, t_map_info *map)
 {
 	char	***char_map;
 	size_t	row_size;
 	size_t	col_size;
 
-	char_map = read_map(path);
+	char_map = _read_map(path);
 	if (char_map == NULL)
-	{
-		map->points = NULL;
-		return ;
-	}
+		return (false);
 	row_size = get_map_row_size(char_map);
 	col_size = get_map_col_size(char_map);
 	map->points = ft_create_map(row_size, col_size);
@@ -115,4 +112,5 @@ void	ft_read_map(char *path, t_map_info *map)
 	free_char_map(char_map);
 	map->row_size = row_size;
 	map->col_size = col_size;
+	return (true);
 }
