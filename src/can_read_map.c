@@ -106,8 +106,12 @@ bool	can_read_map(char *path, t_map_info *map)
 		return (false);
 	row_size = get_map_row_size(char_map);
 	col_size = get_map_col_size(char_map);
-	map->points = ft_create_map(row_size, col_size);
-	map->for_update = ft_create_map(row_size, col_size);
+	map->points = create_points(row_size, col_size);
+	if (map->points == NULL)
+		return (false);
+	map->for_update = create_points(row_size, col_size);
+	if (map->for_update == NULL)
+		return (false);
 	ft_init_point(map->points, char_map);
 	free_char_map(char_map);
 	map->row_size = row_size;
