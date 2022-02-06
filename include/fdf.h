@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/06 16:43:56 by iyamada          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FDF_H
 # define FDF_H
 
@@ -20,7 +8,7 @@
 
 # define WIDTH 700
 # define HEIGHT 700
-# define OFFSET 10
+# define ROTATION_STEP 15
 
 // mouse
 # define R_CLICK 1
@@ -43,54 +31,59 @@
 
 # include "libft.h"
 
-typedef struct s_data
+typedef struct s_image_info
 {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_len;
 	int		endian;
-}	t_data;
+}	t_image_info;
 
-typedef struct s_map
+typedef struct s_point
 {
-	double	x;
-	double	y;
-	double	z;
-	int		color;
-}	t_map;
+	double			x;
+	double			y;
+	double			z;
+	unsigned int	color;
+}	t_point;
 
-typedef struct s_vars
+typedef struct s_matrix
 {
-	void	*mlx;
-	void	*win;
-	t_data	img;
-	t_map	**map;
-	t_map	**map_tmp;
-	int		map_row_size;
-	int		map_column_size;
-	double	**affine_matrix;
-	double	**shift_matrix;
-	double	**zoom_matrix;
-	double	**to_map_origin_for_zoom_matrix;
-	double	**to_upleftcorner_for_zoom_matrix;
-	double	**to_upleftcorner_for_rotate_matrix;
-	double	**rotate_x_matrix;
-	double	**rotate_y_matrix;
-	double	**rotate_z_matrix;
-	double	**to_map_origin_for_rotate_matrix;
-	double	**tmp_for_product;
-	int		shift_x;
-	int		shift_y;
-	double	zoom_rate;
-	double	mouse_x;
-	double	mouse_y;
-	double	roll;
-	double	yaw;
-	double	pitch;
-	double	map_origin_x;
-	double	map_origin_y;
-}	t_vars;
+	double	**affine;
+	double	**shift;
+	double	**zoom;
+	double	**move_cursor;
+	double	**to_corner_for_zoom;
+	double	**to_corner_for_rotate;
+	double	**rotate_x;
+	double	**rotate_y;
+	double	**rotate_z;
+	double	**move_map_origin;
+	double	**tmp_mtx;
+}	t_matrix;
+
+typedef struct s_map_info
+{
+	void			*mlx;
+	void			*win;
+	t_image_info	img;
+	t_point			**points;
+	t_point			**tmp_for_update;
+	size_t			row_size;
+	size_t			column_size;
+	t_matrix		mtx;
+	int				shift_x;
+	int				shift_y;
+	double			zoom_rate;
+	double			mouse_x;
+	double			mouse_y;
+	double			roll;
+	double			yaw;
+	double			pitch;
+	double			origin_x;
+	double			origin_y;
+}	t_map_info;
 
 typedef struct s_2dcord
 {
@@ -110,23 +103,23 @@ size_t	get_map_column_size(char ***map);
 size_t	get_map_row_size(char ***map);
 // ----------------------- map utils -----------------------
 
-void	ft_init_map(t_map **map, char ***str_map);
+void	ft_init_point(t_point **map, char ***str_map);
 
 // create_map.c
-t_map	**ft_create_map(size_t row_size, size_t column_size);
+t_point	**ft_create_map(size_t row_size, size_t column_size);
 
 // ft_read_map.c
-void	ft_read_map(char *path, t_vars *vars);
+void	ft_read_map(char *path, t_map_info *vars);
 
 // arg_utils.c
 bool	is_invalid_args(int argc, char *argv[]);
 
 // ----------------------- matrix -----------------------
-void	ft_new_matrix(t_vars *vars);
+void	ft_new_matrix(t_map_info *map);
 void	product_matrix(double **matrix1, double **matrix2, double **tmp_matrix);
-void	ft_calc_affine_matrix(t_vars *vars);
+void	ft_calc_affine_matrix(t_map_info *vars);
 void	set_unit_matrix(double **matrix);
-void	set_trans_matrix(double **matrix, double tx, double ty, double tz);
+void	set_trans_matrix(double **matrix, double tx, double ty);
 void	set_zoom_matrix(double **matrix, double zoom_rate);
 void	set_rotate_x_matrix(double **matrix, double roll);
 void	set_rotate_y_matrix(double **matrix, double pitch);
@@ -140,51 +133,44 @@ void	free_char_map(char ***map);
 
 // error.c
 void	*ft_print_error(char *message);
-void	*ft_do_read_error_routine(void *p1, void *p2, void *p3, void *p4);
-void	*ft_do_malloc_error_routine(void *p1, void *p2, void *p3, void *p4);
-void	*ft_do_malloc_strs_error_routine(void **p1, void ***p2);
+void	*ft_do_read_error_routine(char *p1, char *p2, char *p3, char *p4);
+void	*ft_do_malloc_error_routine(char *p1, char *p2, char *p3, char *p4);
+void	*ft_do_malloc_strs_error_routine(char **p1, char ***p2);
 
 // init_struct.c
-void	ft_init_vars(t_vars *vars);
+void	ft_init_map_info(t_map_info *vars);
 
 // hook.c
-void	ft_install_hook(t_vars *vars);
-int		ft_key_hook(int key, t_vars *vars);
-int		ft_mouse_hook(int button, int x, int y, t_vars *vars);
+void	ft_install_hook(t_map_info *vars);
+int		ft_key_hook(int key, t_map_info *vars);
+int		ft_mouse_hook(int button, int x, int y, t_map_info *vars);
 
 // hook_utils1.c
 bool	is_shift_key(int key);
 bool	is_switch_projection_key(int key);
 bool	is_valid_key(int key);
-bool	is_zoom_up(int button, double zoom_rate);
-bool	is_zoom_down(int button, double zoom_rate);
-
+bool	is_rotation_key(int key);
+double	deg_to_radian(int deg);
 
 // draw_line.c
-void	ft_draw_line(t_data *img, t_map *map0, t_map *map1, double **matrix);
+void	ft_draw_line(t_image_info *img, t_point *map0, t_point *map1, double **matrix);
 
 // cord_trans.c
-void	ft_trans_cord(t_map *map0, t_map *map1, double **matrix);
+void	ft_trans_cord(t_point *map0, t_point *map1, double **matrix);
 
 // math_utils.c
 double	ft_max(double n1, double n2);
 double	ft_abs(double n);
 
-void	ft_display_map(t_vars *vars);
+void	ft_display_map(t_map_info *vars);
+void	ft_put_map_to_image(t_image_info *img, t_map_info *map);
 
 // ft_set_projection.c
-void	ft_set_isometric(t_vars *vars);
-void	ft_set_parallel(t_vars *vars);
-void	ft_set_conic(t_vars *vars);
+void	ft_set_isometric(t_map_info *vars);
+void	ft_set_parallel(t_map_info *vars);
+void	ft_set_conic(t_map_info *vars);
 
 // put_pixel.c
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
 
-// debug
-void	_debug_matrix(double **matrix);
-void	debug_xy(double x, double y);
-void	debug_cord(t_2dcord *cord);
-void	_debug_print_vars(t_vars *vars);
-void	debug_map(t_map **map, size_t row_size, size_t col_size);
-void	_debug_put_origin(t_data *img, double center_x, double center_y);
 #endif
