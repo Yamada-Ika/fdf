@@ -17,13 +17,16 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (!can_read_map(argv[1], &map))
 		return (1);
-	if (map.points == NULL)
-		return (1);
 	map.mlx = mlx_init();
 	if (map.mlx == NULL)
 		return (1);
-	init_map_info(&map);
 	map.win = mlx_new_window(map.mlx, WIDTH, HEIGHT, "fdf");
+	if (map.win == NULL)
+	{
+		mlx_destroy_display(map.mlx);
+		return (1);
+	}
+	init_map_info(&map);
 	install_hook(&map);
 	display_map(&map);
 	mlx_loop(map.mlx);
