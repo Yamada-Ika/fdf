@@ -1,29 +1,30 @@
 #include "fdf.h"
 
-bool	is_shift_key(int keycode)
+bool	is_shift_key(int key)
 {
-	return ((keycode == RIGHT || keycode == LEFT
-			|| keycode == UP || keycode == DOWN));
+	return ((key == RIGHT || key == LEFT
+			|| key == UP || key == DOWN));
 }
 
-bool	is_switch_projection_key(int keycode)
+bool	is_switch_projection_key(int key)
 {
-	return ((keycode == I || keycode == P
-			|| keycode == C));
+	return ((key == I || key == P
+			|| key == C));
 }
 
-bool	is_valid_key(int keycode)
+bool	is_valid_key(int key)
 {
-	return (is_shift_key(keycode)
-		|| is_switch_projection_key(keycode));
+	return (is_shift_key(key)
+		|| is_switch_projection_key(key)
+		|| key == X || key == Y || key == Z);
 }
 
 bool	is_zoom_up(int button, double zoom_rate)
 {
-	return (button == SCROLL_UP && zoom_rate < 100);
+	return (button == SCROLL_UP);
 }
 
 bool	is_zoom_down(int button, double zoom_rate)
 {
-	return (button == SCROLL_DOWN && zoom_rate > 0.1);
+	return (button == SCROLL_DOWN);
 }
