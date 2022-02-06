@@ -40,6 +40,14 @@ void	ft_switch_projection(int key, t_vars *vars)
 		ft_set_conic(vars);
 }
 
+double	deg_to_radian(int deg)
+{
+	double	radian;
+
+	radian = M_PI / 180 * (double)deg;
+	return (radian);
+}
+
 int	ft_key_hook(int key, t_vars *vars)
 {
 	if (key == ESCAPE)
@@ -52,22 +60,36 @@ int	ft_key_hook(int key, t_vars *vars)
 	if (is_switch_projection_key(key))
 		ft_switch_projection(key, vars);
 	if (key == X)
-		vars->roll = 0.523599;
-	if (key == Y)
-		vars->pitch = 0.523599;
-	if (key == Z)
-		vars->yaw = 0.523599;
-	if (is_valid_key(key) || key == Z || key == X || key == Y)
 	{
+		vars->yaw = deg_to_radian(0);
+		vars->roll = deg_to_radian(30);
+		vars->pitch = deg_to_radian(0);
+	}
+	if (key == Y)
+	{
+		vars->yaw = deg_to_radian(0);
+		vars->roll = deg_to_radian(0);
+		vars->pitch = deg_to_radian(30);
+	}
+	if (key == Z)
+	{
+		vars->yaw = deg_to_radian(30);
+		vars->roll = deg_to_radian(0);
+		vars->pitch = deg_to_radian(0);
+	}
+	if (is_valid_key(key))
+	{
+		fprintf(stderr, "yaw %5f roll %5f pitch %5f\n", vars->yaw, vars->roll, vars->pitch);
 		mlx_destroy_image(vars->mlx, vars->img.img);
 		mlx_clear_window(vars->mlx, vars->win);
 		ft_display_map(vars);
 		vars->shift_x = 0;
 		vars->shift_y = 0;
-		vars->yaw = 0.0;
-		vars->roll = 0.0;
-		vars->pitch = 0.0;
+		vars->yaw = deg_to_radian(0);
+		vars->roll = deg_to_radian(0);
+		vars->pitch = deg_to_radian(0);
 	}
+	fprintf(stderr, "%x\n", key);
 	return (0);
 }
 
