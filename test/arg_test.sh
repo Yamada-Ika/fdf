@@ -21,3 +21,4 @@ ${cur_path}/../fdf ${cur_path}/test_map/test17.fdf
 ${cur_path}/../fdf ${cur_path}/test_map/test18.fdf
 ${cur_path}/../fdf ${cur_path}/test_map/test19.fdf
 ${cur_path}/../fdf ${cur_path}/test_map/test20.fdf
+${cur_path}/../fdf ${cur_path}/test_map/test21.fdf
