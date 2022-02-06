@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-void	ft_init_map_info(t_map_info *map)
+void	init_map_info(t_map_info *map)
 {
 	map->yaw = 0.0;
 	map->roll = 0.0;
