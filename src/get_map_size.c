@@ -1,6 +1,6 @@
 #include "stddef.h"
 
-size_t	get_map_column_size(char ***map)
+size_t	get_map_col_size(char ***map)
 {
 	size_t	size;
 

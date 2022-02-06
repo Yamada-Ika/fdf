@@ -69,9 +69,9 @@ typedef struct s_map_info
 	void			*win;
 	t_image_info	img;
 	t_point			**points;
-	t_point			**tmp_for_update;
+	t_point			**for_update;
 	size_t			row_size;
-	size_t			column_size;
+	size_t			col_size;
 	t_matrix		mtx;
 	int				shift_x;
 	int				shift_y;
@@ -93,14 +93,14 @@ void	ft_read_map(char *path, t_map_info *vars);
 // map_utils.c
 
 // ----------------------- map utils -----------------------
-size_t	get_map_column_size(char ***map);
+size_t	get_map_col_size(char ***map);
 size_t	get_map_row_size(char ***map);
 // ----------------------- map utils -----------------------
 
 void	ft_init_point(t_point **map, char ***str_map);
 
 // create_map.c
-t_point	**ft_create_map(size_t row_size, size_t column_size);
+t_point	**ft_create_map(size_t row_size, size_t col_size);
 
 // utils.c
 size_t	get_strs_elem_size(char **strs);
@@ -148,7 +148,8 @@ bool	is_rotation_key(int key);
 double	deg_to_radian(int deg);
 
 // draw_line.c
-void	draw_line(t_image_info *img, t_point *map0, t_point *map1, double **matrix);
+void	draw_line(t_image_info *img, t_point *map0,
+			t_point *map1, double **matrix);
 
 // cord_trans.c
 void	ft_trans_cord(t_point *map0, t_point *map1, double **matrix);
@@ -159,6 +160,10 @@ double	ft_abs(double n);
 
 void	display_map(t_map_info *vars);
 void	ft_put_map_to_image(t_image_info *img, t_map_info *map);
+
+// update_map_points.c
+void	update_map_points(t_point **dst, t_point **src,
+			size_t row_size, size_t col_size);
 
 // ft_set_projection.c
 void	ft_set_isometric(t_map_info *vars);

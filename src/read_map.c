@@ -99,7 +99,7 @@ void	ft_read_map(char *path, t_map_info *map)
 {
 	char	***char_map;
 	size_t	row_size;
-	size_t	column_size;
+	size_t	col_size;
 
 	char_map = read_map(path);
 	if (char_map == NULL)
@@ -108,11 +108,11 @@ void	ft_read_map(char *path, t_map_info *map)
 		return ;
 	}
 	row_size = get_map_row_size(char_map);
-	column_size = get_map_column_size(char_map);
-	map->points = ft_create_map(row_size, column_size);
-	map->tmp_for_update = ft_create_map(row_size, column_size);
+	col_size = get_map_col_size(char_map);
+	map->points = ft_create_map(row_size, col_size);
+	map->for_update = ft_create_map(row_size, col_size);
 	ft_init_point(map->points, char_map);
 	free_char_map(char_map);
 	map->row_size = row_size;
-	map->column_size = column_size;
+	map->col_size = col_size;
 }

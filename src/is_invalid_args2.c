@@ -59,7 +59,7 @@ static bool	_is_invalid_char_in_strs_elem(char **strs)
 	while (strs[i] != NULL)
 	{
 		ft_strtoll(strs[i], &end, 10);
-		if (*end != '\0')
+		if (*end != '\0' && *end != ',')
 			return (true);
 		i++;
 	}

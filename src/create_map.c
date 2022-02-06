@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-t_point	**ft_create_map(size_t row_size, size_t column_size)
+t_point	**ft_create_map(size_t row_size, size_t col_size)
 {
 	t_point	**map;
 	size_t	i;
@@ -9,7 +9,7 @@ t_point	**ft_create_map(size_t row_size, size_t column_size)
 	i = 0;
 	while (i < row_size)
 	{
-		map[i] = (t_point *)ft_calloc(column_size, sizeof(t_point));
+		map[i] = (t_point *)ft_calloc(col_size, sizeof(t_point));
 		i++;
 	}
 	return (map);
