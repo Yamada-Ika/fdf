@@ -15,26 +15,12 @@ static bool	is_invalid_color(char **content)
 		{
 			color_val = ft_strtoll(++comma_at, &end, 16);
 			if (color_val < 0 || 0xFFFFFF < color_val || (*end != ' ' && *end != '\0'))
-			{
-				free_strs(content);
 				return (true);
-			}
 			comma_at = ft_strchr(comma_at, ',');
 		}
 		i++;
 	}
-	free_strs(content);
 	return (false);
-}
-
-static size_t	get_strs_elem_size(char **strs)
-{
-	size_t	size;
-
-	size = 0;
-	while (strs[size] != NULL)
-		size++;
-	return (size);
 }
 
 static bool	is_rectangle_map(char **content)
@@ -51,20 +37,15 @@ static bool	is_rectangle_map(char **content)
 		if (strs == NULL)
 		{
 			ft_print_error("Cannot allocate memmory");
-			free_strs(content);
 			return (false);
 		}
 		elem_count = get_strs_elem_size(strs);
 		free_strs(strs);
 		if (i > 0 && elem_count != old_elem_count)
-		{
-			free_strs(content);
 			return (false);
-		}
 		old_elem_count = elem_count;
 		i++;
 	}
-	free_strs(content);
 	return (true);
 }
 
@@ -82,7 +63,6 @@ static bool	is_invalid_height(char **content)
 		if (strs == NULL)
 		{
 			ft_print_error("Cannot allocate memmory");
-			free_strs(content);
 			return (true);
 		}
 		j = 0;
@@ -91,7 +71,6 @@ static bool	is_invalid_height(char **content)
 			ft_strtoll(strs[j], &end, 10);
 			if (*end != '\0')
 			{
-				free_strs(content);
 				free_strs(strs);
 				return (true);
 			}
@@ -100,7 +79,6 @@ static bool	is_invalid_height(char **content)
 		free_strs(strs);
 		i++;
 	}
-	free_strs(content);
 	return (true);
 }
 
@@ -108,6 +86,7 @@ bool	is_invalid_file_content(char *file_path)
 {
 	char	*content;
 	char	**content_strs;
+	bool	is_invalid;
 
 	content = ft_read_fdf(file_path);
 	if (content == NULL)
@@ -121,11 +100,13 @@ bool	is_invalid_file_content(char *file_path)
 	}
 	free(content);
 	if (!is_rectangle_map(content_strs))
-		return (true);
+		is_invalid = true;
 	if (is_invalid_height(content_strs))
-		return (true);
+		is_invalid = true;
 	if (is_invalid_color(content_strs))
-		return (true);
+		is_invalid = true;
 	else
-		return (false);
+		is_invalid = false;
+	free_strs(content_strs);
+	return (is_invalid);
 }
