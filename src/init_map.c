@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-static void	_init_z_and_color(double *z, int *color, char *val)
+static void	_init_z_val_and_color(double *z, int *color, char *val)
 {
 	char	*color_str;
 
@@ -12,7 +12,7 @@ static void	_init_z_and_color(double *z, int *color, char *val)
 		*color = 0xFFFFFF;
 }
 
-void	ft_init_map(t_map **map, char ***str_map)
+void	ft_init_point(t_point **points, char ***str_map)
 {
 	size_t	i;
 	size_t	j;
@@ -23,9 +23,10 @@ void	ft_init_map(t_map **map, char ***str_map)
 		j = 0;
 		while (str_map[i][j] != NULL)
 		{
-			map[i][j].x = (double)j;
-			map[i][j].y = (double)i;
-			_init_z_and_color(&(map[i][j].z), &(map[i][j].color), str_map[i][j]);
+			points[i][j].x = (double)j;
+			points[i][j].y = (double)i;
+			_init_z_val_and_color(&(points[i][j].z),
+				&(points[i][j].color), str_map[i][j]);
 			j++;
 		}
 		i++;
