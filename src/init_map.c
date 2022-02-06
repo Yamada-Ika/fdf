@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-void	_set_z_and_color(double *z, int *color, char *val)
+static void	_init_z_and_color(double *z, int *color, char *val)
 {
 	char	*color_str;
 
@@ -25,7 +25,7 @@ void	ft_init_map(t_map **map, char ***str_map)
 		{
 			map[i][j].x = (double)j;
 			map[i][j].y = (double)i;
-			_set_z_and_color(&(map[i][j].z), &(map[i][j].color), str_map[i][j]);
+			_init_z_and_color(&(map[i][j].z), &(map[i][j].color), str_map[i][j]);
 			j++;
 		}
 		i++;
