@@ -43,7 +43,8 @@ static char	***ft_generate_map(char *inline_map)
 	map_strs = ft_split(inline_map, '\n');
 	if (map_strs == NULL)
 		return (ft_print_error("Cannot allocate memmory"));
-	map = (char ***)malloc((get_map_row_size(map_strs) + 1) * sizeof(char **));
+	map = (char ***)malloc((get_strs_elem_size(map_strs) + 1)
+			* sizeof(char **));
 	if (map == NULL)
 		return (ft_do_malloc_strs_error_routine(map_strs, NULL));
 	i = 0;
