@@ -19,8 +19,8 @@ void	ft_rotation(t_vars *vars, double *x, double *y, double *z)
 			+ vars->affine_matrix[1][3]);
 }
 
-void	ft_trans_cord(t_2dcord *cord, t_vars *vars)
+void	ft_trans_cord(t_map *map0, t_map *map1, t_vars *vars)
 {
-	ft_rotation(vars, &(cord->x0), &(cord->y0), &(cord->z0));
-	ft_rotation(vars, &(cord->x1), &(cord->y1), &(cord->z1));
+	ft_rotation(vars, &(map0->x), &(map0->y), &(map0->z));
+	ft_rotation(vars, &(map1->x), &(map1->y), &(map1->z));
 }

@@ -1,22 +1,31 @@
 #include "fdf.h"
 
-t_2dcord	*ft_set_cord(int x0, int y0, int x1, int y1)
+static void	_update_map(t_map **dst, t_map **src, size_t row_size, size_t column_size)
 {
-	t_2dcord	*cord;
+	size_t	i;
+	size_t	j;
 
-	cord = (t_2dcord *)ft_calloc(1, sizeof(t_2dcord));
-	cord->x0 = x0;
-	cord->y0 = y0;
-	cord->x1 = x1;
-	cord->y1 = y1;
-	return (cord);
+	i = 0;
+	while (i < row_size)
+	{
+		j = 0;
+		while (j < column_size)
+		{
+			dst[i][j].x = src[i][j].x;
+			dst[i][j].y = src[i][j].y;
+			dst[i][j].z = src[i][j].z;
+			j++;
+		}
+		i++;
+	}
 }
 
 void	ft_display_map_helper(t_data *img, t_vars *vars)
 {
-	int			y;
-	int			x;
-	t_2dcord	cord;
+	int		y;
+	int		x;
+	t_map	map0;
+	t_map	map1;
 
 	y = 0;
 	while (y < vars->map_row_size)
@@ -26,39 +35,43 @@ void	ft_display_map_helper(t_data *img, t_vars *vars)
 		{
 			if (x + 1 < vars->map_column_size)
 			{
-				cord.x0 = vars->map[y][x].x;
-				cord.y0 = vars->map[y][x].y;
-				cord.z0 = vars->map[y][x].z;
-				vars->color0 = vars->map[y][x].color;
-				cord.x1 = vars->map[y][x + 1].x;
-				cord.y1 = vars->map[y][x + 1].y;
-				cord.z1 = vars->map[y][x + 1].z;
-				vars->color1 = vars->map[y][x + 1].color;
-				ft_draw_line(img, &cord, vars);
-				vars->map_tmp[y][x].x = cord.x0;
-				vars->map_tmp[y][x].y = cord.y0;
-				vars->map_tmp[y][x].z = cord.z0;
-				vars->map_tmp[y][x + 1].x = cord.x1;
-				vars->map_tmp[y][x + 1].y = cord.y1;
-				vars->map_tmp[y][x + 1].z = cord.z1;
+				map0.x = vars->map[y][x].x;
+				map0.y = vars->map[y][x].y;
+				map0.z = vars->map[y][x].z;
+				map0.color = vars->map[y][x].color;
+				map1.x = vars->map[y][x + 1].x;
+				map1.y = vars->map[y][x + 1].y;
+				map1.z = vars->map[y][x + 1].z;
+				map1.color = vars->map[y][x + 1].color;
+				ft_draw_line(img, &map0, &map1, vars);
+				vars->map_tmp[y][x].x = map0.x;
+				vars->map_tmp[y][x].y = map0.y;
+				vars->map_tmp[y][x].z = map0.z;
+				vars->map_tmp[y][x].color = map0.color;
+				vars->map_tmp[y][x + 1].x = map1.x;
+				vars->map_tmp[y][x + 1].y = map1.y;
+				vars->map_tmp[y][x + 1].z = map1.z;
+				vars->map_tmp[y][x + 1].color = map1.color;
 			}
 			if (y + 1 < vars->map_row_size)
 			{
-				cord.x0 = vars->map[y][x].x;
-				cord.y0 = vars->map[y][x].y;
-				cord.z0 = vars->map[y][x].z;
-				vars->color0 = vars->map[y][x].color;
-				cord.x1 = vars->map[y + 1][x].x;
-				cord.y1 = vars->map[y + 1][x].y;
-				cord.z1 = vars->map[y + 1][x].z;
-				vars->color1 = vars->map[y + 1][x].color;
-				ft_draw_line(img, &cord, vars);
-				vars->map_tmp[y][x].x = cord.x0;
-				vars->map_tmp[y][x].y = cord.y0;
-				vars->map_tmp[y][x].z = cord.z0;
-				vars->map_tmp[y + 1][x].x = cord.x1;
-				vars->map_tmp[y + 1][x].y = cord.y1;
-				vars->map_tmp[y + 1][x].z = cord.z1;
+				map0.x = vars->map[y][x].x;
+				map0.y = vars->map[y][x].y;
+				map0.z = vars->map[y][x].z;
+				map0.color = vars->map[y][x].color;
+				map1.x = vars->map[y + 1][x].x;
+				map1.y = vars->map[y + 1][x].y;
+				map1.z = vars->map[y + 1][x].z;
+				map1.color = vars->map[y + 1][x].color;
+				ft_draw_line(img, &map0, &map1, vars);
+				vars->map_tmp[y][x].x = map0.x;
+				vars->map_tmp[y][x].y = map0.y;
+				vars->map_tmp[y][x].z = map0.z;
+				vars->map_tmp[y][x].color = map0.color;
+				vars->map_tmp[y + 1][x].x = map1.x;
+				vars->map_tmp[y + 1][x].y = map1.y;
+				vars->map_tmp[y + 1][x].z = map1.z;
+				vars->map_tmp[y + 1][x].color = map1.color;
 			}
 			if (x + 1 == vars->map_column_size)
 				break ;
@@ -66,15 +79,7 @@ void	ft_display_map_helper(t_data *img, t_vars *vars)
 		}
 		y++;
 	}
-	for (int i = 0; i < vars->map_row_size; i++)
-	{
-		for (int j = 0; j < vars->map_column_size; j++)
-		{
-			vars->map[i][j].x = vars->map_tmp[i][j].x;
-			vars->map[i][j].y = vars->map_tmp[i][j].y;
-			vars->map[i][j].z = vars->map_tmp[i][j].z;
-		}
-	}
+	_update_map(vars->map, vars->map_tmp, vars->map_row_size, vars->map_column_size);
 }
 
 void	ft_display_map(t_vars *vars)

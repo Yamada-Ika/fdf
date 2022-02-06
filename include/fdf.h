@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:19:01 by iyamada           #+#    #+#             */
-/*   Updated: 2022/02/05 23:17:11 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/02/06 11:05:35 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define X 0x78
 # define Y 0x79
 # define Z 0x7a
+# define R 0x72
 # define I 105
 # define P 112
 # define C 99
@@ -71,8 +72,8 @@ typedef struct s_vars
 	double	**affine_matrix;
 	double	**shift_matrix;
 	double	**zoom_matrix;
-	double	**move_origin_matrix;
-	double	**move_upleftcorner_matrix;
+	double	**to_map_origin_for_zoom_matrix;
+	double	**to_upleftcorner_for_zoom_matrix;
 	double	**to_upleftcorner_for_rotate_matrix;
 	double	**rotate_x_matrix;
 	double	**rotate_y_matrix;
@@ -161,11 +162,12 @@ bool	is_valid_key(int keycode);
 bool	is_zoom_up(int button, double zoom_rate);
 bool	is_zoom_down(int button, double zoom_rate);
 
-// cord_trans.c
-void	ft_trans_cord(t_2dcord *cord, t_vars *vars);
 
 // draw_line.c
-void	ft_draw_line(t_data *img, t_2dcord *cord, t_vars *vars);
+void	ft_draw_line(t_data *img, t_map *map0, t_map *map1, t_vars *vars);
+
+// cord_trans.c
+void	ft_trans_cord(t_map *map0, t_map *map1, t_vars *vars);
 
 // math_utils.c
 double	ft_max(double n1, double n2);

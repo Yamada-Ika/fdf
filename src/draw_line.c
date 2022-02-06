@@ -5,7 +5,7 @@ int	get_color_gradation(int color_code0, int color_code1, double step)
 	return ((color_code1 - color_code0) / step);
 }
 
-void	ft_draw_line(t_data *img, t_2dcord *cord, t_vars *vars)
+void	ft_draw_line(t_data *img, t_map *map0, t_map *map1, t_vars *vars)
 {
 	double	delta_x;
 	double	delta_y;
@@ -16,16 +16,16 @@ void	ft_draw_line(t_data *img, t_2dcord *cord, t_vars *vars)
 	double	step_max;
 	int		color_gradation;
 
-	ft_trans_cord(cord, vars);
-	delta_x = cord->x1 - cord->x0;
-	delta_y = cord->y1 - cord->y0;
+	ft_trans_cord(map0, map1, vars);
+	delta_x = map1->x - map0->x;
+	delta_y = map1->y - map0->y;
 	step_max = ft_max(ft_abs(delta_x), ft_abs(delta_y));
 	delta_x /= step_max;
 	delta_y /= step_max;
 	color_gradation = get_color_gradation(vars->color0, vars->color1, step_max);
-	x = cord->x0;
-	y = cord->y0;
-	color = vars->color0;
+	x = map0->x;
+	y = map0->y;
+	color = map0->color;
 	step = 0;
 	while (step < step_max)
 	{
