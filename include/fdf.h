@@ -9,6 +9,7 @@
 # define WIDTH 700
 # define HEIGHT 700
 # define ROTATION_STEP 15
+# define TRANS_STEP 20.0
 
 // mouse
 # define R_CLICK 1
@@ -73,8 +74,8 @@ typedef struct s_map_info
 	size_t			row_size;
 	size_t			col_size;
 	t_matrix		mtx;
-	int				shift_x;
-	int				shift_y;
+	double			shift_x;
+	double			shift_y;
 	double			zoom_rate;
 	double			mouse_x;
 	double			mouse_y;
@@ -93,7 +94,6 @@ bool	is_invalid_file_content(char *file_path);
 bool	can_read_map(char *path, t_map_info *vars);
 char	*ft_read_fdf(char *path);
 
-// map_utils.c
 
 // ----------------------- map utils -----------------------
 size_t	get_map_col_size(char ***map);
@@ -103,7 +103,7 @@ size_t	get_map_row_size(char ***map);
 void	ft_init_point(t_point **map, char ***str_map);
 
 // create_map.c
-t_point	**ft_create_map(size_t row_size, size_t col_size);
+t_point	**create_points(size_t row_size, size_t col_size);
 
 // utils.c
 size_t	get_strs_elem_size(char **strs);
@@ -145,7 +145,7 @@ bool	is_shift_key(int key);
 bool	is_switch_projection_key(int key);
 bool	is_valid_key(int key);
 bool	is_rotation_key(int key);
-double	deg_to_radian(int deg);
+double	degree_to_radian(int deg);
 
 // draw_line.c
 void	draw_line(t_image_info *img, t_point *map0,
@@ -159,7 +159,7 @@ double	ft_max(double n1, double n2);
 double	ft_abs(double n);
 
 void	display_map(t_map_info *vars);
-void	ft_put_map_to_image(t_image_info *img, t_map_info *map);
+void	ft_put_map_to_image(t_map_info *map);
 
 // update_map_points.c
 void	update_map_points(t_point **dst, t_point **src,

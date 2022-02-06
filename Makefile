@@ -1,5 +1,5 @@
 CC				:= gcc
-CFLAGS			:= #-g -fsanitize=address #-Wall -Wextra -Werror
+CFLAGS			:= -Wall -Wextra -Werror #-g -fsanitize=address #-Wall -Wextra -Werror
 COPTS			:= -Ilibft -Llibft -lft -Iminilibx-linux -I/usr/X11/include -Lminilibx-linux -lmlx_Darwin -L/usr/X11/include/../lib -lXext -lX11 -lm
 
 # libft
@@ -10,22 +10,22 @@ LIBFT_A		:= $(addprefix $(LIBFT_DIR)/, $(LIBFT_A))
 # fdf
 NAME		:= fdf
 SRCS		:= \
-affine_matrix.c       is_invalid_args2.c\
+affine_matrix.c       is_invalid_args1.c\
+can_read_map.c        is_invalid_args2.c\
 check_leak.c          key_hook.c\
 cord_trans.c          key_hook_utils.c\
-create_map.c          main.c\
+create_points.c       main.c\
 display_map.c         math_utils.c\
 draw_line.c           mouse_hook.c\
 error.c               new_matrix.c\
 free_utils.c          product_matrix.c\
 ft_set_projection.c   put_map_to_image.c\
 get_map_size.c        put_pixel.c\
-get_next_line.c       read_map.c\
-get_next_line_utils.c set_matrix1.c\
-init_map.c            set_matrix2.c\
-init_struct.c         update_map_points.c\
-install_hook.c        utils.c\
-is_invalid_args1.c
+get_next_line.c       set_matrix1.c\
+get_next_line_utils.c set_matrix2.c\
+init_map.c            update_map_points.c\
+init_struct.c         utils.c\
+install_hook.c
 OBJS		:= $(SRCS:%.c=%.o)
 SRCS		:= $(addprefix src/, $(SRC))
 OBJS		:= $(addprefix obj/, $(OBJS))
