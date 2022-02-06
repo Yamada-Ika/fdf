@@ -69,7 +69,6 @@ static bool	_is_invalid_char_in_strs_elem(char **strs)
 static bool	is_invalid_height(char **content)
 {
 	char	**strs;
-	char	*end;
 	size_t	i;
 
 	i = 0;
