@@ -82,16 +82,15 @@ void	debug_map(t_map **map, size_t row_size, size_t col_size)
 // 	}
 // }
 
-// void	_debug_put_origin(t_data *img, t_vars *vars)
-// {
-// 	for (int y = (int)vars->origin_y - 3; y < vars->origin_y + 3; y++)
-// 	{
-// 		for (int x = (int)vars->origin_x - 3; x < vars->origin_x + 3; x++)
-// 		{
-// 			if (x < 0 || y < 0)
-// 				break ;
-// 			my_mlx_pixel_put(img, x, y, 0xF15B5B);
-// 		}
-// 	}
-// }
+void	_debug_put_origin(t_data *img, double center_x, double center_y)
+{
+	fprintf(stderr, "center_x %5f center_y %5f\n", center_x, center_y);
+	for (int y = (int)center_y - 3; y < (int)center_y + 3; y++)
+	{
+		for (int x = (int)center_x - 3; x < (int)center_x + 3; x++)
+		{
+			my_mlx_pixel_put(img, x, y, 0xF15B5B);
+		}
+	}
+}
 
