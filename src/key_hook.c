@@ -85,8 +85,6 @@ int	ft_key_hook(int key, t_map_info *map)
 		mlx_clear_window(map->mlx, map->win);
 		display_map(map);
 		ft_init_shift_and_angle(map);
-		map->mouse_x = 0.0;
-		map->mouse_y = 0.0;
 	}
 	return (0);
 }
