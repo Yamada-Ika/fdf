@@ -24,7 +24,7 @@ bool	is_valid_key(int key)
 		|| is_rotation_key(key));
 }
 
-double	deg_to_radian(int deg)
+double	degree_to_radian(int deg)
 {
 	double	radian;
 
