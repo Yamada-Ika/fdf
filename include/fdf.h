@@ -102,6 +102,8 @@ void	ft_init_point(t_point **map, char ***str_map);
 // create_map.c
 t_point	**ft_create_map(size_t row_size, size_t column_size);
 
+// utils.c
+size_t	get_strs_elem_size(char **strs);
 
 // arg_utils.c
 bool	is_invalid_args(int argc, char *argv[]);
