@@ -5,7 +5,7 @@ int	get_color_gradation(int color_code0, int color_code1, double step)
 	return ((color_code1 - color_code0) / step);
 }
 
-void	ft_draw_line(t_data *img, t_map *map0, t_map *map1, double **matrix)
+void	ft_draw_line(t_image_info *img, t_point *map0, t_point *map1, double **matrix)
 {
 	double	delta_x;
 	double	delta_y;

@@ -13,17 +13,20 @@ static double	**_new_matrix(void)
 	return (matrix);
 }
 
-void	ft_new_matrix(t_vars *vars)
+void	ft_new_matrix(t_map_info *map)
 {
-	vars->tmp_for_product = _new_matrix();
-	vars->to_upleftcorner_for_zoom_matrix = _new_matrix();
-	vars->to_upleftcorner_for_rotate_matrix = _new_matrix();
-	vars->to_map_origin_for_rotate_matrix = _new_matrix();
-	vars->to_map_origin_for_zoom_matrix = _new_matrix();
-	vars->zoom_matrix = _new_matrix();
-	vars->rotate_x_matrix = _new_matrix();
-	vars->rotate_y_matrix = _new_matrix();
-	vars->rotate_z_matrix = _new_matrix();
-	vars->shift_matrix = _new_matrix();
-	vars->affine_matrix = _new_matrix();
+	t_matrix	matrix;
+
+	matrix.tmp_mtx = _new_matrix();
+	matrix.to_corner_for_zoom = _new_matrix();
+	matrix.to_corner_for_rotate = _new_matrix();
+	matrix.move_map_origin = _new_matrix();
+	matrix.move_cursor = _new_matrix();
+	matrix.zoom = _new_matrix();
+	matrix.rotate_x = _new_matrix();
+	matrix.rotate_y = _new_matrix();
+	matrix.rotate_z = _new_matrix();
+	matrix.shift = _new_matrix();
+	matrix.affine = _new_matrix();
+	map->mtx = matrix;
 }

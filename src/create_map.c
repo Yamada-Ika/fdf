@@ -1,15 +1,15 @@
 #include "fdf.h"
 
-t_map	**ft_create_map(size_t row_size, size_t column_size)
+t_point	**ft_create_map(size_t row_size, size_t column_size)
 {
-	t_map	**map;
+	t_point	**map;
 	size_t	i;
 
-	map = (t_map **)ft_calloc(row_size, sizeof(t_map *));
+	map = (t_point **)ft_calloc(row_size, sizeof(t_point *));
 	i = 0;
 	while (i < row_size)
 	{
-		map[i] = (t_map *)ft_calloc(column_size, sizeof(t_map));
+		map[i] = (t_point *)ft_calloc(column_size, sizeof(t_point));
 		i++;
 	}
 	return (map);
@@ -39,7 +39,7 @@ t_map	**ft_create_map(size_t row_size, size_t column_size)
 
 // int main(void)
 // {
-// 	t_map	**map1;
+// 	t_point	**map1;
 // 	char	***char_map1;
 
 // 	char_map1 = (char ***)malloc(sizeof(char **) * 4);
@@ -60,7 +60,7 @@ t_map	**ft_create_map(size_t row_size, size_t column_size)
 // 	char_map1[2][3] = NULL;
 // 	char_map1[3] = NULL;
 // 	map1 = ft_create_map(3, 3);
-// 	ft_init_map(map1, char_map1);
+// 	ft_init_point(map1, char_map1);
 // 	assert(is_almost_same(map1[0][0].x, 0.0));
 // 	assert(is_almost_same(map1[0][0].y, 0.0));
 // 	assert(is_almost_same(map1[0][0].z, 0.0));
