@@ -1,20 +1,6 @@
 #include "fdf.h"
 
-static bool	_is_invalid_file_extension(char *path, char *extension)
-{
-	char	*dot_at;
-
-	dot_at = ft_strrchr(path, '.');
-	if (dot_at == NULL)
-		return (true);
-	dot_at++;
-	if (ft_strcmp(dot_at, extension) != 0)
-		return (true);
-	else
-		return (false);
-}
-
-bool	is_invalid_color(char **content)
+static bool	is_invalid_color(char **content)
 {
 	size_t		i;
 	char		*comma_at;
@@ -29,15 +15,19 @@ bool	is_invalid_color(char **content)
 		{
 			color_val = ft_strtoll(++comma_at, &end, 16);
 			if (color_val < 0 || 0xFFFFFF < color_val || (*end != ' ' && *end != '\0'))
+			{
+				free_strs(content);
 				return (true);
+			}
 			comma_at = ft_strchr(comma_at, ',');
 		}
 		i++;
 	}
+	free_strs(content);
 	return (false);
 }
 
-size_t	get_strs_elem_size(char **strs)
+static size_t	get_strs_elem_size(char **strs)
 {
 	size_t	size;
 
@@ -47,7 +37,7 @@ size_t	get_strs_elem_size(char **strs)
 	return (size);
 }
 
-bool	is_rectangle_map(char **content)
+static bool	is_rectangle_map(char **content)
 {
 	char	**strs;
 	size_t	elem_count;
@@ -61,19 +51,24 @@ bool	is_rectangle_map(char **content)
 		if (strs == NULL)
 		{
 			ft_print_error("Cannot allocate memmory");
+			free_strs(content);
 			return (false);
 		}
 		elem_count = get_strs_elem_size(strs);
 		free_strs(strs);
 		if (i > 0 && elem_count != old_elem_count)
+		{
+			free_strs(content);
 			return (false);
+		}
 		old_elem_count = elem_count;
 		i++;
 	}
+	free_strs(content);
 	return (true);
 }
 
-bool	is_invalid_height(char **content)
+static bool	is_invalid_height(char **content)
 {
 	char	**strs;
 	char	*end;
@@ -87,6 +82,7 @@ bool	is_invalid_height(char **content)
 		if (strs == NULL)
 		{
 			ft_print_error("Cannot allocate memmory");
+			free_strs(content);
 			return (true);
 		}
 		j = 0;
@@ -95,6 +91,7 @@ bool	is_invalid_height(char **content)
 			ft_strtoll(strs[j], &end, 10);
 			if (*end != '\0')
 			{
+				free_strs(content);
 				free_strs(strs);
 				return (true);
 			}
@@ -103,6 +100,7 @@ bool	is_invalid_height(char **content)
 		free_strs(strs);
 		i++;
 	}
+	free_strs(content);
 	return (true);
 }
 
@@ -123,34 +121,10 @@ bool	is_invalid_file_content(char *file_path)
 	}
 	free(content);
 	if (!is_rectangle_map(content_strs))
-	{
-		free_strs(content_strs);
 		return (true);
-	}
 	if (is_invalid_height(content_strs))
-	{
-		free_strs(content_strs);
 		return (true);
-	}
 	if (is_invalid_color(content_strs))
-	{
-		free_strs(content_strs);
-		return (true);
-	}
-	else
-	{
-		free_strs(content_strs);
-		return (false);
-	}
-}
-
-bool	is_invalid_args(int argc, char *argv[])
-{
-	if (argc != 2)
-		return (true);
-	if (_is_invalid_file_extension(argv[1], "fdf"))
-		return (true);
-	if (is_invalid_file_content(argv[1]))
 		return (true);
 	else
 		return (false);

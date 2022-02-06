@@ -85,10 +85,14 @@ typedef struct s_map_info
 	double			origin_y;
 }	t_map_info;
 
+// ft_read_map.c
+// char	***read_map(char *path);
+char	*ft_read_fdf(char *path);
+void	ft_read_map(char *path, t_map_info *vars);
+
 // map_utils.c
 
 // ----------------------- map utils -----------------------
-size_t	ft_get_line_size(char **s);
 size_t	get_map_column_size(char ***map);
 size_t	get_map_row_size(char ***map);
 // ----------------------- map utils -----------------------
@@ -98,11 +102,10 @@ void	ft_init_point(t_point **map, char ***str_map);
 // create_map.c
 t_point	**ft_create_map(size_t row_size, size_t column_size);
 
-// ft_read_map.c
-void	ft_read_map(char *path, t_map_info *vars);
 
 // arg_utils.c
 bool	is_invalid_args(int argc, char *argv[]);
+bool	is_invalid_file_content(char *file_path);
 
 // ----------------------- matrix -----------------------
 void	ft_new_matrix(t_map_info *map);
