@@ -11,22 +11,22 @@
 
 int	main(int argc, char *argv[])
 {
-	t_vars	vars;
+	t_map_info	map;
 
 	if (is_invalid_args(argc, argv))
 		return (1);
-	ft_read_map(argv[1], &vars);
-	if (vars.map == NULL)
+	ft_read_map(argv[1], &map);
+	if (map.points == NULL)
 		return (1);
-	vars.mlx = mlx_init();
-	if (vars.mlx == NULL)
+	map.mlx = mlx_init();
+	if (map.mlx == NULL)
 		return (1);
-	ft_init_vars(&vars);
-	vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "fdf");
-	ft_install_hook(&vars);
-	ft_display_map(&vars);
-	mlx_loop(vars.mlx);
-	mlx_destroy_window(vars.mlx, vars.win);
-	mlx_destroy_display(vars.mlx);
+	ft_init_map_info(&map);
+	map.win = mlx_new_window(map.mlx, WIDTH, HEIGHT, "fdf");
+	ft_install_hook(&map);
+	ft_display_map(&map);
+	mlx_loop(map.mlx);
+	mlx_destroy_window(map.mlx, map.win);
+	mlx_destroy_display(map.mlx);
 	return (0);
 }
