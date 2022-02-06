@@ -1,115 +1,36 @@
 #include "fdf.h"
 
-void	ft_install_hook(t_vars *vars)
+static bool	is_zoom_up(int button)
 {
-	mlx_key_hook(vars->win, ft_key_hook, vars);
-	mlx_mouse_hook(vars->win, ft_mouse_hook, vars);
+	return (button == SCROLL_UP);
 }
 
-void	ft_incre_or_decre_shift_var(int key, int *x, int *y)
+static bool	is_zoom_down(int button)
 {
-	if (key == RIGHT)
-	{
-		*x = 20;
-		*y = 0;
-	}
-	if (key == LEFT)
-	{
-		*x = -20;
-		*y = 0;
-	}
-	if (key == UP)
-	{
-		*x = 0;
-		*y = -20;
-	}
-	if (key == DOWN)
-	{
-		*x = 0;
-		*y = 20;
-	}
+	return (button == SCROLL_DOWN);
 }
 
-void	ft_switch_projection(int key, t_vars *vars)
+static void	ft_init_mouse_point_and_zoom_rate(t_map_info *map)
 {
-	if (key == I)
-		ft_set_isometric(vars);
-	if (key == P)
-		ft_set_parallel(vars);
-	if (key == C)
-		ft_set_conic(vars);
+	map->zoom_rate = 1.0;
+	map->mouse_x = 0;
+	map->mouse_y = 0;
 }
 
-double	deg_to_radian(int deg)
+int	ft_mouse_hook(int button, int x, int y, t_map_info *map)
 {
-	double	radian;
-
-	radian = M_PI / 180 * (double)deg;
-	return (radian);
-}
-
-int	ft_key_hook(int key, t_vars *vars)
-{
-	if (key == ESCAPE)
+	if (is_zoom_up(button))
+		map->zoom_rate = 2.0;
+	if (is_zoom_down(button))
+		map->zoom_rate = 0.5;
+	if (button == SCROLL_UP || button == SCROLL_DOWN)
 	{
-		mlx_destroy_image(vars->mlx, vars->img.img);
-		mlx_loop_end(vars->mlx);
-	}
-	if (is_shift_key(key))
-		ft_incre_or_decre_shift_var(key, &(vars->shift_x), &(vars->shift_y));
-	if (is_switch_projection_key(key))
-		ft_switch_projection(key, vars);
-	if (key == X)
-	{
-		vars->yaw = deg_to_radian(0);
-		vars->roll = deg_to_radian(30);
-		vars->pitch = deg_to_radian(0);
-	}
-	if (key == Y)
-	{
-		vars->yaw = deg_to_radian(0);
-		vars->roll = deg_to_radian(0);
-		vars->pitch = deg_to_radian(30);
-	}
-	if (key == Z)
-	{
-		vars->yaw = deg_to_radian(30);
-		vars->roll = deg_to_radian(0);
-		vars->pitch = deg_to_radian(0);
-	}
-	if (is_valid_key(key))
-	{
-		fprintf(stderr, "yaw %5f roll %5f pitch %5f\n", vars->yaw, vars->roll, vars->pitch);
-		mlx_destroy_image(vars->mlx, vars->img.img);
-		mlx_clear_window(vars->mlx, vars->win);
-		ft_display_map(vars);
-		vars->shift_x = 0;
-		vars->shift_y = 0;
-		vars->yaw = deg_to_radian(0);
-		vars->roll = deg_to_radian(0);
-		vars->pitch = deg_to_radian(0);
-	}
-	fprintf(stderr, "%x\n", key);
-	return (0);
-}
-
-int	ft_mouse_hook(int button, int x, int y, t_vars *vars)
-{
-	if (is_zoom_up(button, vars->zoom_rate))
-		vars->zoom_rate = 2.0;
-	if (is_zoom_down(button, vars->zoom_rate))
-		vars->zoom_rate = 0.5;
-	if ((button == SCROLL_UP && vars->zoom_rate < 100)
-		|| (button == SCROLL_DOWN && vars->zoom_rate > 0.0))
-	{
-		mlx_destroy_image(vars->mlx, vars->img.img);
-		mlx_clear_window(vars->mlx, vars->win);
-		vars->mouse_x = (double)x;
-		vars->mouse_y = (double)y;
-		ft_display_map(vars);
-		vars->zoom_rate = 1.0;
-		vars->mouse_x = 0;
-		vars->mouse_y = 0;
+		mlx_destroy_image(map->mlx, map->img.img);
+		mlx_clear_window(map->mlx, map->win);
+		map->mouse_x = (double)x;
+		map->mouse_y = (double)y;
+		ft_display_map(map);
+		ft_init_mouse_point_and_zoom_rate(map);
 	}
 	return (0);
 }
