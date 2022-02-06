@@ -38,7 +38,7 @@ void	draw_vertical_line(t_map_info *map,
 	_set_tmp_map_for_update(map->for_update, i + 1, j, &(tmp_for_draw[1]));
 }
 
-void	ft_put_map_to_image(t_image_info *img, t_map_info *map)
+void	ft_put_map_to_image(t_map_info *map)
 {
 	size_t	i;
 	size_t	j;
