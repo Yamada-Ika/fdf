@@ -36,10 +36,7 @@ static bool	is_rectangle_map(char **content)
 	{
 		strs = ft_split(content[i], ' ');
 		if (strs == NULL)
-		{
-			ft_print_error("Cannot allocate memmory");
 			return (false);
-		}
 		elem_count = get_strs_elem_size(strs);
 		free_strs(strs);
 		if (i > 0 && elem_count != old_elem_count)
@@ -76,10 +73,7 @@ static bool	is_invalid_height(char **content)
 	{
 		strs = ft_split(content[i], ' ');
 		if (strs == NULL)
-		{
-			ft_print_error("Cannot allocate memmory");
 			return (true);
-		}
 		if (_is_invalid_char_in_strs_elem(strs))
 		{
 			free_strs(strs);
@@ -103,10 +97,7 @@ bool	is_invalid_file_content(char *file_path)
 	content_strs = ft_split(content, '\n');
 	free(content);
 	if (content_strs == NULL)
-	{
-		ft_print_error("Cannot allocate memmory");
 		return (true);
-	}
 	is_invalid = false;
 	if (content_strs[0] == NULL)
 		is_invalid = true;
