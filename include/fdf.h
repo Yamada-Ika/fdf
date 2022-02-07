@@ -34,6 +34,8 @@
 // map meta info
 # define ROTATION_STEP 15
 # define TRANS_STEP 20.0
+# define ZOOM_UP_STEP 2.0
+# define ZOOM_DOWN_STEP 0.5
 
 typedef struct s_image_info
 {
@@ -127,11 +129,14 @@ bool	is_rotation_key(int key);
 double	degree_to_radian(int deg);
 
 // display_default_projection.c
-void	display_default_projection(t_map_info *map);
+bool	can_display_default_projection(t_map_info *map);
 
 // display_map.c
-void	display_map(t_map_info *vars);
+bool	can_display_map(t_map_info *vars);
 void	put_map_to_image(t_map_info *map);
+
+// can_redisplay_map.c
+bool	can_redisplay_map(t_map_info *map);
 
 // update_map_points.c
 void	update_map_points(t_point **dst, t_point **src,
@@ -180,5 +185,17 @@ void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
 // delete
 void	delete_mlx(t_map_info *map);
 void	delete_map(t_map_info *map);
+void	delete_points(t_point **points, size_t row_size);
+
+# define ft_split(s, c) my_ft_split(s, c)
+# define ft_calloc(n, size) my_ft_calloc(n, size)
+# define mlx_init() my_mlx_init()
+# define mlx_new_window(mlx, WIDTH, HEIGHT, name) my_mlx_new_window(mlx, WIDTH, HEIGHT, name)
+# define mlx_new_image(mlx, WIDTH, HEIGHT) my_mlx_new_image(mlx, WIDTH, HEIGHT)
+char	**my_ft_split(char *s, char c);
+void	*my_ft_calloc(size_t n, size_t size);
+void	*my_mlx_init(void);
+void	*my_mlx_new_window(void *xvar,int size_x,int size_y,char *title);
+void	*my_mlx_new_image(void *xvar,int width, int height);
 
 #endif
