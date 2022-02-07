@@ -117,6 +117,7 @@ bool	can_init_mlx(t_map_info *map);
 void	install_hook(t_map_info *vars);
 int		key_hook(int key, t_map_info *vars);
 int		mouse_hook(int button, int x, int y, t_map_info *vars);
+int		expose_hook(t_map_info *map);
 
 // hook_utils1.c
 bool	is_shift_key(int key);
@@ -172,11 +173,6 @@ void	ft_trans_cord(t_point *map0, t_point *map1, double **matrix);
 // math_utils.c
 double	ft_max(double n1, double n2);
 double	ft_abs(double n);
-
-// ft_set_projection.c
-void	set_isometric(t_map_info *vars);
-void	set_parallel(t_map_info *vars);
-void	set_conic(t_map_info *vars);
 
 // put_pixel.c
 void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
