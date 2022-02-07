@@ -110,8 +110,8 @@ bool	can_read_map(char *path, t_map_info *map)
 	map->for_update = create_points(row_size, col_size);
 	if (map->points == NULL || map->for_update == NULL)
 	{
-		delete_points(map->points);
-		delete_points(map->for_update);
+		delete_points(map->points, row_size);
+		delete_points(map->for_update, row_size);
 		free_char_map(char_map);
 		return (false);
 	}
