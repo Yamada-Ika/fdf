@@ -73,7 +73,7 @@ typedef struct s_map_info
 	t_point			**for_update;
 	size_t			row_size;
 	size_t			col_size;
-	t_matrix		mtx;
+	t_matrix		matrix;
 	double			shift_x;
 	double			shift_y;
 	double			zoom_rate;
@@ -94,25 +94,46 @@ bool	is_invalid_file_content(char *file_path);
 bool	can_read_map(char *path, t_map_info *vars);
 char	*ft_read_fdf(char *path);
 
-
-// ----------------------- map utils -----------------------
+// get_map_size.c
 size_t	get_map_col_size(char ***map);
 size_t	get_map_row_size(char ***map);
-// ----------------------- map utils -----------------------
 
-void	ft_init_point(t_point **map, char ***str_map);
-
-// create_map.c
+// create_points.c
 t_point	**create_points(size_t row_size, size_t col_size);
+
+// init_points.c
+void	init_points(t_point **map, char ***str_map);
+
+// init_struct.c
+bool	can_init_map_info(t_map_info *vars);
+
+// hook.c
+void	install_hook(t_map_info *vars);
+int		key_hook(int key, t_map_info *vars);
+int		mouse_hook(int button, int x, int y, t_map_info *vars);
+
+// hook_utils1.c
+bool	is_shift_key(int key);
+bool	is_switch_projection_key(int key);
+bool	is_valid_key(int key);
+bool	is_rotation_key(int key);
+double	degree_to_radian(int deg);
+
+// display_map.c
+void	display_map(t_map_info *vars);
+void	put_map_to_image(t_map_info *map);
+
+// update_map_points.c
+void	update_map_points(t_point **dst, t_point **src,
+			size_t row_size, size_t col_size);
 
 // utils.c
 size_t	get_strs_elem_size(char **strs);
 
-
 // ----------------------- matrix -----------------------
-void	ft_new_matrix(t_map_info *map);
+bool	can_new_matrix(t_map_info *map);
 void	product_matrix(double **matrix1, double **matrix2, double **tmp_matrix);
-void	ft_calc_affine_matrix(t_map_info *vars);
+void	calc_affine_matrix(t_map_info *vars);
 void	set_unit_matrix(double **matrix);
 void	set_trans_matrix(double **matrix, double tx, double ty);
 void	set_zoom_matrix(double **matrix, double zoom_rate);
@@ -132,21 +153,6 @@ void	*ft_do_read_error_routine(char *p1, char *p2, char *p3, char *p4);
 void	*ft_do_malloc_error_routine(char *p1, char *p2, char *p3, char *p4);
 void	*ft_do_malloc_strs_error_routine(char **p1, char ***p2);
 
-// init_struct.c
-void	init_map_info(t_map_info *vars);
-
-// hook.c
-void	install_hook(t_map_info *vars);
-int		ft_key_hook(int key, t_map_info *vars);
-int		ft_mouse_hook(int button, int x, int y, t_map_info *vars);
-
-// hook_utils1.c
-bool	is_shift_key(int key);
-bool	is_switch_projection_key(int key);
-bool	is_valid_key(int key);
-bool	is_rotation_key(int key);
-double	degree_to_radian(int deg);
-
 // draw_line.c
 void	draw_line(t_image_info *img, t_point *map0,
 			t_point *map1, double **matrix);
@@ -158,17 +164,10 @@ void	ft_trans_cord(t_point *map0, t_point *map1, double **matrix);
 double	ft_max(double n1, double n2);
 double	ft_abs(double n);
 
-void	display_map(t_map_info *vars);
-void	ft_put_map_to_image(t_map_info *map);
-
-// update_map_points.c
-void	update_map_points(t_point **dst, t_point **src,
-			size_t row_size, size_t col_size);
-
 // ft_set_projection.c
-void	ft_set_isometric(t_map_info *vars);
-void	ft_set_parallel(t_map_info *vars);
-void	ft_set_conic(t_map_info *vars);
+void	set_isometric(t_map_info *vars);
+void	set_parallel(t_map_info *vars);
+void	set_conic(t_map_info *vars);
 
 // put_pixel.c
 void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
