@@ -2,21 +2,21 @@
 # define FDF_H
 
 # include "mlx.h"
+# include "libft.h"
 # include <stdio.h>
 # include <math.h>
 # include <errno.h>
 
+// image size
 # define WIDTH 700
 # define HEIGHT 700
-# define ROTATION_STEP 15
-# define TRANS_STEP 20.0
 
 // mouse
 # define R_CLICK 1
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
-// key
+// keycode
 # define ESCAPE 0xff1b
 # define LEFT 0xff51
 # define UP 0xff52
@@ -24,19 +24,16 @@
 # define DOWN 0xff54
 # define X 0x78
 # define Y 0x79
-// # define Z 0x7a
-#ifdef __MACH__
-# define Z 0x7a
-#endif
-#ifdef __linux__
-# define Z 0x77
-#endif
-# define R 0x72
-# define I 105
-# define P 112
-# define C 99
+# ifdef __MACH__
+#  define Z 0x7a
+# endif
+# ifdef __linux__
+#  define Z 0x77
+# endif
 
-# include "libft.h"
+// map meta info
+# define ROTATION_STEP 15
+# define TRANS_STEP 20.0
 
 typedef struct s_image_info
 {

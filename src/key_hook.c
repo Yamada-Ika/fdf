@@ -24,16 +24,6 @@ static void	_incre_or_decre_shift(int key, double *x, double *y)
 	}
 }
 
-static void	_switch_projection(int key, t_map_info *map)
-{
-	if (key == I)
-		set_isometric(map);
-	if (key == P)
-		set_parallel(map);
-	if (key == C)
-		set_conic(map);
-}
-
 static void	_set_rotation_angle(int key, t_map_info *map)
 {
 	if (key == X)
@@ -65,8 +55,6 @@ int	key_hook(int key, t_map_info *map)
 	}
 	if (is_shift_key(key))
 		_incre_or_decre_shift(key, &(map->shift_x), &(map->shift_y));
-	if (is_switch_projection_key(key))
-		_switch_projection(key, map);
 	if (is_rotation_key(key))
 		_set_rotation_angle(key, map);
 	if (is_valid_key(key))
@@ -75,6 +63,5 @@ int	key_hook(int key, t_map_info *map)
 		mlx_clear_window(map->mlx, map->win);
 		display_map(map);
 	}
-	fprintf(stderr, "key %x\n", key);
 	return (0);
 }

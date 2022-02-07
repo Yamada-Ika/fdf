@@ -19,23 +19,23 @@ static void	_set_tmp_map_for_update(t_point **points_for_update,
 }
 
 void	draw_horizontal_line(t_map_info *map,
-	t_point tmp_for_draw[2], size_t i, size_t j)
+	t_point points[2], size_t i, size_t j)
 {
-	_set_tmp_points_for_draw(&(tmp_for_draw[0]), map->points, i, j);
-	_set_tmp_points_for_draw(&(tmp_for_draw[1]), map->points, i, j + 1);
-	draw_line(&(map->img), &tmp_for_draw[0], &tmp_for_draw[1], map->matrix.affine);
-	_set_tmp_map_for_update(map->for_update, i, j, &(tmp_for_draw[0]));
-	_set_tmp_map_for_update(map->for_update, i, j + 1, &(tmp_for_draw[1]));
+	_set_tmp_points_for_draw(&(points[0]), map->points, i, j);
+	_set_tmp_points_for_draw(&(points[1]), map->points, i, j + 1);
+	draw_line(&(map->img), &points[0], &points[1], map->matrix.affine);
+	_set_tmp_map_for_update(map->for_update, i, j, &(points[0]));
+	_set_tmp_map_for_update(map->for_update, i, j + 1, &(points[1]));
 }
 
 void	draw_vertical_line(t_map_info *map,
-	t_point tmp_for_draw[2], size_t i, size_t j)
+	t_point points[2], size_t i, size_t j)
 {
-	_set_tmp_points_for_draw(&(tmp_for_draw[0]), map->points, i, j);
-	_set_tmp_points_for_draw(&(tmp_for_draw[1]), map->points, i + 1, j);
-	draw_line(&(map->img), &tmp_for_draw[0], &tmp_for_draw[1], map->matrix.affine);
-	_set_tmp_map_for_update(map->for_update, i, j, &(tmp_for_draw[0]));
-	_set_tmp_map_for_update(map->for_update, i + 1, j, &(tmp_for_draw[1]));
+	_set_tmp_points_for_draw(&(points[0]), map->points, i, j);
+	_set_tmp_points_for_draw(&(points[1]), map->points, i + 1, j);
+	draw_line(&(map->img), &points[0], &points[1], map->matrix.affine);
+	_set_tmp_map_for_update(map->for_update, i, j, &(points[0]));
+	_set_tmp_map_for_update(map->for_update, i + 1, j, &(points[1]));
 }
 
 void	put_map_to_image(t_map_info *map)

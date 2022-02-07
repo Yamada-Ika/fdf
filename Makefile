@@ -17,9 +17,9 @@ cord_trans.c          init_struct.c         put_map_to_image.c\
 create_points.c       install_hook.c        put_pixel.c\
 delete.c              is_invalid_args1.c    set_matrix1.c\
 display_map.c         is_invalid_args2.c    set_matrix2.c\
-draw_line.c           key_hook.c            set_projection.c\
-error.c               key_hook_utils.c      update_map_points.c\
-free_utils.c          main.c                utils.c\
+draw_line.c           key_hook.c            update_map_points.c\
+error.c               key_hook_utils.c      utils.c\
+free_utils.c          main.c\
 get_map_size.c        math_utils.c
 OBJS		:= $(SRCS:%.c=%.o)
 SRCS		:= $(addprefix src/, $(SRC))

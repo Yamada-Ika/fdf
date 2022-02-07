@@ -29,12 +29,10 @@ void	init_map_meta_info(t_map_info *map)
 
 void	display_usage(t_map_info *map)
 {
-	mlx_string_put(map->mlx, map->win, 10, 650, 0xFFFFFF, "shift : arrow key");
-	mlx_string_put(map->mlx, map->win, 130, 650, 0xFFFFFF, "zoom : track ball");
-	mlx_string_put(map->mlx, map->win, 250, 650, 0xFFFFFF,
+	mlx_string_put(map->mlx, map->win, 100, 650, 0xFFFFFF, "shift : arrow key");
+	mlx_string_put(map->mlx, map->win, 300, 650, 0xFFFFFF, "zoom : track ball");
+	mlx_string_put(map->mlx, map->win, 500, 650, 0xFFFFFF,
 		"rotate : x y z key");
-	mlx_string_put(map->mlx, map->win, 380, 650, 0xFFFFFF,
-		"projection : i isometrix p parallel c conic");
 }
 
 void	display_map(t_map_info *map)
