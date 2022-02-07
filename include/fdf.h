@@ -91,6 +91,10 @@ typedef struct s_map_info
 	double			origin_y;
 }	t_map_info;
 
+// help_option.c
+bool	is_help_option(int argc, char *argv[]);
+int		print_usage(void);
+
 // arg_utils.c
 bool	is_invalid_args(int argc, char *argv[]);
 bool	is_invalid_file_content(char *file_path);
@@ -168,6 +172,9 @@ void	*ft_do_read_error_routine(char *p1, char *p2, char *p3, char *p4);
 void	*ft_do_malloc_error_routine(char *p1, char *p2, char *p3, char *p4);
 void	*ft_do_malloc_strs_error_routine(char **p1, char ***p2);
 
+// error2.c
+int		print_error(char *message);
+
 // draw_line.c
 void	draw_line(t_image_info *img, t_point *map0,
 			t_point *map1, double **matrix);
@@ -187,15 +194,16 @@ void	delete_mlx(t_map_info *map);
 void	delete_map(t_map_info *map);
 void	delete_points(t_point **points, size_t row_size);
 
-# define ft_split(s, c) my_ft_split(s, c)
-# define ft_calloc(n, size) my_ft_calloc(n, size)
-# define mlx_init() my_mlx_init()
-# define mlx_new_window(mlx, WIDTH, HEIGHT, name) my_mlx_new_window(mlx, WIDTH, HEIGHT, name)
-# define mlx_new_image(mlx, WIDTH, HEIGHT) my_mlx_new_image(mlx, WIDTH, HEIGHT)
-char	**my_ft_split(char *s, char c);
-void	*my_ft_calloc(size_t n, size_t size);
-void	*my_mlx_init(void);
-void	*my_mlx_new_window(void *xvar,int size_x,int size_y,char *title);
-void	*my_mlx_new_image(void *xvar,int width, int height);
+// # define ft_split(s, c) my_ft_split(s, c)
+// char	**my_ft_split(char *s, char c);
+// # define ft_calloc(n, size) my_ft_calloc(n, size)
+// void	*my_ft_calloc(size_t n, size_t size);
+// # define mlx_init() my_mlx_init()
+// void	*my_mlx_init(void);
+// # define mlx_new_window(mlx, WIDTH, HEIGHT, name) my_mlx_new_window(mlx, WIDTH, HEIGHT, name)
+// void	*my_mlx_new_window(void *xvar,int size_x,int size_y,char *title);
+// # define mlx_new_image(mlx, WIDTH, HEIGHT) (NULL)
+// # define mlx_new_image(mlx, WIDTH, HEIGHT) my_mlx_new_image(mlx, WIDTH, HEIGHT)
+// void	*my_mlx_new_image(void *xvar,int width, int height);
 
 #endif

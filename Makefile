@@ -1,5 +1,5 @@
 CC			:= gcc
-CFLAGS		:= #-Wall -Wextra -Werror
+CFLAGS		:= -g -fsanitize=address #-Wall -Wextra -Werror
 COPTS		:= -Ilibft -Llibft -lft -Iminilibx-linux -Lminilibx-linux -I/usr/X11/include -L/usr/X11/include/../lib -lXext -lX11 -lm
 
 # libft
@@ -10,16 +10,18 @@ LIBFT_A		:= $(addprefix $(LIBFT_DIR)/, $(LIBFT_A))
 # fdf
 NAME		:= fdf
 SRCS		:= \
-affine_matrix.c              draw_line.c                  install_hook.c               product_matrix.c\
-can_display_map.c            error.c                      is_invalid_args1.c           put_map_to_image.c\
-can_init_mlx.c               expose_hook.c                is_invalid_args2.c           put_pixel.c\
-can_read_map.c               free_utils.c                 key_hook.c                   set_matrix1.c\
-can_redisplay_map.c          get_map_size.c               key_hook_utils.c             set_matrix2.c\
-cord_trans.c                 get_next_line.c              main.c                       update_map_points.c\
-create_points.c              get_next_line_utils.c        math_utils.c                 utils.c\
-delete.c                     init_points.c                mouse_hook.c\
-display_default_projection.c init_struct.c                new_matrix.c
-
+affine_matrix.c              expose_hook.c                key_hook_utils.c\
+can_display_map.c            free_utils.c                 main.c\
+can_init_mlx.c               get_map_size.c               math_utils.c\
+can_read_map.c               get_next_line.c              mouse_hook.c\
+can_redisplay_map.c          get_next_line_utils.c        new_matrix.c\
+cord_trans.c                 help_option.c                product_matrix.c\
+create_points.c              init_points.c                put_map_to_image.c\
+delete.c                     init_struct.c                put_pixel.c\
+display_default_projection.c install_hook.c               set_matrix1.c\
+draw_line.c                  is_invalid_args1.c           set_matrix2.c\
+error.c                      is_invalid_args2.c           update_map_points.c\
+error2.c                     key_hook.c                   utils.c
 OBJS		:= $(SRCS:%.c=%.o)
 SRCS		:= $(addprefix src/, $(SRC))
 OBJS		:= $(addprefix obj/, $(OBJS))
