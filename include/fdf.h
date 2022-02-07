@@ -149,17 +149,22 @@ void	update_map_points(t_point **dst, t_point **src,
 // utils.c
 size_t	get_strs_elem_size(char **strs);
 
-// ----------------------- matrix -----------------------
-bool	can_new_matrix(t_map_info *map);
-void	product_matrix(double **matrix1, double **matrix2, double **tmp_matrix);
+// calc_affine_matrix.c
 void	calc_affine_matrix(t_map_info *vars);
+
+// new_matrix.c
+bool	can_new_matrix(t_map_info *map);
+
+// product_matrix.c
+void	product_matrix(double **matrix1, double **matrix2, double **tmp_matrix);
+
+// set_matrix1.c set_matrix2.c
 void	set_unit_matrix(double **matrix);
 void	set_trans_matrix(double **matrix, double tx, double ty);
 void	set_zoom_matrix(double **matrix, double zoom_rate);
 void	set_rotate_x_matrix(double **matrix, double roll);
 void	set_rotate_y_matrix(double **matrix, double pitch);
 void	set_rotate_z_matrix(double **matrix, double yaw);
-// ----------------------- matrix -----------------------
 
 // free_utils.c
 void	all_free(void *p1, void *p2, void *p3, void *p4);
@@ -167,7 +172,6 @@ void	free_strs(char **strs);
 void	free_char_map(char ***map);
 
 // error.c
-void	*ft_print_error(char *message);
 void	*ft_do_read_error_routine(char *p1, char *p2, char *p3, char *p4);
 void	*ft_do_malloc_error_routine(char *p1, char *p2, char *p3, char *p4);
 void	*ft_do_malloc_strs_error_routine(char **p1, char ***p2);
@@ -200,10 +204,12 @@ void	delete_points(t_point **points, size_t row_size);
 // void	*my_ft_calloc(size_t n, size_t size);
 // # define mlx_init() my_mlx_init()
 // void	*my_mlx_init(void);
-// # define mlx_new_window(mlx, WIDTH, HEIGHT, name) my_mlx_new_window(mlx, WIDTH, HEIGHT, name)
-// void	*my_mlx_new_window(void *xvar,int size_x,int size_y,char *title);
-// # define mlx_new_image(mlx, WIDTH, HEIGHT) (NULL)
-// # define mlx_new_image(mlx, WIDTH, HEIGHT) my_mlx_new_image(mlx, WIDTH, HEIGHT)
+// # define mlx_new_window(mlx, WIDTH, HEIGHT, name) \
+// my_mlx_new_window(mlx, WIDTH, HEIGHT, name)
+// void	*my_mlx_new_window(void *xvar, int size_x, \
+// int size_y, char *title);
+// # define mlx_new_image(mlx, WIDTH, HEIGHT) \
+// my_mlx_new_image(mlx, WIDTH, HEIGHT)
 // void	*my_mlx_new_image(void *xvar,int width, int height);
 
 #endif
