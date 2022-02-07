@@ -1,13 +1,13 @@
 #include "fdf.h"
 
-// __attribute__((destructor))
-// void	check_leak(void)
-// {
-// 	char	cmd[50];
+__attribute__((destructor))
+void	check_leak(void)
+{
+	char	cmd[50];
 
-// 	sprintf(cmd, "leaks %d", getpid());
-// 	system(cmd);
-// }
+	sprintf(cmd, "leaks %d", getpid());
+	system(cmd);
+}
 
 int	main(int argc, char *argv[])
 {
@@ -21,8 +21,13 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (!can_init_mlx(&map))
 		return (1);
+	if (!can_display_default_projection(&map))
+	{
+		delete_mlx(&map);
+		delete_map(&map);
+		return (1);
+	}
 	install_hook(&map);
-	display_default_projection(&map);
 	mlx_loop(map.mlx);
 	delete_mlx(&map);
 	delete_map(&map);
