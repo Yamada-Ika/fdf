@@ -59,9 +59,8 @@ int	key_hook(int key, t_map_info *map)
 		_set_rotation_angle(key, map);
 	if (is_valid_key(key))
 	{
-		mlx_destroy_image(map->mlx, map->img.img);
-		mlx_clear_window(map->mlx, map->win);
-		display_map(map);
+		if (!can_redisplay_map(map))
+			mlx_loop_end(map->mlx);
 	}
 	return (0);
 }
