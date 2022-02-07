@@ -9,7 +9,7 @@
 // 	system(cmd);
 // }
 
-bool	can_set_mlx(t_map_info *map)
+bool	can_init_mlx(t_map_info *map)
 {
 	map->mlx = mlx_init();
 	if (map->mlx == NULL)
@@ -33,7 +33,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (!can_init_map_info(&map)
 		return (1);
-	if (!can_set_mlx(&map))
+	if (!can_init_mlx(&map))
 		return (1);
 	install_hook(&map);
 	display_map(&map);
