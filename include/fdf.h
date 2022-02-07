@@ -110,6 +110,9 @@ void	init_points(t_point **map, char ***str_map);
 // init_struct.c
 bool	can_init_map_info(t_map_info *vars);
 
+// can_init_mlx.c
+bool	can_init_mlx(t_map_info *map);
+
 // hook.c
 void	install_hook(t_map_info *vars);
 int		key_hook(int key, t_map_info *vars);
@@ -121,6 +124,9 @@ bool	is_switch_projection_key(int key);
 bool	is_valid_key(int key);
 bool	is_rotation_key(int key);
 double	degree_to_radian(int deg);
+
+// display_default_projection.c
+void	display_default_projection(t_map_info *map);
 
 // display_map.c
 void	display_map(t_map_info *vars);
