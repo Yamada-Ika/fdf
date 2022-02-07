@@ -13,6 +13,8 @@ int	main(int argc, char *argv[])
 {
 	t_map_info	map;
 
+	if (is_help_option(argc, argv))
+		return (print_usage());
 	if (is_invalid_args(argc, argv))
 		return (1);
 	if (!can_read_map(argv[1], &map))
