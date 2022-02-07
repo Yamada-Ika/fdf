@@ -7,7 +7,7 @@
 #include <time.h>
 #include <stdio.h>
 
-#define RANDOM_PARAM 4
+#define RANDOM_PARAM 2
 
 char	**my_ft_split(char *s, char c)
 {
@@ -46,6 +46,6 @@ void	*my_mlx_new_image(void *xvar,int width, int height)
 	srand((unsigned int)time(NULL));
 	if (rand() % RANDOM_PARAM == 0)
 		return (NULL);
-	return (my_mlx_new_image(xvar, width, height));
+	return (mlx_new_image(xvar, width, height));
 }
 
