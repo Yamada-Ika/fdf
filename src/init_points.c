@@ -12,7 +12,7 @@ static void	_init_z_val_and_color(double *z, unsigned int *color, char *val)
 		*color = 0xFFFFFF;
 }
 
-void	ft_init_point(t_point **points, char ***str_map)
+void	init_points(t_point **points, char ***str_map)
 {
 	size_t	i;
 	size_t	j;
