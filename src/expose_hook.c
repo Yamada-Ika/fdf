@@ -3,6 +3,7 @@
 int	expose_hook(t_map_info *map)
 {
 	mlx_destroy_image(map->mlx, map->img.img);
-	can_display_map(map);
+	if (!can_display_map(map))
+		mlx_loop_end(map->mlx);
 	return (0);
 }
