@@ -31,7 +31,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (!can_read_map(argv[1], &map))
 		return (1);
-	if (!can_init_map_info(&map)
+	if (!can_init_map_info(&map))
 		return (1);
 	if (!can_init_mlx(&map))
 		return (1);
