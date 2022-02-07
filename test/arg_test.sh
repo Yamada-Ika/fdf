@@ -6,6 +6,7 @@ function ASSERT() {
 		echo "test ok     : $1 $2"
 	else
 		echo "test failed : $1 $2" 1>&2
+		echo "Maybe you forget to add leak check function in C programs?"
 		exit 1
 	fi
 }
@@ -74,3 +75,5 @@ ASSERT $leak_block 0
 echo "test : ${cur_path}/../fdf ${cur_path}/test_map/test21.fdf"
 leak_block=$(${cur_path}/../fdf ${cur_path}/test_map/test21.fdf 2>&1 | grep "total leaked bytes" | awk '{print $3}')
 ASSERT $leak_block 0
+
+echo "OK"
