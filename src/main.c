@@ -23,6 +23,24 @@ bool	can_init_mlx(t_map_info *map)
 	return (true);
 }
 
+void	display_default_projection(t_map_info *map)
+{
+	map->zoom_rate = 10.0;
+	map->shift_x = WIDTH / 3;
+	map->shift_y = HEIGHT / 3;
+	map->mouse_x = WIDTH / 3;
+	map->mouse_y = HEIGHT / 3;
+	display_map(map);
+	mlx_destroy_image(map->mlx, map->img.img);
+	mlx_clear_window(map->mlx, map->win);
+	map->yaw = degree_to_radian(-45);
+	display_map(map);
+	mlx_destroy_image(map->mlx, map->img.img);
+	mlx_clear_window(map->mlx, map->win);
+	map->roll = degree_to_radian(50);
+	display_map(map);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_map_info	map;
@@ -36,8 +54,9 @@ int	main(int argc, char *argv[])
 	if (!can_init_mlx(&map))
 		return (1);
 	install_hook(&map);
-	display_map(&map);
+	display_default_projection(&map);
 	mlx_loop(map.mlx);
+	mlx_destroy_window(map.mlx, map.win);
 	mlx_destroy_display(map.mlx);
 	free(map.mlx);
 	return (0);

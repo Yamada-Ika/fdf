@@ -60,7 +60,7 @@ t_point	**create_points(size_t row_size, size_t col_size)
 // 	char_map1[2][3] = NULL;
 // 	char_map1[3] = NULL;
 // 	map1 = create_points(3, 3);
-// 	ft_init_point(map1, char_map1);
+// 	init_points(map1, char_map1);
 // 	assert(is_almost_same(map1[0][0].x, 0.0));
 // 	assert(is_almost_same(map1[0][0].y, 0.0));
 // 	assert(is_almost_same(map1[0][0].z, 0.0));

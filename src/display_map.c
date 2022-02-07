@@ -15,6 +15,28 @@ static void	_set_image_info(t_image_info *img, t_map_info *map)
 			&img->bits_per_pixel, &img->line_len, &img->endian);
 }
 
+void	init_map_meta_info(t_map_info *map)
+{
+	map->yaw = degree_to_radian(0);
+	map->roll = degree_to_radian(0);
+	map->pitch = degree_to_radian(0);
+	map->zoom_rate = 1.0;
+	map->shift_x = 0.0;
+	map->shift_y = 0.0;
+	map->mouse_x = 0.0;
+	map->mouse_y = 0.0;
+}
+
+void	display_usage(t_map_info *map)
+{
+	mlx_string_put(map->mlx, map->win, 10, 650, 0xFFFFFF, "shift : arrow key");
+	mlx_string_put(map->mlx, map->win, 130, 650, 0xFFFFFF, "zoom : track ball");
+	mlx_string_put(map->mlx, map->win, 250, 650, 0xFFFFFF,
+		"rotate : x y z key");
+	mlx_string_put(map->mlx, map->win, 380, 650, 0xFFFFFF,
+		"projection : i isometrix p parallel c conic");
+}
+
 void	display_map(t_map_info *map)
 {
 	t_image_info	img;
@@ -24,13 +46,9 @@ void	display_map(t_map_info *map)
 	map->img = img;
 	calc_affine_matrix(map);
 	put_map_to_image(map);
+	mlx_put_image_to_window(map->mlx, map->win, img.img, 0, 0);
 	update_map_points(map->points, map->for_update,
 		map->row_size, map->col_size);
-	mlx_put_image_to_window(map->mlx, map->win, img.img, 0, 0);
-	mlx_string_put(map->mlx, map->win, 10, 650, 0xFFFFFF, "shift : arrow key");
-	mlx_string_put(map->mlx, map->win, 130, 650, 0xFFFFFF, "zoom : track ball");
-	mlx_string_put(map->mlx, map->win, 250, 650, 0xFFFFFF,
-		"rotate : x y z key");
-	mlx_string_put(map->mlx, map->win, 380, 650, 0xFFFFFF,
-		"projection : i isometrix p parallel c conic");
+	display_usage(map);
+	init_map_meta_info(map);
 }

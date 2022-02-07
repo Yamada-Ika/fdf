@@ -10,22 +10,17 @@ LIBFT_A		:= $(addprefix $(LIBFT_DIR)/, $(LIBFT_A))
 # fdf
 NAME		:= fdf
 SRCS		:= \
-affine_matrix.c       is_invalid_args1.c\
-can_read_map.c        is_invalid_args2.c\
-check_leak.c          key_hook.c\
-cord_trans.c          key_hook_utils.c\
-create_points.c       main.c\
-display_map.c         math_utils.c\
-draw_line.c           mouse_hook.c\
-error.c               new_matrix.c\
-free_utils.c          product_matrix.c\
-ft_set_projection.c   put_map_to_image.c\
-get_map_size.c        put_pixel.c\
-get_next_line.c       set_matrix1.c\
-get_next_line_utils.c set_matrix2.c\
-init_map.c            update_map_points.c\
-init_struct.c         utils.c\
-install_hook.c
+affine_matrix.c       get_next_line_utils.c new_matrix.c\
+can_read_map.c        init_points.c         product_matrix.c\
+check_leak.c          init_struct.c         put_map_to_image.c\
+cord_trans.c          install_hook.c        put_pixel.c\
+create_points.c       is_invalid_args1.c    set_matrix1.c\
+display_map.c         is_invalid_args2.c    set_matrix2.c\
+draw_line.c           key_hook.c            set_projection.c\
+error.c               key_hook_utils.c      update_map_points.c\
+free_utils.c          main.c                utils.c\
+get_map_size.c        math_utils.c\
+get_next_line.c       mouse_hook.c
 OBJS		:= $(SRCS:%.c=%.o)
 SRCS		:= $(addprefix src/, $(SRC))
 OBJS		:= $(addprefix obj/, $(OBJS))
