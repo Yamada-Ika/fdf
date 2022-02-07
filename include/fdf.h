@@ -178,4 +178,8 @@ void	set_conic(t_map_info *vars);
 // put_pixel.c
 void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
 
+// delete
+void	delete_mlx(t_map_info *map);
+void	delete_map(t_map_info *map);
+
 #endif
