@@ -23,7 +23,7 @@ void	draw_horizontal_line(t_map_info *map,
 {
 	_set_tmp_points_for_draw(&(tmp_for_draw[0]), map->points, i, j);
 	_set_tmp_points_for_draw(&(tmp_for_draw[1]), map->points, i, j + 1);
-	draw_line(&(map->img), &tmp_for_draw[0], &tmp_for_draw[1], map->mtx.affine);
+	draw_line(&(map->img), &tmp_for_draw[0], &tmp_for_draw[1], map->matrix.affine);
 	_set_tmp_map_for_update(map->for_update, i, j, &(tmp_for_draw[0]));
 	_set_tmp_map_for_update(map->for_update, i, j + 1, &(tmp_for_draw[1]));
 }
@@ -33,12 +33,12 @@ void	draw_vertical_line(t_map_info *map,
 {
 	_set_tmp_points_for_draw(&(tmp_for_draw[0]), map->points, i, j);
 	_set_tmp_points_for_draw(&(tmp_for_draw[1]), map->points, i + 1, j);
-	draw_line(&(map->img), &tmp_for_draw[0], &tmp_for_draw[1], map->mtx.affine);
+	draw_line(&(map->img), &tmp_for_draw[0], &tmp_for_draw[1], map->matrix.affine);
 	_set_tmp_map_for_update(map->for_update, i, j, &(tmp_for_draw[0]));
 	_set_tmp_map_for_update(map->for_update, i + 1, j, &(tmp_for_draw[1]));
 }
 
-void	ft_put_map_to_image(t_map_info *map)
+void	put_map_to_image(t_map_info *map)
 {
 	size_t	i;
 	size_t	j;

@@ -69,8 +69,8 @@ bool	can_new_matrix(t_map_info *map)
 	matrix.rotate_z = _new_matrix();
 	matrix.shift = _new_matrix();
 	matrix.affine = _new_matrix();
-	map->mtx = matrix;
-	if (_is_invalid_matrix_in_t_matrix(&(map->mtx)))
+	map->matrix = matrix;
+	if (_is_invalid_matrix_in_t_matrix(&(map->matrix)))
 		return (false);
 	return (true);
 }

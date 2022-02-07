@@ -29,11 +29,11 @@ For zoom,
 For shift,
 	1. shift
 */
-void	ft_calc_affine_matrix(t_map_info *map)
+void	calc_affine_matrix(t_map_info *map)
 {
 	t_matrix	mtx;
 
-	mtx = map->mtx;
+	mtx = map->matrix;
 	set_trans_matrix(mtx.to_corner_for_zoom, -map->mouse_x, -map->mouse_y);
 	set_zoom_matrix(mtx.zoom, map->zoom_rate);
 	set_trans_matrix(mtx.move_cursor, map->mouse_x, map->mouse_y);
