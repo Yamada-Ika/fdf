@@ -20,10 +20,10 @@ void	display_map(t_map_info *map)
 	t_image_info	img;
 
 	_set_image_info(&img, map);
-	map->img = img;
 	_set_map_origin(map);
-	ft_calc_affine_matrix(map);
-	ft_put_map_to_image(map);
+	map->img = img;
+	calc_affine_matrix(map);
+	put_map_to_image(map);
 	update_map_points(map->points, map->for_update,
 		map->row_size, map->col_size);
 	mlx_put_image_to_window(map->mlx, map->win, img.img, 0, 0);
