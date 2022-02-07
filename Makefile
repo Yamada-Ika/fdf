@@ -1,6 +1,6 @@
-CC				:= gcc
-CFLAGS			:= -Wall -Wextra -Werror #-g -fsanitize=address #-Wall -Wextra -Werror
-COPTS			:= -Ilibft -Llibft -lft -Iminilibx-linux -Lminilibx-linux -I/usr/X11/include -L/usr/X11/include/../lib -lXext -lX11 -lm
+CC			:= gcc
+CFLAGS		:= -Wall -Wextra -Werror
+COPTS		:= -Ilibft -Llibft -lft -Iminilibx-linux -Lminilibx-linux -I/usr/X11/include -L/usr/X11/include/../lib -lXext -lX11 -lm
 
 # libft
 LIBFT_DIR	:= libft
@@ -32,7 +32,7 @@ OBJS		+= obj/check_leak.o
 endif
 
 # minilib
-MLX_DIR	:= minilibx-linux
+MLX_DIR		:= minilibx-linux
 ifeq ($(shell uname), Linux)
 	MLX_A	:= libmlx_Linux.a
 	COPTS	+= -lmlx_Linux
@@ -44,7 +44,6 @@ MLX_A	:= $(addprefix $(MLX_DIR)/, $(MLX_A))
 
 all: $(NAME)
 
-# $(NAME): $(LIBFT_A) $(MLX_A) $(OBJS)
 ifeq ($(shell uname), Linux)
 $(NAME): $(LIBFT_A) $(MLX_A) $(OBJS)
 	$(CC) -Wl,-start-group $(CFLAGS) $(COPTS) $(OBJS) -o $(NAME) -Wl,-end-group
@@ -74,10 +73,6 @@ fclean: clean
 	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
-
-leak:
-	touch src/check_leak.c
-	make LEAK_CHECK=1
 
 norm_dir=$$(ls | grep -v minilibx-linux)
 norm:
