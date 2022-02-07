@@ -198,18 +198,15 @@ void	delete_mlx(t_map_info *map);
 void	delete_map(t_map_info *map);
 void	delete_points(t_point **points, size_t row_size);
 
-// # define ft_split(s, c) my_ft_split(s, c)
-// char	**my_ft_split(char *s, char c);
-// # define ft_calloc(n, size) my_ft_calloc(n, size)
-// void	*my_ft_calloc(size_t n, size_t size);
-// # define mlx_init() my_mlx_init()
-// void	*my_mlx_init(void);
-// # define mlx_new_window(mlx, WIDTH, HEIGHT, name) \
-// my_mlx_new_window(mlx, WIDTH, HEIGHT, name)
-// void	*my_mlx_new_window(void *xvar, int size_x, \
-// int size_y, char *title);
-// # define mlx_new_image(mlx, WIDTH, HEIGHT) \
-// my_mlx_new_image(mlx, WIDTH, HEIGHT)
-// void	*my_mlx_new_image(void *xvar,int width, int height);
+// # define ft_split(n1, n2) test1(n1, n2)
+// char	**test1(char *s, char c);
+// # define ft_calloc(n1, n2) test2(n1, n2)
+// void	*test2(size_t n, size_t size);
+// # define mlx_init() test3()
+// void	*test3(void);
+// # define mlx_new_window(n1, n2, n3, n4) test4(n1, n2, n3, n4)
+// void	*test4(void *xvar, int size_x, int size_y, char *title);
+// # define mlx_new_image(n1, n2, n3) test5(n1, n2, n3)
+// void	*test5(void *xvar,int width, int height);
 
 #endif

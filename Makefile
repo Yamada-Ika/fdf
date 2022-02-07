@@ -28,8 +28,8 @@ OBJS		:= $(addprefix obj/, $(OBJS))
 
 # for malloc error check test
 ifdef MALLOC_FAILE_TEST
-SRCS		+= test/malloc_faile_func.c
-OBJS		+= test/malloc_faile_func.o
+SRCS		+= test/malloc_faile.c
+OBJS		+= test/malloc_faile.o
 endif
 
 # minilib
@@ -78,6 +78,7 @@ re: fclean all
 malloc:
 	touch src/*.c
 	make MALLOC_FAILE_TEST=1
+	rm -rf test/malloc_faile.o
 
 norm_dir=$$(ls | grep -v minilibx-linux)
 norm:

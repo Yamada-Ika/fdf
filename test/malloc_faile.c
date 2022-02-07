@@ -7,7 +7,7 @@
 
 #define RANDOM_PARAM 2
 
-char	**my_ft_split(char *s, char c)
+char	**test1(char *s, char c)
 {
 	srand((unsigned int)time(NULL));
 	if (rand() % RANDOM_PARAM == 0)
@@ -15,7 +15,7 @@ char	**my_ft_split(char *s, char c)
 	return (ft_split(s, c));
 }
 
-void	*my_ft_calloc(size_t n, size_t size)
+void	*test2(size_t n, size_t size)
 {
 	srand((unsigned int)time(NULL));
 	if (rand() % RANDOM_PARAM == 0)
@@ -23,7 +23,7 @@ void	*my_ft_calloc(size_t n, size_t size)
 	return (ft_calloc(n, size));
 }
 
-void	*my_mlx_init(void)
+void	*test3(void)
 {
 	srand((unsigned int)time(NULL));
 	if (rand() % RANDOM_PARAM == 0)
@@ -31,7 +31,7 @@ void	*my_mlx_init(void)
 	return (mlx_init());
 }
 
-void	*my_mlx_new_window(void *xvar, int size_x, int size_y, char *title)
+void	*test4(void *xvar, int size_x, int size_y, char *title)
 {
 	srand((unsigned int)time(NULL));
 	if (rand() % RANDOM_PARAM == 0)
@@ -39,7 +39,7 @@ void	*my_mlx_new_window(void *xvar, int size_x, int size_y, char *title)
 	return (mlx_new_window(xvar, size_x, size_x, title));
 }
 
-void	*my_mlx_new_image(void *xvar, int width, int height)
+void	*test5(void *xvar, int width, int height)
 {
 	srand((unsigned int)time(NULL));
 	if (rand() % RANDOM_PARAM == 0)
