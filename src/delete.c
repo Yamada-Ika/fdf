@@ -28,6 +28,8 @@ void	delete_points(t_point **points, size_t row_size)
 {
 	size_t	i;
 
+	if (points == NULL)
+		return ;
 	i = 0;
 	while (i < row_size)
 	{
