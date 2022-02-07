@@ -75,5 +75,6 @@ int	key_hook(int key, t_map_info *map)
 		mlx_clear_window(map->mlx, map->win);
 		display_map(map);
 	}
+	fprintf(stderr, "key %x\n", key);
 	return (0);
 }

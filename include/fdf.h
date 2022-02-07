@@ -24,7 +24,13 @@
 # define DOWN 0xff54
 # define X 0x78
 # define Y 0x79
+// # define Z 0x7a
+#ifdef __MACH__
 # define Z 0x7a
+#endif
+#ifdef __linux__
+# define Z 0x77
+#endif
 # define R 0x72
 # define I 105
 # define P 112
