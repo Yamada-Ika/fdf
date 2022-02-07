@@ -107,14 +107,14 @@ bool	can_read_map(char *path, t_map_info *map)
 	row_size = get_map_row_size(char_map);
 	col_size = get_map_col_size(char_map);
 	map->points = create_points(row_size, col_size);
-	if (map->points == NULL)
+	map->for_update = create_points(row_size, col_size);
+	if (map->points == NULL || map->for_update == NULL)
 	{
+		delete_points(map->points);
+		delete_points(map->for_update);
 		free_char_map(char_map);
 		return (false);
 	}
-	map->for_update = create_points(row_size, col_size);
-	if (map->for_update == NULL)
-		return (false);
 	init_points(map->points, char_map);
 	free_char_map(char_map);
 	map->row_size = row_size;
