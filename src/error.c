@@ -1,11 +1,5 @@
 #include "fdf.h"
 
-void	*ft_print_error(char *message)
-{
-	perror(message);
-	return (NULL);
-}
-
 void	*ft_do_read_error_routine(char *p1, char *p2, char *p3, char *p4)
 {
 	all_free(p1, p2, p3, p4);
