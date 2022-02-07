@@ -108,7 +108,10 @@ bool	can_read_map(char *path, t_map_info *map)
 	col_size = get_map_col_size(char_map);
 	map->points = create_points(row_size, col_size);
 	if (map->points == NULL)
+	{
+		free_char_map(char_map);
 		return (false);
+	}
 	map->for_update = create_points(row_size, col_size);
 	if (map->for_update == NULL)
 		return (false);
