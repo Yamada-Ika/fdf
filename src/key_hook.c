@@ -24,14 +24,14 @@ static void	_incre_or_decre_shift(int key, double *x, double *y)
 	}
 }
 
-static void	_switch_projection(int key, t_map_info *vars)
+static void	_switch_projection(int key, t_map_info *map)
 {
 	if (key == I)
-		ft_set_isometric(vars);
+		set_isometric(map);
 	if (key == P)
-		ft_set_parallel(vars);
+		set_parallel(map);
 	if (key == C)
-		ft_set_conic(vars);
+		set_conic(map);
 }
 
 static void	_set_rotation_angle(int key, t_map_info *map)
@@ -65,7 +65,7 @@ static void	ft_init_shift_and_angle(t_map_info *map)
 	map->pitch = degree_to_radian(0);
 }
 
-int	ft_key_hook(int key, t_map_info *map)
+int	key_hook(int key, t_map_info *map)
 {
 	if (key == ESCAPE)
 	{
