@@ -1,6 +1,6 @@
 CC				:= gcc
 CFLAGS			:= -Wall -Wextra -Werror #-g -fsanitize=address #-Wall -Wextra -Werror
-COPTS			:= -Ilibft -Llibft -lft -Iminilibx-linux -I/usr/X11/include -Lminilibx-linux -lmlx_Darwin -L/usr/X11/include/../lib -lXext -lX11 -lm
+COPTS			:= -Ilibft -Llibft -lft -Iminilibx-linux -Lminilibx-linux -I/usr/X11/include -L/usr/X11/include/../lib -lXext -lX11 -lm
 
 # libft
 LIBFT_DIR	:= libft
@@ -33,13 +33,19 @@ endif
 
 # minilib
 MLX_DIR	:= minilibx-linux
-MLX_A	:= libmlx_Darwin.a
+ifeq ($(shell uname), Linux)
+	MLX_A	:= libmlx_Linux.a
+	COPTS	+= -lmlx_Linux
+else ifeq ($(shell uname), Darwin)
+	MLX_A	:= libmlx_Darwin.a
+	COPTS	+= -lmlx_Darwin
+endif
 MLX_A	:= $(addprefix $(MLX_DIR)/, $(MLX_A))
 
 all: $(NAME)
 
 $(NAME): $(LIBFT_A) $(MLX_A) $(OBJS)
-	$(CC) $(CFLAGS) $(COPTS) $(OBJS) -o $(NAME)
+	$(CC) -Wl,-start-group $(CFLAGS) $(COPTS) $(OBJS) -o $(NAME) -Wl,-end-group
 
 $(LIBFT_A): empty
 	make -C $(LIBFT_DIR)
