@@ -17,7 +17,7 @@ static void	ft_init_mouse_point_and_zoom_rate(t_map_info *map)
 	map->mouse_y = 0;
 }
 
-int	ft_mouse_hook(int button, int x, int y, t_map_info *map)
+int	mouse_hook(int button, int x, int y, t_map_info *map)
 {
 	if (is_zoom_up(button))
 		map->zoom_rate = 2.0;
