@@ -1,5 +1,3 @@
-// #include "fdf.h"
-
 #include <stddef.h>
 #include <stdlib.h>
 #include "../libft/libft.h"
@@ -33,7 +31,7 @@ void	*my_mlx_init(void)
 	return (mlx_init());
 }
 
-void	*my_mlx_new_window(void *xvar,int size_x,int size_y,char *title)
+void	*my_mlx_new_window(void *xvar, int size_x, int size_y, char *title)
 {
 	srand((unsigned int)time(NULL));
 	if (rand() % RANDOM_PARAM == 0)
@@ -41,11 +39,10 @@ void	*my_mlx_new_window(void *xvar,int size_x,int size_y,char *title)
 	return (mlx_new_window(xvar, size_x, size_x, title));
 }
 
-void	*my_mlx_new_image(void *xvar,int width, int height)
+void	*my_mlx_new_image(void *xvar, int width, int height)
 {
 	srand((unsigned int)time(NULL));
 	if (rand() % RANDOM_PARAM == 0)
 		return (NULL);
 	return (mlx_new_image(xvar, width, height));
 }
-
