@@ -8,7 +8,7 @@
 
 #include "fdf.h"
 
-static char	*ft_read_fdf_helper(int fd)
+static char	*read_inline_map_helper(int fd)
 {
 	char	*line;
 	char	*inline_map;
@@ -31,7 +31,7 @@ static char	*ft_read_fdf_helper(int fd)
 	return (inline_map);
 }
 
-static char	***ft_generate_map(char *inline_map)
+static char	***gen_map(char *inline_map)
 {
 	char	**map_strs;
 	char	***map;
@@ -57,7 +57,7 @@ static char	***ft_generate_map(char *inline_map)
 	return (map);
 }
 
-char	*ft_read_fdf(char *path)
+char	*read_inline_map(char *path)
 {
 	int		fd;
 	char	*inline_map;
@@ -65,7 +65,7 @@ char	*ft_read_fdf(char *path)
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return (NULL);
-	inline_map = ft_read_fdf_helper(fd);
+	inline_map = read_inline_map_helper(fd);
 	if (inline_map == NULL)
 	{
 		close(fd);
@@ -84,10 +84,10 @@ static char	***_read_map(char *path)
 	char	*inline_map;
 	char	***map;
 
-	inline_map = ft_read_fdf(path);
+	inline_map = read_inline_map(path);
 	if (inline_map == NULL)
 		return (NULL);
-	map = ft_generate_map(inline_map);
+	map = gen_map(inline_map);
 	free(inline_map);
 	return (map);
 }
