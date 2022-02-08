@@ -2,8 +2,18 @@
 
 /*
 Update affine each product_matrix called
+For rotation,
+	1. Move to Up-left corner in window. Adjust map center to (0, 0).
+	2. Rotate
+	3. Move to map center (map_center_x, map_center_y).
+For zoom,
+	1. Move to Up-left corner in window. Adjust mouse point to (0, 0).
+	2. Zoom
+	3. Move to mouse center (mouse_center_x, mouse_center_y).
+For shift,
+	1. shift
 */
-void	_gen_affine_matrix(t_matrix *mtx)
+static void	_gen_affine_matrix(t_matrix *mtx)
 {
 	product_matrix(mtx->affine, mtx->move_map_origin, mtx->tmp_mtx);
 	product_matrix(mtx->affine, mtx->rotate_z, mtx->tmp_mtx);
@@ -18,16 +28,6 @@ void	_gen_affine_matrix(t_matrix *mtx)
 
 /*
 Calculation mtx for cordinate transformation.
-For rotation,
-	1. Move to Up-left corner in window. Adjust map center to (0, 0).
-	2. Rotate
-	3. Move to map center (map_center_x, map_center_y).
-For zoom,
-	1. Move to Up-left corner in window. Adjust mouse point to (0, 0).
-	2. Zoom
-	3. Move to mouse center (mouse_center_x, mouse_center_y).
-For shift,
-	1. shift
 */
 void	calc_affine_matrix(t_map_info *map)
 {
