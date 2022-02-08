@@ -1,28 +1,5 @@
 #include "fdf.h"
 
-static double	**_new_matrix(void)
-{
-	double	**matrix;
-
-	matrix = (double **)ft_calloc(4, sizeof(double *));
-	if (matrix == NULL)
-		return (NULL);
-	matrix[0] = (double *)ft_calloc(4, sizeof(double));
-	if (matrix[0] == NULL)
-		return (matrix);
-	matrix[1] = (double *)ft_calloc(4, sizeof(double));
-	if (matrix[1] == NULL)
-		return (matrix);
-	matrix[2] = (double *)ft_calloc(4, sizeof(double));
-	if (matrix[2] == NULL)
-		return (matrix);
-	matrix[3] = (double *)ft_calloc(4, sizeof(double));
-	if (matrix[3] == NULL)
-		return (matrix);
-	set_unit_matrix(matrix);
-	return (matrix);
-}
-
 static bool	is_null_in_matrix(double **matrix)
 {
 	if (matrix == NULL)
@@ -34,6 +11,23 @@ static bool	is_null_in_matrix(double **matrix)
 		return (true);
 	else
 		return (false);
+}
+
+static double	**_new_matrix(void)
+{
+	double	**matrix;
+
+	matrix = (double **)ft_calloc(4, sizeof(double *));
+	if (matrix == NULL)
+		return (NULL);
+	matrix[0] = (double *)ft_calloc(4, sizeof(double));
+	matrix[1] = (double *)ft_calloc(4, sizeof(double));
+	matrix[2] = (double *)ft_calloc(4, sizeof(double));
+	matrix[3] = (double *)ft_calloc(4, sizeof(double));
+	if (is_null_in_matrix(matrix))
+		return (matrix);
+	set_unit_matrix(matrix);
+	return (matrix);
 }
 
 static	bool	_is_invalid_matrix_in_t_matrix(t_matrix *mtx)
