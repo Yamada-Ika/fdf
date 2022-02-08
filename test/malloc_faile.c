@@ -5,7 +5,7 @@
 #include <time.h>
 #include <stdio.h>
 
-#define RANDOM_PARAM 2
+#define RANDOM_PARAM 10
 
 char	**test1(char *s, char c)
 {
@@ -36,7 +36,7 @@ void	*test4(void *xvar, int size_x, int size_y, char *title)
 	srand((unsigned int)time(NULL));
 	if (rand() % RANDOM_PARAM == 0)
 		return (NULL);
-	return (mlx_new_window(xvar, size_x, size_x, title));
+	return (mlx_new_window(xvar, size_x, size_y, title));
 }
 
 void	*test5(void *xvar, int width, int height)
