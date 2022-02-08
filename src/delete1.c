@@ -46,9 +46,8 @@ void	delete_map(t_map_info *map)
 	delete_points(map->for_update, map->row_size);
 }
 
-void	delete_mlx(t_map_info *map)
+void	delete_display(t_map_info *map)
 {
-	mlx_destroy_image(map->mlx, map->img.img);
 	mlx_destroy_window(map->mlx, map->win);
 	mlx_destroy_display(map->mlx);
 	free(map->mlx);
