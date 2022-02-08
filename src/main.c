@@ -27,7 +27,6 @@ int	main(int argc, char *argv[])
 		return (print_error("Error: Cannot display map!"));
 	install_hook(&map);
 	mlx_loop(map.mlx);
-	delete_mlx(&map);
-	delete_map(&map);
+	delete_all(&map);
 	return (0);
 }

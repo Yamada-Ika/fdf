@@ -10,15 +10,16 @@ LIBFT_A		:= $(addprefix $(LIBFT_DIR)/, $(LIBFT_A))
 # fdf
 NAME		:= fdf
 SRCS		:= \
-calc_affine_matrix.c         draw_line.c                  init_map_info.c              mouse_hook.c\
-can_display_map.c            error1.c                     init_points.c                new_matrix.c\
-can_init_mlx.c               error2.c                     install_hook.c               product_matrix.c\
-can_read_map.c               expose_hook.c                is_invalid_args1.c           put_map_to_image.c\
-can_redisplay_map.c          free_utils.c                 is_invalid_args2.c           put_pixel.c\
-cord_point.c                 get_map_size.c               key_hook.c                   set_matrix1.c\
-create_points.c              get_next_line.c              key_hook_utils.c             set_matrix2.c\
-delete.c                     get_next_line_utils.c        main.c                       update_map_points.c\
-display_default_projection.c help_option.c                math_utils.c                 utils.c
+calc_affine_matrix.c         draw_line.c                  init_points.c                product_matrix.c\
+can_display_map.c            error1.c                     install_hook.c               put_map_to_image.c\
+can_init_mlx.c               error2.c                     is_invalid_args1.c           put_pixel.c\
+can_read_map.c               expose_hook.c                is_invalid_args2.c           set_matrix1.c\
+can_redisplay_map.c          free_utils.c                 key_hook.c                   set_matrix2.c\
+cord_point.c                 get_map_size.c               key_hook_utils.c             update_map_points.c\
+create_points.c              get_next_line.c              main.c                       utils.c\
+delete1.c                    get_next_line_utils.c        math_utils.c\
+delete2.c                    help_option.c                mouse_hook.c\
+display_default_projection.c init_map_info.c              new_matrix.c
 OBJS		:= $(SRCS:%.c=%.o)
 SRCS		:= $(addprefix src/, $(SRC))
 OBJS		:= $(addprefix obj/, $(OBJS))

@@ -37,6 +37,11 @@
 # define ZOOM_UP_STEP 2.0
 # define ZOOM_DOWN_STEP 0.5
 
+// color
+# define RED 2
+# define GREEN 1
+# define BLUE 0
+
 typedef struct s_image_info
 {
 	void	*img;
@@ -193,10 +198,13 @@ double	ft_abs(double n);
 // put_pixel.c
 void	put_pixel(t_image_info *data, int x, int y, int color);
 
-// delete
-void	delete_mlx(t_map_info *map);
+// delete1.c
+void	delete_display(t_map_info *map);
 void	delete_map(t_map_info *map);
 void	delete_points(t_point **points, size_t row_size);
+
+// delete2.c
+void	delete_all(t_map_info *map);
 
 // # define ft_split(n1, n2) test1(n1, n2)
 // char	**test1(char *s, char c);
