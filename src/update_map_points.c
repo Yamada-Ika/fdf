@@ -15,7 +15,6 @@ void	update_map_points(t_point **dst, t_point **src,
 			dst[i][j].x = src[i][j].x;
 			dst[i][j].y = src[i][j].y;
 			dst[i][j].z = src[i][j].z;
-			dst[i][j].color = src[i][j].color;
 			j++;
 		}
 		i++;
