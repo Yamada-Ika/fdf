@@ -1,18 +1,21 @@
 #include "fdf.h"
 
-static int	_get_color(int start_color, int end_color, int step, int step_max)
+static int	_get_color(int s_color, int e_color, int step, double step_max)
 {
 	int		diff[3];
 	double	delta[3];
 	int		color;
 
-	diff[RED] = (((end_color >> 16) & 0xFF) - ((start_color >> 16) & 0xFF));
-	diff[GREEN] = (((end_color >> 8) & 0xFF) - ((start_color >> 8) & 0xFF));
-	diff[BLUE] = ((end_color & 0xFF) - (start_color & 0xFF));
-	delta[RED] = diff[RED] / (double)step_max;
-	delta[GREEN] = diff[GREEN] / (double)step_max;
-	delta[BLUE] = diff[BLUE] / (double)step_max;
-	color = start_color + ((int)(delta[RED] * step) << 16) + ((int)(delta[GREEN] * step) << 8) + (int)(delta[BLUE] * step);
+	diff[RED] = (((e_color >> 16) & 0xFF) - ((s_color >> 16) & 0xFF));
+	diff[GREEN] = (((e_color >> 8) & 0xFF) - ((s_color >> 8) & 0xFF));
+	diff[BLUE] = ((e_color & 0xFF) - (s_color & 0xFF));
+	delta[RED] = diff[RED] / step_max;
+	delta[GREEN] = diff[GREEN] / step_max;
+	delta[BLUE] = diff[BLUE] / step_max;
+	color = s_color
+		+ ((int)(delta[RED] * step) << 16)
+		+ ((int)(delta[GREEN] * step) << 8)
+		+ (int)(delta[BLUE] * step);
 	return (color);
 }
 
@@ -33,8 +36,10 @@ void	draw_line(t_image_info *img, t_point *start,
 	step = 0;
 	while (step < step_max)
 	{
-		put_pixel(img, start->x + delta_x * step,
-			start->y + delta_y * step, _get_color(start->color, end->color, step, (int)step_max));
+		put_pixel(img,
+			start->x + delta_x * step,
+			start->y + delta_y * step,
+			_get_color(start->color, end->color, step, step_max));
 		step++;
 	}
 }
