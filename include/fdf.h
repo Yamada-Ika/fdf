@@ -101,7 +101,7 @@ bool	is_invalid_file_content(char *file_path);
 
 // read_map.c
 bool	can_read_map(char *path, t_map_info *vars);
-char	*ft_read_fdf(char *path);
+char	*read_inline_map(char *path);
 
 // get_map_size.c
 size_t	get_map_col_size(char ***map);
@@ -184,7 +184,7 @@ void	draw_line(t_image_info *img, t_point *map0,
 			t_point *map1, double **matrix);
 
 // cord_trans.c
-void	ft_trans_cord(t_point *map0, t_point *map1, double **matrix);
+void	trans_point(t_point *map0, t_point *map1, double **matrix);
 
 // math_utils.c
 double	ft_max(double n1, double n2);
