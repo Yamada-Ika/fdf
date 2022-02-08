@@ -14,7 +14,7 @@ void	draw_line(t_image_info *img, t_point *map0,
 	double	step_max;
 	int		color_grad;
 
-	ft_trans_cord(map0, map1, matrix);
+	trans_point(map0, map1, matrix);
 	delta_x = map1->x - map0->x;
 	delta_y = map1->y - map0->y;
 	step_max = ft_max(ft_abs(delta_x), ft_abs(delta_y));
