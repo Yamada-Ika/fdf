@@ -15,6 +15,7 @@ static bool	_can_set_image_info(t_image_info *img, t_map_info *map)
 	{
 		delete_map(map);
 		delete_display(map);
+		exit(1);
 		return (false);
 	}
 	img->addr = mlx_get_data_addr(img->img,
