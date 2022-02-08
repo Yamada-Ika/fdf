@@ -1,11 +1,3 @@
-#include "libft.h"
-#include "get_next_line.h"
-
-// for open
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
 #include "fdf.h"
 
 static char	*read_inline_map_helper(int fd)

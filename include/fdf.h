@@ -3,9 +3,13 @@
 
 # include "mlx.h"
 # include "libft.h"
+# include "get_next_line.h"
 # include <stdio.h>
 # include <math.h>
 # include <errno.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 // image size
 # define WIDTH 700
