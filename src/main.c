@@ -1,13 +1,13 @@
 #include "fdf.h"
 
-// __attribute__((destructor))
-// void	check_leak(void)
-// {
-// 	char	cmd[50];
+__attribute__((destructor))
+void	check_leak(void)
+{
+	char	cmd[50];
 
-// 	sprintf(cmd, "leaks %d", getpid());
-// 	system(cmd);
-// }
+	sprintf(cmd, "leaks %d", getpid());
+	system(cmd);
+}
 
 int	main(int argc, char *argv[])
 {

@@ -48,8 +48,8 @@ void	delete_map(t_map_info *map)
 
 void	delete_mlx(t_map_info *map)
 {
-	if (map->win != NULL)
-		mlx_destroy_window(map->mlx, map->win);
+	mlx_destroy_image(map->mlx, map->img.img);
+	mlx_destroy_window(map->mlx, map->win);
 	mlx_destroy_display(map->mlx);
 	free(map->mlx);
 }

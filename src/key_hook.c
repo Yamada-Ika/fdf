@@ -49,10 +49,7 @@ static void	_set_rotation_angle(int key, t_map_info *map)
 int	key_hook(int key, t_map_info *map)
 {
 	if (key == ESCAPE)
-	{
-		mlx_destroy_image(map->mlx, map->img.img);
 		mlx_loop_end(map->mlx);
-	}
 	if (is_shift_key(key))
 		_incre_or_decre_shift(key, &(map->shift_x), &(map->shift_y));
 	if (is_rotation_key(key))

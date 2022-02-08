@@ -12,7 +12,8 @@ bool	can_init_mlx(t_map_info *map)
 	if (map->win == NULL)
 	{
 		delete_map(map);
-		delete_mlx(map);
+		mlx_destroy_display(map->mlx);
+		free(map->mlx);
 		return (false);
 	}
 	return (true);
