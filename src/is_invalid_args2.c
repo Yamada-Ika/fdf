@@ -91,7 +91,7 @@ bool	is_invalid_file_content(char *file_path)
 	char	**content_strs;
 	bool	is_invalid;
 
-	content = ft_read_fdf(file_path);
+	content = read_inline_map(file_path);
 	if (content == NULL)
 		return (true);
 	content_strs = ft_split(content, '\n');
