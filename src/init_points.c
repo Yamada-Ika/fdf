@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-static void	_init_z_val_and_color(double *z, unsigned int *color, char *val)
+static void	_init_z_val_and_color(double *z, int *color, char *val)
 {
 	char	*color_str;
 
