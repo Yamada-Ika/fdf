@@ -48,10 +48,10 @@ typedef struct s_image_info
 
 typedef struct s_point
 {
-	double			x;
-	double			y;
-	double			z;
-	unsigned int	color;
+	double	x;
+	double	y;
+	double	z;
+	int		color;
 }	t_point;
 
 typedef struct s_matrix
@@ -191,7 +191,7 @@ double	ft_max(double n1, double n2);
 double	ft_abs(double n);
 
 // put_pixel.c
-void	my_mlx_pixel_put(t_image_info *data, int x, int y, int color);
+void	put_pixel(t_image_info *data, int x, int y, int color);
 
 // delete
 void	delete_mlx(t_map_info *map);
