@@ -206,15 +206,15 @@ void	delete_points(t_point **points, size_t row_size);
 // delete2.c
 void	delete_all(t_map_info *map);
 
-// # define ft_split(n1, n2) test1(n1, n2)
-// char	**test1(char *s, char c);
-// # define ft_calloc(n1, n2) test2(n1, n2)
-// void	*test2(size_t n, size_t size);
-// # define mlx_init() test3()
-// void	*test3(void);
-// # define mlx_new_window(n1, n2, n3, n4) test4(n1, n2, n3, n4)
-// void	*test4(void *xvar, int size_x, int size_y, char *title);
-// # define mlx_new_image(n1, n2, n3) test5(n1, n2, n3)
-// void	*test5(void *xvar,int width, int height);
+# define ft_split(n1, n2) test1(n1, n2)
+char	**test1(char *s, char c);
+# define ft_calloc(n1, n2) test2(n1, n2)
+void	*test2(size_t n, size_t size);
+# define mlx_init() test3()
+void	*test3(void);
+# define mlx_new_window(n1, n2, n3, n4) test4(n1, n2, n3, n4)
+void	*test4(void *xvar, int size_x, int size_y, char *title);
+# define mlx_new_image(n1, n2, n3) test5(n1, n2, n3)
+void	*test5(void *xvar,int width, int height);
 
 #endif

@@ -5,7 +5,7 @@
 #include <time.h>
 #include <stdio.h>
 
-#define RANDOM_PARAM 10
+#define RANDOM_PARAM 11
 
 char	**test1(char *s, char c)
 {
