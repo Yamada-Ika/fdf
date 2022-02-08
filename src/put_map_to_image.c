@@ -18,7 +18,7 @@ static void	_set_tmp_map_for_update(t_point **points_for_update,
 	points_for_update[i][j].color = tmp_points->color;
 }
 
-void	draw_horizontal_line(t_map_info *map,
+static void	_draw_horizontal_line(t_map_info *map,
 	t_point points[2], size_t i, size_t j)
 {
 	_set_tmp_points_for_draw(&(points[0]), map->points, i, j);
@@ -28,7 +28,7 @@ void	draw_horizontal_line(t_map_info *map,
 	_set_tmp_map_for_update(map->for_update, i, j + 1, &(points[1]));
 }
 
-void	draw_vertical_line(t_map_info *map,
+static void	_draw_vertical_line(t_map_info *map,
 	t_point points[2], size_t i, size_t j)
 {
 	_set_tmp_points_for_draw(&(points[0]), map->points, i, j);
@@ -42,7 +42,7 @@ void	put_map_to_image(t_map_info *map)
 {
 	size_t	i;
 	size_t	j;
-	t_point	tmp_for_draw[2];
+	t_point	point_for_draw[2];
 
 	i = 0;
 	while (i < map->row_size)
@@ -51,9 +51,9 @@ void	put_map_to_image(t_map_info *map)
 		while (true)
 		{
 			if (j + 1 < map->col_size)
-				draw_horizontal_line(map, tmp_for_draw, i, j);
+				_draw_horizontal_line(map, point_for_draw, i, j);
 			if (i + 1 < map->row_size)
-				draw_vertical_line(map, tmp_for_draw, i, j);
+				_draw_vertical_line(map, point_for_draw, i, j);
 			if (j + 1 == map->col_size)
 				break ;
 			j++;
