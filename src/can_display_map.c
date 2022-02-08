@@ -13,8 +13,8 @@ static bool	_can_set_image_info(t_image_info *img, t_map_info *map)
 	img->img = mlx_new_image(map->mlx, WIDTH, HEIGHT);
 	if (img->img == NULL)
 	{
-		delete_mlx(map);
 		delete_map(map);
+		delete_display(map);
 		return (false);
 	}
 	img->addr = mlx_get_data_addr(img->img,
