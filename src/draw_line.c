@@ -1,27 +1,19 @@
 #include "fdf.h"
 
-static int	_get_delta_color(int start_color, int end_color, int step)
+static int	_get_color(int start_color, int end_color, int step, int step_max)
 {
-	int	diff_r;
-	int	diff_g;
-	int	diff_b;
-	int	delta;
+	int		diff[3];
+	double	delta[3];
+	int		color;
 
-	diff_r = (((end_color >> 16) & 0xFF) - ((start_color >> 16) & 0xFF));
-	diff_g = (((end_color >> 8) & 0xFF) - ((start_color >> 8) & 0xFF));
-	diff_b = ((end_color & 0xFF) - (start_color & 0xFF));
-	delta = (diff_r / step) << 16;
-	delta += (diff_g / step) << 8;
-	delta += diff_b / step;
-	return (delta);
-}
-
-static int	_get_color(int start_color, int delta_color, int step)
-{
-	return (start_color
-		+ ((((delta_color >> 16) & 0xFF) * step) << 16)
-		+ ((((delta_color >> 8) & 0xFF) * step) << 8)
-		+ ((delta_color) & 0xFF) * step);
+	diff[RED] = (((end_color >> 16) & 0xFF) - ((start_color >> 16) & 0xFF));
+	diff[GREEN] = (((end_color >> 8) & 0xFF) - ((start_color >> 8) & 0xFF));
+	diff[BLUE] = ((end_color & 0xFF) - (start_color & 0xFF));
+	delta[RED] = diff[RED] / (double)step_max;
+	delta[GREEN] = diff[GREEN] / (double)step_max;
+	delta[BLUE] = diff[BLUE] / (double)step_max;
+	color = start_color + ((int)(delta[RED] * step) << 16) + ((int)(delta[GREEN] * step) << 8) + (int)(delta[BLUE] * step);
+	return (color);
 }
 
 void	draw_line(t_image_info *img, t_point *start,
@@ -29,7 +21,6 @@ void	draw_line(t_image_info *img, t_point *start,
 {
 	double	delta_x;
 	double	delta_y;
-	int		delta_color;
 	double	step_max;
 	int		step;
 
@@ -39,12 +30,11 @@ void	draw_line(t_image_info *img, t_point *start,
 	step_max = ft_max(ft_abs(delta_x), ft_abs(delta_y));
 	delta_x /= step_max;
 	delta_y /= step_max;
-	delta_color = _get_delta_color(start->color, end->color, (int)step_max);
 	step = 0;
 	while (step < step_max)
 	{
 		put_pixel(img, start->x + delta_x * step,
-			start->y + delta_y * step, _get_color(start->color, delta_color, step));
-		step += 1;
+			start->y + delta_y * step, _get_color(start->color, end->color, step, (int)step_max));
+		step++;
 	}
 }
