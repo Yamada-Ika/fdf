@@ -23,7 +23,7 @@ void	ft_rotation(double **matrix, double *x, double *y, double *z)
 			+ matrix[2][3]);
 }
 
-void	ft_trans_cord(t_point *map0, t_point *map1, double **matrix)
+void	trans_point(t_point *map0, t_point *map1, double **matrix)
 {
 	ft_rotation(matrix, &(map0->x), &(map0->y), &(map0->z));
 	ft_rotation(matrix, &(map1->x), &(map1->y), &(map1->z));
