@@ -27,11 +27,11 @@ else
 	OBJS		+= obj/install_hook.o obj/key_hook.o obj/can_display_map.o
 endif
 
-# for malloc error check test
-ifdef MALLOC_FAILE_TEST
-	SRCS		+= test/malloc_faile.c
-	OBJS		+= test/malloc_faile.o
-endif
+# # for malloc error check test
+# ifdef MALLOC_FAILE_TEST
+# 	SRCS		+= test/malloc_faile.c
+# 	OBJS		+= test/malloc_faile.o
+# endif
 
 # minilib
 MLX_DIR		:= minilibx-linux
@@ -79,10 +79,10 @@ fclean: clean
 
 re: fclean all
 
-malloc:
-	touch src/*.c
-	make MALLOC_FAILE_TEST=1
-	rm -rf test/malloc_faile.o
+# malloc:
+# 	touch src/*.c
+# 	make MALLOC_FAILE_TEST=1
+# 	rm -rf test/malloc_faile.o
 
 norm_dir=$$(ls | grep -v minilibx-linux)
 norm:
