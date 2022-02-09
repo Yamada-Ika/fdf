@@ -35,6 +35,14 @@ static void	_init_map_meta_info(t_map_info *map)
 	map->mouse_y = 0.0;
 }
 
+static void	_display_usage(t_map_info *map)
+{
+	mlx_string_put(map->mlx, map->win, 100, 650, 0xFFFFFF, "shift : arrow key");
+	mlx_string_put(map->mlx, map->win, 300, 650, 0xFFFFFF, "zoom : track ball");
+	mlx_string_put(map->mlx, map->win, 500, 650, 0xFFFFFF,
+		"rotate : x y z key");
+}
+
 bool	can_display_map(t_map_info *map)
 {
 	t_image_info	img;
@@ -47,6 +55,7 @@ bool	can_display_map(t_map_info *map)
 	mlx_put_image_to_window(map->mlx, map->win, img.img, 0, 0);
 	update_map_points(map->points, map->for_update,
 		map->row_size, map->col_size);
+	_display_usage(map);
 	_init_map_meta_info(map);
 	return (true);
 }
