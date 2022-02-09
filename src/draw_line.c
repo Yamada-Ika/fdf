@@ -19,6 +19,16 @@ static int	_get_color(int s_color, int e_color, int step, double step_max)
 	return (color);
 }
 
+static bool	_is_points_over_window(t_point *start, t_point *end)
+{
+	return (
+		(start->x < 0.0 && end->x < 0.0)
+		|| (start->y < 0.0 && end->y < 0.0)
+		|| ((double)WIDTH < start->x && (double)WIDTH < end->x)
+		|| ((double)HEIGHT < start->y && (double)HEIGHT < end->y)
+	);
+}
+
 void	draw_line(t_image_info *img, t_point *start,
 	t_point *end, double **matrix)
 {
@@ -28,6 +38,8 @@ void	draw_line(t_image_info *img, t_point *start,
 	int		step;
 
 	trans_point(start, end, matrix);
+	if (_is_points_over_window(start, end))
+		return ;
 	delta_x = end->x - start->x;
 	delta_y = end->y - start->y;
 	step_max = ft_max(ft_abs(delta_x), ft_abs(delta_y));
