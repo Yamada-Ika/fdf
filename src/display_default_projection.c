@@ -12,7 +12,7 @@ bool	can_display_default_projection(t_map_info *map)
 	map->yaw = degree_to_radian(-45);
 	if (!can_redisplay_map(map))
 		return (false);
-	map->roll = degree_to_radian(50);
+	map->roll = degree_to_radian(60);
 	if (!can_redisplay_map(map))
 		return (false);
 	return (true);
