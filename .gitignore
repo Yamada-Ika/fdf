@@ -4,3 +4,5 @@ fdf
 *.DS_store
 .vscode
 *.out
+map
+test
