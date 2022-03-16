@@ -1,6 +1,6 @@
 # fdf
 
-![fdf_10](https://user-images.githubusercontent.com/73375669/158502364-f950b6d3-907a-461b-b35f-db22a343fb97.gif)
+![fdf](https://user-images.githubusercontent.com/73375669/158503585-21684875-12a2-4a95-9ed3-02d8e16444e8.gif)
 
 ## Description
 fdf is a very simple wire frame viewer written in C.
