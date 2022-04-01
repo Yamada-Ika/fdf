@@ -23,6 +23,7 @@ int	main(int argc, char *argv[])
 		return (print_error("Error: Cannot initialize map!"));
 	if (!can_init_mlx(&map))
 		return (print_error("Error: Cannot initialize minilibx variables!"));
+	while(1);
 	if (!can_display_default_projection(&map))
 		return (print_error("Error: Cannot display map!"));
 	install_hook(&map);
